@@ -1,13 +1,12 @@
 <?php
 
-$host = 'localhost';
+$host = 'mysql-db'; // Make sure this matches the MySQL service name in docker-compose.yml
 $dbname = 'blogging_platform';
-$username = 'root';
-$password = '';
+$username = 'user';
+$password = 'userpassword';
 
-// Connect to MySQL
 try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
+    $pdo = new PDO("mysql:host=$host;port=3306;dbname=$dbname;charset=utf8", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
     die("Database connection failed: " . $e->getMessage());
