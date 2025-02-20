@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Get user from database
-    $stmt = $pdo->prepare("SELECT id, email, password FROM users WHERE email = ?");
+    $stmt = $pdo->prepare("SELECT id, name, email, password FROM users WHERE email = ?");
     $stmt->execute([$email]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -25,7 +25,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Generate JWT token
     $token = JWTHandler::generateToken($user['id'], $user['email']);
 
-    echo json_encode(["status" => "success", "token" => $token]);
+    echo json_encode([
+        "status" => "success",
+        "token" => $token,
+        "user" => [
+            "id" => $user['id'],
+            "name" => $user['name'],
+            "email" => $user['email']
+        ]
+    ]);
 } else {
     echo json_encode(["status" => "error", "message" => "Invalid request method."]);
 }

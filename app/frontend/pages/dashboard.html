@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="../assets/styles.css">
+    <script defer src="../js/dashboard.js"></script>
+</head>
+<body>
+
+    <header>
+        <h1>Personal Blogging Platform</h1>
+        <nav>
+            <a href="home.html">Home</a>
+            <a id="authLinks">
+                <a href="login.html" id="loginLink">Login</a>
+                <a href="register.html" id="registerLink">Register</a>
+            </a>
+            <span id="userGreeting" style="display: none;">
+                Welcome, <span id="userNameDisplay"></span>!
+                <button onclick="logoutUser()">Logout</button>
+            </span>
+        </nav>
+    </header>
+    
+    <main>
+        <section id="userProfile">
+            <h2>Your Profile</h2>
+            <p><strong>Name:</strong> <span id="userName"></span></p>
+            <p><strong>Email:</strong> <span id="userEmail"></span></p>
+        </section>
+
+        <section id="userPosts">
+            <h2>Your Blog Posts</h2>
+            <button onclick="openCreatePostModal()">+ New Post</button>
+            <div id="postsContainer"></div>
+        </section>
+    </main>
+
+    <!-- Create Post Modal -->
+    <div id="createPostModal" class="modal">
+        <div class="modal-content">
+            <h2>Create New Post</h2>
+            <input type="text" id="postTitle" placeholder="Post Title" required>
+            <textarea id="postContent" placeholder="Write your post..." required></textarea>
+            <button onclick="createPost()">Create</button>
+            <button onclick="closeCreatePostModal()">Cancel</button>
+        </div>
+    </div>
+
+</body>
+</html>
