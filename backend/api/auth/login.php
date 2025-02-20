@@ -1,5 +1,6 @@
 <?php
 require '../../config/database.php';
+require '../../config/jwt.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'];
@@ -10,14 +11,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->execute([$email]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    // Verify password
     if ($user && password_verify($password, $user['password'])) {
-        session_start();
-        $_SESSION['user_id'] = $user['id'];
-        $_SESSION['user_name'] = $user['name'];
-        echo "Login successful!";
+        // Generate JWT Token
+        $token = JWTHandler::generateToken($user['id'], $user['email']);
+
+        echo json_encode([
+            "status" => "success",
+            "message" => "Login successful!",
+            "token" => $token
+        ]);
     } else {
-        echo "Invalid email or password!";
+        echo json_encode([
+            "status" => "error",
+            "message" => "Invalid email or password!"
+        ]);
     }
 }
 ?>
