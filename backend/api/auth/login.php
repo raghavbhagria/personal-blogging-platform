@@ -1,30 +1,32 @@
 <?php
 require '../../config/database.php';
 require '../../config/jwt.php';
+header("Content-Type: application/json");
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+    $email = $_POST['email'] ?? null;
+    $password = $_POST['password'] ?? null;
 
-    // Fetch user from database
-    $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ?");
+    if (!$email || !$password) {
+        echo json_encode(["status" => "error", "message" => "Email and password are required."]);
+        exit;
+    }
+
+    // Get user from database
+    $stmt = $pdo->prepare("SELECT id, email, password FROM users WHERE email = ?");
     $stmt->execute([$email]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($user && password_verify($password, $user['password'])) {
-        // Generate JWT Token
-        $token = JWTHandler::generateToken($user['id'], $user['email']);
-
-        echo json_encode([
-            "status" => "success",
-            "message" => "Login successful!",
-            "token" => $token
-        ]);
-    } else {
-        echo json_encode([
-            "status" => "error",
-            "message" => "Invalid email or password!"
-        ]);
+    if (!$user || !password_verify($password, $user['password'])) {
+        echo json_encode(["status" => "error", "message" => "Invalid email or password."]);
+        exit;
     }
+
+    // Generate JWT token
+    $token = JWTHandler::generateToken($user['id'], $user['email']);
+
+    echo json_encode(["status" => "success", "token" => $token]);
+} else {
+    echo json_encode(["status" => "error", "message" => "Invalid request method."]);
 }
 ?>

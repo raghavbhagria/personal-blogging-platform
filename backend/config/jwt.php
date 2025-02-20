@@ -1,5 +1,6 @@
 <?php
-require __DIR__ . '/../../vendor/autoload.php'; // Correct path adjustment
+require __DIR__ . '/../vendor/autoload.php'; // ✅ Corrected Path
+
 
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
