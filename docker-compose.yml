@@ -1,0 +1,38 @@
+
+
+services:
+  php-apache:
+    build: .
+    container_name: php-backend
+    restart: always
+    ports:
+      - "8080:80"
+    volumes:
+      - ./app:/var/www/html
+    depends_on:
+      - mysql
+    networks:
+      - my-network
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: blogging_platform
+      MYSQL_USER: user
+      MYSQL_PASSWORD: userpassword
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./app/db/init.sql:/docker-entrypoint-initdb.d/init.sql  # ✅ Corrected path
+    networks:
+      - my-network
+
+volumes:
+  mysql_data:
+
+networks:
+  my-network:
