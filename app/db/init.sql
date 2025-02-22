@@ -8,7 +8,8 @@ CREATE TABLE IF NOT EXISTS users (
     name VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    isAdmin BOOLEAN DEFAULT FALSE
 );
 
 -- Create posts table
@@ -31,4 +32,8 @@ CREATE TABLE IF NOT EXISTS comments (
     FOREIGN KEY (post_id) REFERENCES posts(id) ON DELETE CASCADE,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
+
+-- Insert a default admin user
+INSERT INTO users (name, email, password, isAdmin) VALUES 
+('Admin', 'admin@example.com', SHA2('adminpassword', 256), TRUE);
 

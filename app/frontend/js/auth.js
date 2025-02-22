@@ -91,7 +91,11 @@ function loginUser() {
         if (data.status === "success") {
             localStorage.setItem("token", data.token); 
             alert("Login successful! Redirecting...");
-            window.location.href = "dashboard.html"; 
+            if (data.user.isAdmin) {
+                window.location.href = "admin.html"; // Redirect to admin dashboard
+            } else {
+                window.location.href = "dashboard.html"; // Redirect to user dashboard
+            }
         } else {
             alert("Login failed: " + data.message);
         }

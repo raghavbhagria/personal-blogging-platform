@@ -25,6 +25,10 @@ switch ($request) {
         require 'views/dashboard.php';
         break;
 
+    case '/admin':
+        require 'views/admin.php';
+        break;
+
     default:
         http_response_code(404);
         require 'views/404.php';
