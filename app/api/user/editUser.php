@@ -2,7 +2,7 @@
 require '../../config/database.php';
 require '../../middleware/auth.php';
 
-header("Content-Type: application/json");
+header("Content-Type: application/json"); // Ensure response is JSON
 
 $user = authenticate();
 
@@ -15,7 +15,7 @@ if (!$user['isAdmin']) {
 $id = $_POST['id'] ?? null;
 $name = $_POST['name'] ?? null;
 $email = $_POST['email'] ?? null;
-$isAdmin = isset($_POST['isAdmin']) ? (bool)$_POST['isAdmin'] : false;
+$isAdmin = isset($_POST['isAdmin']) ? (int) $_POST['isAdmin'] : 0; // Ensure integer (0 or 1)
 
 if (!$id || !$name || !$email) {
     echo json_encode(["status" => "error", "message" => "All fields are required."]);
