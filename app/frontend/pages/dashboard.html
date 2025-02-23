@@ -1,32 +1,38 @@
-<header>
-    <h1>Welcome to the Dashboard</h1>
-    <nav>
-        <a href="home.html">Home</a>
-        <span id="authLinks">
-            <a href="login.html" id="loginLink">Login</a>
-            <a href="register.html" id="registerLink">Register</a>
-        </span>
-        <span id="userGreeting" style="display: none;">
-            Welcome, <span id="userNameDisplay"></span>!
-            <button id="logoutBtn">Logout</button>
-        </span>
-    </nav>
-</header>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | MyBlog</title>
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <script defer src="../js/dashboard.js"></script>
+</head>
+<body>
 
-<script defer src="../js/auth.js"></script> <!-- ✅ Ensure auth.js is loaded -->
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const token = localStorage.getItem("token");
-        if (token) {
-            document.getElementById("authLinks").style.display = "none";
-            document.getElementById("userGreeting").style.display = "inline";
-            document.getElementById("userNameDisplay").textContent = "User"; // Fetch actual user data if available
-        }
+    <!-- ✅ Navigation Bar -->
+    <header>
+        <div class="logo">MyBlog</div>
+        <nav>
+            <a href="home.html">Home</a>
+            <a href="posts.html">Blog Posts</a>
+            <a href="create-post.html" id="createPostLink">📝 Create Post</a>
+            <a href="profile.html" id="profileLink">👤 View Profile</a>
+            <button id="logoutBtn">🚪 Logout</button>
+        </nav>
+    </header>
 
-        // ✅ Ensure the Logout button calls logoutUser()
-        const logoutBtn = document.getElementById("logoutBtn");
-        if (logoutBtn) {
-            logoutBtn.addEventListener("click", logoutUser);
-        }
-    });
-</script>
+    <div class="container">
+        <!-- ✅ User Greeting -->
+        <h2 id="welcomeMessage">Hello, User!</h2>
+
+        <!-- ✅ User Activity Section -->
+        <section class="user-activity">
+            <h3>Your Activity</h3>
+            <div id="userPosts">
+                <!-- User's posts will be loaded here dynamically -->
+            </div>
+        </section>
+    </div>
+
+</body>
+</html>
