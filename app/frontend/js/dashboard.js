@@ -52,6 +52,6 @@ document.addEventListener("DOMContentLoaded", function () {
         localStorage.removeItem("user_id");
         localStorage.removeItem("username");
         alert("Logged out successfully.");
-        window.location.href = "login.html";
+        window.location.href = "home.html";
     });
 });

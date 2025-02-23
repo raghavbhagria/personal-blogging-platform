@@ -6,7 +6,7 @@ RUN apt-get update && apt-get install -y unzip zip git \
     && docker-php-ext-install pdo pdo_mysql
 
 
-RUN docker-php-ext-install mysqli pdo pdo_mysql
+
 
 
 # Enable Apache modules

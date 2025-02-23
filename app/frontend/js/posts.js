@@ -107,6 +107,6 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("logoutBtn")?.addEventListener("click", function () {
         localStorage.removeItem("token");
         alert("Logged out successfully.");
-        window.location.href = "login.html";
+        window.location.href = "home.html";
     });
 });
