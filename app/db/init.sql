@@ -32,3 +32,5 @@ CREATE TABLE IF NOT EXISTS comments (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
+INSERT INTO users (name, email, password) VALUES 
+('Admin', 'admin@example.com', SHA2('adminpassword', 256));
