@@ -128,3 +128,92 @@ button:hover {
     text-decoration: none;
     cursor: pointer;
 }
+
+/* Styles for user dashboard and profile pages */
+#feed, #createPost, #featuredPosts, #profileInfo, #userPosts {
+    margin-bottom: 20px;
+}
+
+#profilePic {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    display: block;
+    margin-bottom: 10px;
+}
+
+#profilePicInput {
+    margin-bottom: 10px;
+}
+
+#userPostsContainer .post {
+    margin-bottom: 10px;
+}
+
+/* Styles for Create Blog Post page */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+input, textarea, button {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+input:focus, textarea:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+button {
+    background: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+button:hover {
+    background: #0056b3;
+}
+
+/* Sidebar styles */
+aside {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 200px;
+    height: 100%;
+    background: #f4f4f9;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+aside nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+aside nav ul li {
+    margin-bottom: 10px;
+}
+
+aside nav ul li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+aside nav ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Main content adjustment */
+main {
+    margin-left: 220px;
+    padding: 20px;
+}

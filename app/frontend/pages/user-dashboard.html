@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="../assets/styles.css">
+    <script defer src="../js/navbar.js"></script>
+    <script defer src="../js/user-dashboard.js"></script>
+</head>
+<body>
+
+    <header>
+        <h1>User Dashboard</h1>
+        <button id="logoutBtn">Logout</button>
+    </header>
+
+    <main>
+        <section id="feed">
+            <h2>Feed</h2>
+            <div id="feedContainer"></div>
+        </section>
+
+        <section id="createPost">
+            <h2>Create a Post</h2>
+            <form id="createPostForm">
+                <input type="text" id="postTitle" placeholder="Title" required>
+                <textarea id="postContent" placeholder="Content" required></textarea>
+            </form>
+        </section>
+    </main>
+</body>
+</html>

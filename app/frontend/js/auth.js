@@ -94,7 +94,7 @@ function loginUser() {
             if (data.user.isAdmin) {
                 window.location.href = "admin.html"; // Redirect to admin dashboard
             } else {
-                window.location.href = "dashboard.html"; // Redirect to user dashboard
+                window.location.href = "user-dashboard.html"; // Redirect to user dashboard
             }
         } else {
             alert("Login failed: " + data.message);

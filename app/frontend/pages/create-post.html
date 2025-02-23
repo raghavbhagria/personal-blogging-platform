@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Blog Post</title>
+    <link rel="stylesheet" href="../assets/styles.css">
+    <script defer src="../js/navbar.js"></script>
+    <script defer src="../js/create-post.js"></script>
+</head>
+<body>
+
+    <header>
+        <h1>Create Blog Post</h1>
+        <button id="logoutBtn">Logout</button>
+    </header>
+
+    <main>
+        <form id="createPostForm">
+            <input type="text" id="postTitle" placeholder="Title" required>
+            <textarea id="postContent" placeholder="Content" required></textarea>
+            <input type="file" id="postImage" accept="image/*">
+            <button type="submit">Create Post</button>
+        </form>
+    </main>
+
+</body>
+</html>
