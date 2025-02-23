@@ -1,0 +1,121 @@
+/* ✅ General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: url('../images/login_bg.png') no-repeat center center/cover;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+}
+
+/* ✅ Dark overlay for better readability */
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 1;
+}
+
+/* ✅ Typing Animation for Heading */
+.typing-text {
+    font-size: 28px;
+    font-weight: bold;
+    color: #ff9800;
+    margin-bottom: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 3px solid #ff9800;
+    width: 0;
+    max-width: 20ch; /* Restrict width to match text length */
+    animation: typing 2s steps(20, end) forwards, blink 0.7s infinite;
+    z-index: 2;
+}
+
+/* ✅ Typing Effect */
+@keyframes typing {
+    from { width: 0; }
+    to { width: 20ch; }
+}
+
+/* ✅ Blinking Cursor Effect */
+@keyframes blink {
+    50% { border-color: transparent; }
+}
+
+/* ✅ Center the register container */
+main {
+    position: relative;
+    z-index: 2;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 40px;
+    border-radius: 12px;
+    text-align: center;
+    width: 350px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* ✅ Form Styling */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* ✅ Input Fields */
+input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+    background: #222;
+    color: white;
+    font-size: 16px;
+}
+
+input::placeholder {
+    color: #999;
+}
+
+/* ✅ Register Button */
+button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    background: #ff9800;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #e68900;
+}
+
+/* ✅ Already have an account link */
+p {
+    margin-top: 15px;
+    color: #ccc;
+    font-size: 14px;
+}
+
+a {
+    color: #ff9800;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+}

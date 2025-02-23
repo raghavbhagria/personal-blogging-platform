@@ -8,10 +8,12 @@
         </span>
         <span id="userGreeting" style="display: none;">
             Welcome, <span id="userNameDisplay"></span>!
-            <button onclick="logoutUser()">Logout</button>
+            <button id="logoutBtn">Logout</button>
         </span>
     </nav>
 </header>
+
+<script defer src="../js/auth.js"></script> <!-- ✅ Ensure auth.js is loaded -->
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const token = localStorage.getItem("token");
@@ -19,6 +21,12 @@
             document.getElementById("authLinks").style.display = "none";
             document.getElementById("userGreeting").style.display = "inline";
             document.getElementById("userNameDisplay").textContent = "User"; // Fetch actual user data if available
+        }
+
+        // ✅ Ensure the Logout button calls logoutUser()
+        const logoutBtn = document.getElementById("logoutBtn");
+        if (logoutBtn) {
+            logoutBtn.addEventListener("click", logoutUser);
         }
     });
 </script>

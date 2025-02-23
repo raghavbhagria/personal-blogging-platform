@@ -30,7 +30,7 @@ function registerUser() {
     const name = document.getElementById("name").value.trim();
     const email = document.getElementById("email").value.trim();
     const password = document.getElementById("password").value.trim();
-    const profileImage = document.getElementById("profileImage").files[0];
+
 
     if (!name || !email || !password) {
         showError("All fields are required.");
@@ -51,9 +51,7 @@ function registerUser() {
     formData.append("name", name);
     formData.append("email", email);
     formData.append("password", password);
-    if (profileImage) {
-        formData.append("profileImage", profileImage);
-    }
+   
 
     fetch("../api/auth/register.php", { // Ensure correct API path
         method: "POST",
