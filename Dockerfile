@@ -22,6 +22,12 @@ COPY app/ /var/www/html/
 COPY app/frontend/js/ /var/www/html/frontend/js/
 COPY app/frontend/assets/ /var/www/html/frontend/assets/
 
+
+# Install dependencies inside the container
+RUN cd /var/www/html && composer install --no-dev --prefer-dist
+
+
+
 # Set home.html as default index
 RUN rm -f /var/www/html/index.html && ln -s /var/www/html/frontend/pages/home.html /var/www/html/index.html
 
