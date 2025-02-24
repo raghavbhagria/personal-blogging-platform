@@ -110,21 +110,21 @@ function checkUserAuthentication() {
 }
 
 // ✅ Update Navbar Based on Authentication State
+// ✅ Update Navbar Based on Authentication State
 function updateNavbar() {
     const token = localStorage.getItem("token");
     const user = JSON.parse(localStorage.getItem("user"));
 
-    const dashboardLink = document.getElementById("dashboardLink");
-    const profileLink = document.getElementById("profileLink");
-    const loginLink = document.getElementById("loginLink");
-    const registerLink = document.getElementById("registerLink");
-    const logoutBtn = document.getElementById("logoutButton");
+    const dashboardLink = document.getElementById("dashboardLink"); // Blog Posts (Always Visible)
+    const profileLink = document.getElementById("profileLink"); // View Profile
+    const loginLink = document.getElementById("loginLink"); // Login
+    const registerLink = document.getElementById("registerLink"); // Sign Up
+    const logoutBtn = document.getElementById("logoutButton"); // Logout
 
     if (!dashboardLink || !profileLink || !loginLink || !registerLink || !logoutBtn) return;
 
     if (token && user) {
         // ✅ User is logged in → Show "Profile" & "Logout", Hide "Login" & "Sign Up"
-        dashboardLink.style.display = "inline";
         profileLink.style.display = "inline";
         logoutBtn.style.display = "inline";
 
@@ -132,7 +132,6 @@ function updateNavbar() {
         registerLink.style.display = "none";
     } else {
         // ❌ User is NOT logged in → Show "Login" & "Sign Up", Hide "Profile" & "Logout"
-        dashboardLink.style.display = "none";
         profileLink.style.display = "none";
         logoutBtn.style.display = "none";
 
@@ -146,6 +145,7 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log("🔹 Updating Navbar...");
     updateNavbar();
 });
+
 
 
 // ✅ Logout User

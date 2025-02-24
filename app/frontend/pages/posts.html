@@ -6,43 +6,18 @@
     <title>Blog Posts | MyBlog</title>
     <link rel="stylesheet" href="../assets/css/posts.css">
     <script defer src="../js/posts.js"></script>
-
 </head>
 <body>
 
-    <!-- ✅ Navigation Bar -->
-    <header>
-    
-        <div id="navbar-container"></div> <!-- Navbar will be loaded here -->
-
-<script>
-    // Load the shared navbar dynamically
-    fetch("navbar.html")
-        .then(response => response.text())
-        .then(html => {
-            document.getElementById("navbar-container").innerHTML = html;
-            updateNavbar(); // Ensure navbar updates based on login state
-        });
-</script>
-<script defer src="../js/auth.js"></script> <!-- Ensure auth.js is loaded -->
-
-    </header>
+    <!-- ✅ Navigation Bar (Dynamically Loaded) -->
+    <div id="navbar-container"></div>
 
     <div class="container">
-        <h2>Recent Blog Posts</h2>
-    
-        <!-- ✅ Ensure this exists -->
-        <div id="postsContainer">
-            <!-- Posts will be inserted here dynamically -->
-        </div>
-    </div>
-    
+        <h2 class="page-title">Recent Blog Posts</h2>
 
-        <!-- ✅ New Post Box (Only for logged-in users) -->
-        <div class="new-post" id="newPostSection" style="display: none;">
-            <input type="text" id="postTitle" placeholder="Post Title" required>
-            <textarea id="postContent" placeholder="Write your blog post..."></textarea>
-            <button id="postBtn">Publish</button>
+        <!-- ✅ Posts will be inserted here -->
+        <div id="postsContainer" class="posts-feed">
+            <p>Loading posts...</p>
         </div>
     </div>
 
