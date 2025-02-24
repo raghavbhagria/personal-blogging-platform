@@ -1,0 +1,107 @@
+/* ✅ General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #121212;
+    color: white;
+}
+
+/* ✅ Navigation Bar */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background: #1e1e1e;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ff9800;
+}
+
+nav a, #logoutBtn {
+    color: #e0e0e0;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 16px;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: #ff9800;
+}
+
+#logoutBtn {
+    background: transparent;
+    border: 1px solid #ff9800;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#logoutBtn:hover {
+    background: #ff9800;
+    color: black;
+}
+
+/* ✅ Profile Container */
+.container {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    text-align: center;
+}
+
+/* ✅ Profile Box */
+.profile-box {
+    background: #1e1e1e;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+/* ✅ Input Fields */
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+    background: #222;
+    color: white;
+}
+
+/* ✅ General Button Styling */
+button {
+    width: auto; /* Auto width instead of full width */
+    padding: 10px 15px; /* Reduce padding */
+    margin: 10px 5px; /* Add spacing between buttons */
+    border: none;
+    border-radius: 5px;
+    background: #ff9800;
+    color: white;
+    font-size: 14px; /* Reduce font size */
+    cursor: pointer;
+}
+
+/* ✅ Button Hover Effect */
+button:hover {
+    background: #e68900;
+}
+
+/* ✅ Delete Account Button */
+.delete {
+    background: red;
+}
+
+.delete:hover {
+    background: darkred;
+}
+
+/* ✅ Center Buttons */
+.profile-box button {
+    display: inline-block; /* Ensures buttons are in a row */
+    text-align: center;
+}

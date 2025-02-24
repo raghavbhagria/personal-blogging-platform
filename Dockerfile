@@ -5,6 +5,10 @@ FROM php:8.2-apache
 RUN apt-get update && apt-get install -y unzip zip git \
     && docker-php-ext-install pdo pdo_mysql
 
+
+
+
+
 # Enable Apache modules
 RUN a2enmod rewrite
 RUN a2enmod headers
@@ -21,6 +25,12 @@ COPY app/ /var/www/html/
 # Ensure frontend assets are copied properly
 COPY app/frontend/js/ /var/www/html/frontend/js/
 COPY app/frontend/assets/ /var/www/html/frontend/assets/
+
+
+# Install dependencies inside the container
+RUN cd /var/www/html && composer install --no-dev --prefer-dist
+
+
 
 # Set home.html as default index
 RUN rm -f /var/www/html/index.html && ln -s /var/www/html/frontend/pages/home.html /var/www/html/index.html

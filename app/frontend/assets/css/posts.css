@@ -1,0 +1,125 @@
+/* ✅ General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #121212;
+    color: white;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ✅ Navigation Bar */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background: #1e1e1e;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ff9800;
+}
+
+nav a, #logoutBtn {
+    color: #e0e0e0;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 16px;
+    transition: color 0.3s;
+}
+
+nav a:hover, .active {
+    color: #ff9800;
+}
+
+#logoutBtn {
+    background: transparent;
+    border: 1px solid #ff9800;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#logoutBtn:hover {
+    background: #ff9800;
+    color: black;
+}
+
+/* ✅ Main Content */
+.container {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+}
+
+/* ✅ Posts Feed */
+.posts-feed {
+    background: #1e1e1e;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.post {
+    background: #333;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.post .username {
+    font-weight: bold;
+    color: #ff9800;
+}
+
+.post .content {
+    margin: 5px 0;
+}
+
+.post .actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.like, .comment {
+    color: #bbb;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.like:hover, .comment:hover {
+    color: #ff9800;
+}
+
+/* ✅ New Post Box */
+.new-post {
+    background: #222;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    display: none;
+}
+
+textarea {
+    width: 100%;
+    height: 80px;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    background: #333;
+    color: white;
+}
+
+#postBtn {
+    width: 100%;
+    padding: 10px;
+    background: #ff9800;
+    border: none;
+    color: white;
+    border-radius: 5px;
+}

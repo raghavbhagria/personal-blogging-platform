@@ -3,20 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile</title>
-    <link rel="stylesheet" href="../assets/styles.css">
-    <script defer src="../js/profile.js"></script>
+    <title>Dashboard | MyBlog</title>
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <script defer src="../js/dashboard.js"></script>
 </head>
 <body>
 
+    <!-- ✅ Navigation Bar -->
     <header>
-        <h1>Welcome, <span id="userName">Loading...</span>!</h1>
-        <button id="logoutBtn">Logout</button>
+        <div class="logo">MyBlog</div>
+        <nav>
+            <a href="home.html">Home</a>
+            <a href="posts.html">Blog Posts</a>
+            <a href="create-post.html" id="createPostLink">📝 Create Post</a>
+            <a href="profile.html" id="profileLink">👤 View Profile</a>
+            <button id="logoutBtn">🚪 Logout</button>
+        </nav>
     </header>
 
-    <main>
-        <p>Email: <span id="userEmail">Loading...</span></p>
-    </main>
+    <div class="container">
+        <!-- ✅ User Greeting -->
+        <h2 id="welcomeMessage">Hello, User!</h2>
+
+        <!-- ✅ User Activity Section -->
+        <section class="user-activity">
+            <h3>Your Activity</h3>
+            <div id="userPosts">
+                <!-- User's posts will be loaded here dynamically -->
+            </div>
+        </section>
+    </div>
 
 </body>
 </html>

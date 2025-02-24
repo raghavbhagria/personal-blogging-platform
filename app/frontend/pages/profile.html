@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile | MyBlog</title>
+    <link rel="stylesheet" href="../assets/css/profile.css">
+    <script defer src="../js/profile.js"></script>
+</head>
+<body>
+
+    <!-- ✅ Navigation Bar -->
+    <header>
+        <div class="logo">MyBlog</div>
+        <nav>
+            <a href="home.html">Home</a>
+            <a href="posts.html">Blog Posts</a>
+            <a href="dashboard.html">Dashboard</a>
+            <button id="logoutBtn">🚪 Logout</button>
+        </nav>
+    </header>
+
+    <div class="profile-box">
+        <h2>Your Profile</h2>
+        <p><strong>Name:</strong> <span id="userName">Loading...</span></p>
+        <p><strong>Email:</strong> <span id="userEmail">Loading...</span></p>
+        <p><strong>Joined:</strong> <span id="userJoined">Loading...</span></p>
+    
+        <!-- ✅ Update Profile Form -->
+        <h3>Update Profile</h3>
+        <form id="updateProfileForm">
+            <input type="text" id="newName" placeholder="New Name">
+            <input type="email" id="newEmail" placeholder="New Email">
+            <input type="password" id="newPassword" placeholder="New Password (Leave blank to keep current)">
+            <button type="submit">Update Profile</button>
+        </form>
+    
+        <!-- ✅ Buttons Section -->
+        <div class="button-group">
+            <button id="logoutBtn">🚪 Logout</button>
+            <button id="deleteAccountBtn" class="delete">🗑️ Delete Account</button>
+        </div>
+    </div>
+    
+
+</body>
+</html>
