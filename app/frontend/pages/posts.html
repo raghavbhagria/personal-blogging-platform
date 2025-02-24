@@ -6,20 +6,26 @@
     <title>Blog Posts | MyBlog</title>
     <link rel="stylesheet" href="../assets/css/posts.css">
     <script defer src="../js/posts.js"></script>
+
 </head>
 <body>
 
     <!-- ✅ Navigation Bar -->
     <header>
         <div class="logo">MyBlog</div>
-        <nav>
-            <a href="home.html">Home</a>
-            <a href="posts.html" class="active">Blog Posts</a>
-            <a href="profile.html" id="profileLink" style="display: none;">Profile</a>
-            <a href="login.html" id="loginLink">Login</a>
-            <a href="register.html" id="registerLink">Sign Up</a>
-            <button id="logoutBtn" style="display: none;">Logout</button>
-        </nav>
+        <div id="navbar-container"></div> <!-- Navbar will be loaded here -->
+
+<script>
+    // Load the shared navbar dynamically
+    fetch("navbar.html")
+        .then(response => response.text())
+        .then(html => {
+            document.getElementById("navbar-container").innerHTML = html;
+            updateNavbar(); // Ensure navbar updates based on login state
+        });
+</script>
+<script defer src="../js/auth.js"></script> <!-- Ensure auth.js is loaded -->
+
     </header>
 
     <div class="container">
