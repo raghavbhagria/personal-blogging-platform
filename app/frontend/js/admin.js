@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
         method: "GET",
         headers: { "Authorization": `Bearer ${token}` }
     })
-    .then(response => response.text()) // Log raw response for debugging
+    .then(response => response.text())
     .then(text => {
         console.log("🔹 Raw Response (User List):", text);
         return JSON.parse(text);
@@ -37,14 +37,45 @@ document.addEventListener("DOMContentLoaded", function () {
     })
     .catch(error => console.error("Error fetching users:", error));
 
-    // Add user form submission
-    document.getElementById("addUserForm").addEventListener("submit", function (event) {
+    // Add User Modal functionality
+    const addUserBtn = document.getElementById("addUserBtn");
+    const addUserModal = document.getElementById("addUserModal");
+    const addClose = document.getElementById("addClose");
+
+    if (addUserBtn) {
+        addUserBtn.addEventListener("click", function() {
+            // Clear fields before opening modal
+            document.getElementById("addName").value = "";
+            document.getElementById("addEmail").value = "";
+            document.getElementById("addPassword").value = "";
+            document.getElementById("addIsAdmin").checked = false;
+            addUserModal.style.display = "block";
+        });
+    } else {
+        console.error("addUserBtn not found in the DOM!");
+    }
+
+    addClose.addEventListener("click", function() {
+        addUserModal.style.display = "none";
+    });
+
+    window.addEventListener("click", function(event) {
+        if (event.target === addUserModal) {
+            addUserModal.style.display = "none";
+        }
+        if (event.target === document.getElementById("editUserModal")) {
+            document.getElementById("editUserModal").style.display = "none";
+        }
+    });
+
+    // Add User Modal form submission
+    document.getElementById("addUserModalForm").addEventListener("submit", function (event) {
         event.preventDefault();
 
-        const name = document.getElementById("name").value;
-        const email = document.getElementById("email").value;
-        const password = document.getElementById("password").value;
-        const isAdmin = document.getElementById("isAdmin").checked ? "1" : "0"; // Ensure 1 or 0
+        const name = document.getElementById("addName").value;
+        const email = document.getElementById("addEmail").value;
+        const password = document.getElementById("addPassword").value;
+        const isAdmin = document.getElementById("addIsAdmin").checked ? "1" : "0";
 
         const formData = new URLSearchParams();
         formData.append("name", name);
@@ -60,7 +91,7 @@ document.addEventListener("DOMContentLoaded", function () {
             },
             body: formData
         })
-        .then(response => response.text()) // Log raw response before parsing
+        .then(response => response.text())
         .then(text => {
             console.log("🔹 Raw Response (Add User):", text);
             return JSON.parse(text);
@@ -76,14 +107,14 @@ document.addEventListener("DOMContentLoaded", function () {
         .catch(error => console.error("Error adding user:", error));
     });
 
-    // Edit user form submission
+    // EDIT USER FORM SUBMISSION: Added listener to update user details
     document.getElementById("editUserForm").addEventListener("submit", function (event) {
         event.preventDefault();
 
         const id = document.getElementById("editUserId").value;
         const name = document.getElementById("editName").value;
         const email = document.getElementById("editEmail").value;
-        const isAdmin = document.getElementById("editIsAdmin").checked ? "1" : "0"; // Ensure 1 or 0
+        const isAdmin = document.getElementById("editIsAdmin").checked ? "1" : "0";
 
         const formData = new URLSearchParams();
         formData.append("id", id);
@@ -99,7 +130,7 @@ document.addEventListener("DOMContentLoaded", function () {
             },
             body: formData
         })
-        .then(response => response.text()) // Log raw response before parsing
+        .then(response => response.text())
         .then(text => {
             console.log("🔹 Raw Response (Edit User):", text);
             return JSON.parse(text);
@@ -115,26 +146,13 @@ document.addEventListener("DOMContentLoaded", function () {
         .catch(error => console.error("Error updating user:", error));
     });
 
-    // Logout functionality
-    document.getElementById("logoutBtn").addEventListener("click", function () {
-        localStorage.removeItem("token");
-        alert("Logged out successfully.");
-        window.location.href = "login.html";
+    // Edit User Modal close button
+    const editUserModal = document.getElementById("editUserModal");
+    const editClose = document.getElementById("editClose");
+
+    editClose.addEventListener("click", function() {
+        editUserModal.style.display = "none";
     });
-
-    // Modal functionality
-    const modal = document.getElementById("editUserModal");
-    const span = document.getElementsByClassName("close")[0];
-
-    span.onclick = function() {
-        modal.style.display = "none";
-    }
-
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    }
 });
 
 // Function to open Edit User modal with existing user details
@@ -168,7 +186,7 @@ function deleteUser(id) {
             },
             body: formData
         })
-        .then(response => response.text()) // Log raw response before parsing
+        .then(response => response.text())
         .then(text => {
             console.log("🔹 Raw Response (Delete User):", text);
             return JSON.parse(text);

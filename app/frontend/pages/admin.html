@@ -4,18 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="../assets/styles.css">
+    <link rel="stylesheet" href="../assets/css/admin.css">
+    <script defer src="../js/navbar.js"></script>
     <script defer src="../js/admin.js"></script>
 </head>
 <body>
 
     <header>
-        <h1>Admin Dashboard</h1>
-        <button id="logoutBtn">Logout</button>
+        <div class="logo">MyBlog</div>
+        <nav>
+            <a href="home.html">Home</a>
+            <a href="posts.html">Blog Posts</a>
+            <a href="admin.html" class="active">Admin Dashboard</a>
+            <button id="logoutBtn">Logout</button>
+        </nav>
     </header>
 
     <main>
         <h2>Users</h2>
+        <!-- Add User Button -->
+        <button id="addUserBtn">Add User</button>
+        
         <table id="usersTable">
             <thead>
                 <tr>
@@ -30,23 +39,12 @@
                 <!-- Users will be populated here -->
             </tbody>
         </table>
-
-        <h2>Add User</h2>
-        <form id="addUserForm">
-            <input type="text" id="name" placeholder="Full Name" required>
-            <input type="email" id="email" placeholder="Email" required>
-            <input type="password" id="password" placeholder="Password" required>
-            <label>
-                <input type="checkbox" id="isAdmin"> Admin
-            </label>
-            <button type="submit">Add User</button>
-        </form>
     </main>
 
     <!-- Edit User Modal -->
     <div id="editUserModal" class="modal">
         <div class="modal-content">
-            <span class="close">&times;</span>
+            <span class="close" id="editClose">&times;</span>
             <h2>Edit User</h2>
             <form id="editUserForm">
                 <input type="hidden" id="editUserId">
@@ -56,6 +54,23 @@
                     <input type="checkbox" id="editIsAdmin"> Admin
                 </label>
                 <button type="submit">Save Changes</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add User Modal -->
+    <div id="addUserModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="addClose">&times;</span>
+            <h2>Add User</h2>
+            <form id="addUserModalForm">
+                <input type="text" id="addName" placeholder="Full Name" required>
+                <input type="email" id="addEmail" placeholder="Email" required>
+                <input type="password" id="addPassword" placeholder="Password" required>
+                <label>
+                    <input type="checkbox" id="addIsAdmin"> Admin
+                </label>
+                <button type="submit">Add User</button>
             </form>
         </div>
     </div>
