@@ -89,8 +89,13 @@ function loginUser() {
     .then(response => response.json())
     .then(data => {
         if (data.status === "success") {
-            localStorage.setItem("token", data.token);
-            window.location.href = "dashboard.html"; 
+            localStorage.setItem("token", data.token); 
+            alert("Login successful! Redirecting...");
+            if (data.user.isAdmin) {
+                window.location.href = "admin.html"; // Redirect to admin dashboard
+            } else if(data.user.isAdmin==0){
+                window.location.href = "dashboard.html"; // Redirect to user dashboard
+            }
         } else {
             showError("Login failed: " + data.message);
         }
