@@ -8,9 +8,11 @@ CREATE TABLE IF NOT EXISTS users (
     name VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
+    isAdmin TINYINT(1) NOT NULL DEFAULT 0, -- 0 = Regular User, 1 = Admin
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    isAdmin BOOLEAN DEFAULT FALSE
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
+
 
 -- Create posts table
 CREATE TABLE IF NOT EXISTS posts (
@@ -33,8 +35,8 @@ CREATE TABLE IF NOT EXISTS comments (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
-INSERT INTO users (name, email, password) VALUES 
-('Admin', 'admin@example.com', SHA2('adminpassword', 256));
+INSERT INTO users (name, email, password, isAdmin) VALUES 
+('Admin', 'admin@example.com', SHA2('adminpassword', 256), 1);
 
 INSERT INTO users (name, email, password, created_at) VALUES
 ('Admin', 'user1@blog.com', 'hashed_password', NOW()),

@@ -11,13 +11,20 @@
 
     <!-- ✅ Navigation Bar -->
     <header>
-        <div class="logo">MyBlog</div>
-        <nav>
-            <a href="home.html">Home</a>
-            <a href="posts.html">Blog Posts</a>
-            <a href="dashboard.html">Dashboard</a>
-            <button id="logoutBtn">🚪 Logout</button>
-        </nav>
+
+        <div id="navbar-container"></div> <!-- Navbar will be loaded here -->
+
+<script>
+    // Load the shared navbar dynamically
+    fetch("navbar.html")
+        .then(response => response.text())
+        .then(html => {
+            document.getElementById("navbar-container").innerHTML = html;
+            updateNavbar(); // Ensure navbar updates based on login state
+        });
+</script>
+<script defer src="../js/auth.js"></script> <!-- Ensure auth.js is loaded -->
+
     </header>
 
     <div class="profile-box">

@@ -1,6 +1,17 @@
 document.addEventListener("DOMContentLoaded", function () {
     console.log("🔹 auth.js loaded");
 
+    // Load Navbar First
+    fetch("navbar.html") // Ensure correct path
+        .then(response => response.text())
+        .then(html => {
+            document.getElementById("navbar-container").innerHTML = html;
+            updateNavbar(); // Update navbar based on login state
+        });
+
+    // Check user authentication for protected pages
+    checkUserAuthentication();
+
     // Handle Registration Form
     const registerForm = document.getElementById("registerForm");
     if (registerForm) {
@@ -19,8 +30,12 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Check user authentication for protected pages
-    checkUserAuthentication();
+    // Handle Logout (Delegated to support dynamically loaded navbar)
+    document.addEventListener("click", function (event) {
+        if (event.target.id === "logoutButton") {
+            logoutUser();
+        }
+    });
 });
 
 // ✅ Register User Function
@@ -31,37 +46,21 @@ function registerUser() {
     const email = document.getElementById("email").value.trim();
     const password = document.getElementById("password").value.trim();
 
-
     if (!name || !email || !password) {
         showError("All fields are required.");
         return;
     }
 
-    if (!validateEmail(email)) {
-        showError("Invalid email format.");
-        return;
-    }
-
-    if (password.length < 8) {
-        showError("Password must be at least 8 characters long.");
-        return;
-    }
-
-    const formData = new FormData();
-    formData.append("name", name);
-    formData.append("email", email);
-    formData.append("password", password);
-   
-
-    fetch("../api/auth/register.php", { // Ensure correct API path
+    fetch("../api/auth/register.php", {
         method: "POST",
-        body: formData
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, password })
     })
     .then(response => response.json())
     .then(data => {
         if (data.status === "success") {
             alert("Registration successful! Redirecting to login.");
-            window.location.href = "login.html"; 
+            window.location.href = "login.html";
         } else {
             showError("Registration failed: " + data.message);
         }
@@ -81,10 +80,10 @@ function loginUser() {
         return;
     }
 
-    fetch("../api/auth/login.php", { // Ensure correct path
+    fetch("../api/auth/login.php", {
         method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams({ email, password })
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password })
     })
     .then(response => response.json())
     .then(data => {
@@ -103,21 +102,62 @@ function loginUser() {
     .catch(error => showError("❌ Error: " + error.message));
 }
 
-// ✅ Check if User is Authenticated
+// ✅ Check if User is Authenticated (For Protected Pages)
 function checkUserAuthentication() {
     const token = localStorage.getItem("token");
-    const protectedPages = ["dashboard.html", "admin.html"];
+    const protectedPages = ["dashboard.html", "admin.html", "profile.html", "create-post.html"];
 
     if (!token && protectedPages.includes(window.location.pathname.split("/").pop())) {
+        alert("You must be logged in to access this page.");
         window.location.href = "login.html";
     }
 }
 
+// ✅ Update Navbar Based on Authentication State
+// ✅ Update Navbar Based on Authentication State
+function updateNavbar() {
+    const token = localStorage.getItem("token");
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    const dashboardLink = document.getElementById("dashboardLink"); // Blog Posts (Always Visible)
+    const profileLink = document.getElementById("profileLink"); // View Profile
+    const loginLink = document.getElementById("loginLink"); // Login
+    const registerLink = document.getElementById("registerLink"); // Sign Up
+    const logoutBtn = document.getElementById("logoutButton"); // Logout
+
+    if (!dashboardLink || !profileLink || !loginLink || !registerLink || !logoutBtn) return;
+
+    if (token && user) {
+        // ✅ User is logged in → Show "Profile" & "Logout", Hide "Login" & "Sign Up"
+        profileLink.style.display = "inline";
+        logoutBtn.style.display = "inline";
+
+        loginLink.style.display = "none";
+        registerLink.style.display = "none";
+    } else {
+        // ❌ User is NOT logged in → Show "Login" & "Sign Up", Hide "Profile" & "Logout"
+        profileLink.style.display = "none";
+        logoutBtn.style.display = "none";
+
+        loginLink.style.display = "inline";
+        registerLink.style.display = "inline";
+    }
+}
+
+// ✅ Ensure Navbar Updates on Page Load
+document.addEventListener("DOMContentLoaded", function () {
+    console.log("🔹 Updating Navbar...");
+    updateNavbar();
+});
+
+
+
 // ✅ Logout User
 function logoutUser() {
     localStorage.removeItem("token");
+    localStorage.removeItem("user");
     alert("Logged out successfully.");
-    window.location.href = "login.html";
+    window.location.href = "home.html";
 }
 
 // ✅ Utility Functions
@@ -126,5 +166,5 @@ function validateEmail(email) {
 }
 
 function showError(message) {
-    alert(message); // Change this to a proper UI error message if needed
+    alert(message); // Replace with a UI error message if needed
 }

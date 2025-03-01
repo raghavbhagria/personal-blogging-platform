@@ -1,37 +1,39 @@
 <?php
 require '../../config/database.php';
-
 header("Content-Type: application/json");
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $name = $_POST['name'] ?? null;
-    $email = $_POST['email'] ?? null;
-    $password = $_POST['password'] ?? null;
+// Read JSON input
+$input = json_decode(file_get_contents("php://input"), true);
 
-    if (!$name || !$email || !$password) {
-        echo json_encode(["status" => "error", "message" => "All fields are required."]);
-        exit;
-    }
+if (!$input || !isset($input['name']) || !isset($input['email']) || !isset($input['password'])) {
+    echo json_encode(["status" => "error", "message" => "All fields are required."]);
+    exit;
+}
 
-    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+$name = trim($input['name']);
+$email = trim($input['email']);
+$password = trim($input['password']);
 
-    // Check if email exists
-    $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ?");
-    $stmt->execute([$email]);
+// Validate email format
+if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    echo json_encode(["status" => "error", "message" => "Invalid email format."]);
+    exit;
+}
 
-    if ($stmt->rowCount() > 0) {
-        echo json_encode(["status" => "error", "message" => "Email already exists!"]);
-        exit;
-    }
+// Hash the password
+$hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-    // Insert user into database
-    $stmt = $pdo->prepare("INSERT INTO users (name, email, password) VALUES (?, ?, ?)");
-    if ($stmt->execute([$name, $email, $hashed_password])) {
-        echo json_encode(["status" => "success", "message" => "Registration successful!"]);
+// Insert user into database (isAdmin defaults to 0)
+$stmt = $pdo->prepare("INSERT INTO users (name, email, password, isAdmin) VALUES (?, ?, ?, 0)");
+
+try {
+    $stmt->execute([$name, $email, $hashedPassword]);
+    echo json_encode(["status" => "success", "message" => "Registration successful!"]);
+} catch (PDOException $e) {
+    if ($e->getCode() == 23000) { // Unique constraint violation (duplicate email)
+        echo json_encode(["status" => "error", "message" => "Email is already registered."]);
     } else {
-        echo json_encode(["status" => "error", "message" => "Error registering user."]);
+        echo json_encode(["status" => "error", "message" => "Registration failed: " . $e->getMessage()]);
     }
-} else {
-    echo json_encode(["status" => "error", "message" => "Invalid request method."]);
 }
 ?>
