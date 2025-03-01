@@ -1,0 +1,113 @@
+/* ✅ Dark Background */
+body {
+    background: #181818;
+    color: white;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* ✅ Page Container */
+.container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+/* ✅ Page Title */
+.page-title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #f39c12;
+}
+
+/* ✅ Facebook-Style Feed */
+.posts-feed {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* ✅ Individual Post */
+.post {
+    background: #222;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(255, 255, 255, 0.1);
+    transition: transform 0.2s;
+}
+
+.post:hover {
+    transform: scale(1.02);
+}
+
+/* ✅ Post Header */
+.post-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.post-user-icon {
+    width: 40px;
+    height: 40px;
+    background: #f39c12;
+    color: black;
+    font-size: 1.5rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+/* ✅ Post Info */
+.post-info h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: white;
+}
+
+.post-info small {
+    color: gray;
+}
+
+/* ✅ Post Content */
+.post-content {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #ddd;
+}
+
+/* ✅ Post Footer (Like & Read More) */
+.post-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.like-button {
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.like-button:hover {
+    background: #2980b9;
+}
+
+.read-more {
+    text-decoration: none;
+    color: #f39c12;
+    font-weight: bold;
+}
+
+.read-more:hover {
+    text-decoration: underline;
+}

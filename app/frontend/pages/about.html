@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | MyBlog</title>
+    <link rel="stylesheet" href="../assets/css/about.css">
+</head>
+<body>
+
+    <!-- ✅ Navigation Bar -->
+    <header>
+   
+        <div id="navbar-container"></div> <!-- Navbar will be loaded here -->
+
+<script>
+    // Load the shared navbar dynamically
+    fetch("navbar.html")
+        .then(response => response.text())
+        .then(html => {
+            document.getElementById("navbar-container").innerHTML = html;
+            updateNavbar(); // Ensure navbar updates based on login state
+        });
+</script>
+<script defer src="../js/auth.js"></script> <!-- Ensure auth.js is loaded -->
+
+    </header>
+
+    <!-- ✅ About Page Content -->
+    <div class="container">
+        <h1>About MyBlog</h1>
+        <p>Welcome to MyBlog, a platform where you can express yourself through blogging. Whether you're a seasoned writer or just starting, MyBlog allows you to share your thoughts, ideas, and stories with the world.</p>
+
+        <h2>Features</h2>
+        <ul>
+            <li>Write and publish blog posts</li>
+            <li>Comment on posts and engage with other users</li>
+            <li>Like your favorite blog posts</li>
+            <li>Manage your profile and activity</li>
+        </ul>
+
+        <h2>Meet the Creator</h2>
+        <p>MyBlog was built with passion for blogging and technology. Our goal is to provide a simple, user-friendly platform where everyone can share their ideas freely.</p>
+        
+        <h2>Get in Touch</h2>
+        <p>Have questions or suggestions? Contact us at <a href="mailto:support@myblog.com">support@myblog.com</a></p>
+    </div>
+
+    <script>
+        // ✅ Logout Functionality
+        document.getElementById("logoutBtn").addEventListener("click", function () {
+            localStorage.clear();
+            alert("Logged out successfully.");
+            window.location.href = "home.html";
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home | Personal Blogging Platform</title>
+    <link rel="stylesheet" href="../assets/css/home.css">
+</head>
+<body>
+
+    <!-- ✅ Navigation Bar -->
+    <header>
+      
+        <div id="navbar-container"></div> <!-- Navbar will be loaded here -->
+
+<script>
+    // Load the shared navbar dynamically
+    fetch("navbar.html")
+        .then(response => response.text())
+        .then(html => {
+            document.getElementById("navbar-container").innerHTML = html;
+            updateNavbar(); // Ensure navbar updates based on login state
+        });
+</script>
+<script defer src="../js/auth.js"></script> <!-- Ensure auth.js is loaded -->
+
+    </header>
+
+    <!-- ✅ Hero Section -->
+    <section class="hero">
+        <h1>Express Yourself Through Blogging</h1>
+        <p>Share your thoughts, ideas, and stories with the world.</p>
+        <a href="register.html" class="cta-btn">Start Writing</a>
+    </section>
+
+    <!-- ✅ Latest Posts Section -->
+    <section class="latest-posts">
+        <h2>Latest Blog Posts</h2>
+        <div class="posts-container">
+            <div class="post">
+                <h3>How to Start a Blog in 2025</h3>
+                <p>Learn the essential steps to launching your personal blog...</p>
+                <a href="post.html">Read More</a>
+            </div>
+            <div class="post">
+                <h3>Top 10 Blogging Mistakes to Avoid</h3>
+                <p>Avoid these common pitfalls and grow your audience...</p>
+                <a href="post.html">Read More</a>
+            </div>
+            <div class="post">
+                <h3>Why Writing Daily Can Change Your Life</h3>
+                <p>Discover how daily blogging can improve your mindset...</p>
+                <a href="post.html">Read More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ✅ Categories Section -->
+    <section class="categories">
+        <h2>Explore Topics</h2>
+        <div class="category-list">
+            <a href="#">Technology</a>
+            <a href="#">Lifestyle</a>
+            <a href="#">Travel</a>
+            <a href="#">Health</a>
+            <a href="#">Business</a>
+        </div>
+    </section>
+
+    <!-- ✅ Footer -->
+    <footer>
+        <p>&copy; 2025 MyBlog. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
