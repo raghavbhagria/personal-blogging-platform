@@ -1,4 +1,4 @@
-/* ✅ General Styles */
+/* General Styles */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -7,7 +7,7 @@ body {
     color: white;
 }
 
-/* ✅ Navigation Bar */
+/* Navigation Bar */
 header {
     display: flex;
     justify-content: space-between;
@@ -30,7 +30,7 @@ nav a, #logoutBtn {
     transition: color 0.3s;
 }
 
-nav a:hover {
+nav a:hover, .active {
     color: #ff9800;
 }
 
@@ -47,40 +47,125 @@ nav a:hover {
     color: black;
 }
 
-/* ✅ Dashboard Container */
-.container {
-    max-width: 800px;
-    margin: auto;
-    padding: 20px;
-}
-
-/* ✅ User Greeting */
-h2 {
-    text-align: center;
+/* Add User Button */
+#addUserBtn {
+    background: #ff9800;
+    border: none;
+    color: black;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+    font-size: 16px;
     margin-bottom: 20px;
 }
 
-/* ✅ User Activity */
-.user-activity {
+#addUserBtn:hover {
+    background: #e68900;
+}
+
+/* Main Content */
+main {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
     background: #1e1e1e;
-    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+h2 {
+    color: #ff9800;
+    margin-bottom: 20px;
+}
+
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+table th, table td {
+    padding: 10px;
+    border: 1px solid #333;
+    text-align: left;
+}
+
+table th {
+    background: #333;
+}
+
+table tr:nth-child(even) {
+    background: #2a2a2a;
+}
+
+/* Form Styles */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+input, textarea, button {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: #222;
+    color: white;
+}
+
+input:focus, textarea:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+button {
+    background: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+button:hover {
+    background: #0056b3;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+    padding-top: 60px;
+}
+
+.modal-content {
+    background-color: #1e1e1e;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
     border-radius: 10px;
 }
 
-.post {
-    background: #333;
-    padding: 15px;
-    border-radius: 8px;
-    margin-bottom: 10px;
-    border-left: 5px solid #ff9800;
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
 }
 
-.post h4 {
-    margin: 0;
-    color: #ff9800;
+.close:hover,
+.close:focus {
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
 }
-
-.post p {
-    margin: 5px 0;
-}
-
