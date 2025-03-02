@@ -89,10 +89,11 @@ function loginUser() {
     .then(data => {
         if (data.status === "success") {
             localStorage.setItem("token", data.token); 
+            localStorage.setItem("user", JSON.stringify(data.user)); // Store user data
             alert("Login successful! Redirecting...");
             if (data.user.isAdmin) {
                 window.location.href = "admin.html"; // Redirect to admin dashboard
-            } else if(data.user.isAdmin==0){
+            } else {
                 window.location.href = "dashboard.html"; // Redirect to user dashboard
             }
         } else {
@@ -113,7 +114,6 @@ function checkUserAuthentication() {
     }
 }
 
-// ✅ Update Navbar Based on Authentication State
 // ✅ Update Navbar Based on Authentication State
 function updateNavbar() {
     const token = localStorage.getItem("token");
@@ -149,8 +149,6 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log("🔹 Updating Navbar...");
     updateNavbar();
 });
-
-
 
 // ✅ Logout User
 function logoutUser() {
