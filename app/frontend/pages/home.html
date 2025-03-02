@@ -10,15 +10,20 @@
 
     <!-- ✅ Navigation Bar -->
     <header>
-        <div class="logo">MyBlog</div>
-        <nav>
-            <a href="home.html">Home</a>
-            <a href="posts.html">Blog Posts</a>
+      
+        <div id="navbar-container"></div> <!-- Navbar will be loaded here -->
 
-            <a href="about.html">About</a>
-            <a href="login.html" class="btn-login">Login</a>
-            <a href="register.html" class="btn-register">Sign Up</a>
-        </nav>
+<script>
+    // Load the shared navbar dynamically
+    fetch("navbar.html")
+        .then(response => response.text())
+        .then(html => {
+            document.getElementById("navbar-container").innerHTML = html;
+            updateNavbar(); // Ensure navbar updates based on login state
+        });
+</script>
+<script defer src="../js/auth.js"></script> <!-- Ensure auth.js is loaded -->
+
     </header>
 
     <!-- ✅ Hero Section -->

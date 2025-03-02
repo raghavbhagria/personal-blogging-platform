@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Activity Reports</title>
+    <link rel="stylesheet" href="../assets/css/admin.css">
+    <link rel="stylesheet" href="../assets/css/navbar.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo">MyBlog Admin</div>
+        <nav>
+            <a href="admin.html">Users</a>
+            <a href="admin_blogs.html">Blogs</a>
+            <a href="admin_activity.html" class="active">Activity Reports</a>
+            <a href="admin_settings.html">Settings</a>
+            <button id="logoutButton">Logout</button>
+        </nav>
+    </header>
+
+    <main>
+        <h2>User Activity Reports</h2>
+        <table class="blog-table">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Last Login</th>
+                    <th>Posts Created</th>
+                    <th>Comments Made</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>john_doe</td>
+                    <td>Feb 25, 2025</td>
+                    <td>15</td>
+                    <td>45</td>
+                </tr>
+                <tr>
+                    <td>jane_smith</td>
+                    <td>Feb 20, 2025</td>
+                    <td>10</td>
+                    <td>30</td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+
+    <script>
+        // Logout Functionality
+        document.getElementById("logoutButton").addEventListener("click", function () {
+            localStorage.clear();
+            alert("Logged out successfully.");
+            window.location.href = "home.html";
+        });
+    </script>
+
+</body>
+</html>

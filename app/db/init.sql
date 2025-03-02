@@ -8,8 +8,10 @@ CREATE TABLE IF NOT EXISTS users (
     name VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
+    profile_pic VARCHAR(255) DEFAULT NULL,
+    isAdmin TINYINT(1) NOT NULL DEFAULT 0, -- 0 = Regular User, 1 = Admin
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    isAdmin BOOLEAN DEFAULT FALSE
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 -- Create posts table
@@ -33,22 +35,19 @@ CREATE TABLE IF NOT EXISTS comments (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
-INSERT INTO users (name, email, password) VALUES 
-('Admin', 'admin@example.com', SHA2('adminpassword', 256));
+-- Insert sample users
+INSERT INTO users (id, name, email, password, created_at) VALUES
+(2, 'John Doe', 'user2@blog.com', 'hashed_password', NOW()),
+(3, 'Tech Guru', 'user3@blog.com', 'hashed_password', NOW()),
+(4, 'DevLife', 'user4@blog.com', 'hashed_password', NOW()),
+(5, 'Coder123', 'user5@blog.com', 'hashed_password', NOW()),
+(6, 'AI Enthusiast', 'user6@blog.com', 'hashed_password', NOW()),
+(7, 'Web Master', 'user7@blog.com', 'hashed_password', NOW()),
+(8, 'Frontend Ninja', 'user8@blog.com', 'hashed_password', NOW()),
+(9, 'Backend Beast', 'user9@blog.com', 'hashed_password', NOW()),
+(10, 'Security Expert', 'user10@blog.com', 'hashed_password', NOW());
 
-INSERT INTO users (name, email, password, created_at) VALUES
-('Admin', 'user1@blog.com', 'hashed_password', NOW()),
-('John Doe', 'user2@blog.com', 'hashed_password', NOW()),
-('Tech Guru', 'user3@blog.com', 'hashed_password', NOW()),
-('DevLife', 'user4@blog.com', 'hashed_password', NOW()),
-('Coder123', 'user5@blog.com', 'hashed_password', NOW()),
-('AI Enthusiast', 'user6@blog.com', 'hashed_password', NOW()),
-('Web Master', 'user7@blog.com', 'hashed_password', NOW()),
-('Frontend Ninja', 'user8@blog.com', 'hashed_password', NOW()),
-('Backend Beast', 'user9@blog.com', 'hashed_password', NOW()),
-('Security Expert', 'user10@blog.com', 'hashed_password', NOW());
-
-
+-- Insert sample posts
 INSERT INTO posts (user_id, title, content, created_at) VALUES
 (6, 'How to Optimize Your Code for Performance', 'REST and GraphQL are popular API architectures. Which one should you choose?', '2025-02-06 07:33:04'),
 (7, 'How to Optimize Your Code for Performance', 'A responsive website is crucial in 2025. Let\'s break down key principles of mobile-friendly design.', '2025-02-04 21:28:04'),
@@ -60,4 +59,3 @@ INSERT INTO posts (user_id, title, content, created_at) VALUES
 (6, 'How to Build a Scalable Backend with Node.js', 'Writing optimized code is an essential skill. Here’s how to speed up your web apps.', '2025-02-17 12:50:04'),
 (4, 'Why Blogging is Essential for Developers', 'Here are some neat JavaScript tricks that can boost your productivity as a developer.', '2025-02-16 02:11:04'),
 (4, '10 JavaScript Tricks You Need to Know', 'Contributing to open source projects is a great way to learn and network. Get started today!', '2025-02-06 08:11:04');
-

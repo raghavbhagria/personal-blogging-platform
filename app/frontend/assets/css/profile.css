@@ -62,6 +62,24 @@ nav a:hover {
     border-radius: 10px;
 }
 
+/* ✅ Profile Picture */
+.profile-pic {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+/* ✅ Small Profile Picture */
+.profile-pic-small {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-left: 10px;
+}
+
 /* ✅ Input Fields */
 input {
     width: 100%;
@@ -75,14 +93,14 @@ input {
 
 /* ✅ General Button Styling */
 button {
-    width: auto; /* Auto width instead of full width */
-    padding: 10px 15px; /* Reduce padding */
-    margin: 10px 5px; /* Add spacing between buttons */
+    width: auto;
+    padding: 10px 15px;
+    margin: 10px 5px; 
     border: none;
     border-radius: 5px;
     background: #ff9800;
     color: white;
-    font-size: 14px; /* Reduce font size */
+    font-size: 14px; 
     cursor: pointer;
 }
 
@@ -102,6 +120,31 @@ button:hover {
 
 /* ✅ Center Buttons */
 .profile-box button {
-    display: inline-block; /* Ensures buttons are in a row */
+    display: inline-block; 
     text-align: center;
+}
+
+/* ✅ File Input Styling */
+input[type="file"] {
+    display: block;
+    margin: 10px auto;
+    padding: 10px;
+    background: #333;
+    color: white;
+    border: 1px solid #444;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+input[type="file"]::-webkit-file-upload-button {
+    background: #ff9800;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+input[type="file"]::-webkit-file-upload-button:hover {
+    background: #e68900;
 }

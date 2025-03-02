@@ -1,51 +1,52 @@
+
+
 # Personal Blogging Platform
 
-## 📌 Project Overview
-This is a personal blogging platform built with **PHP, MySQL, JavaScript, and Docker**. Users can **register, log in, create posts, and view profiles**.
+## Project Overview
+This is a personal blogging platform built with **PHP, MySQL, JavaScript, and Docker**. Users can register, log in, create posts, and view profiles.
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
-### **1️⃣ Clone the Repository**
+### Clone the Repository
 ```sh
 git clone https://github.com/YOUR_USERNAME/personal-blogging-platform.git
 cd personal-blogging-platform
 ```
 
-### **2️⃣ Install Dependencies**
+### Install Dependencies
 Ensure you have **Docker & Docker Compose** installed.
 
-- **Check Docker version:**
+- Check Docker version:
 ```sh
 docker -v
 ```
-- **Check Docker Compose version:**
+- Check Docker Compose version:
 ```sh
 docker-compose -v
 ```
 
 ---
 
-## 🛠 Setting Up the Project
+## Setting Up the Project
 
-### **3️⃣ Start the Containers**
+### Start the Containers
 ```sh
 docker-compose up --build
 ```
 - This will start **PHP (Apache), MySQL, and the frontend**.
-- If you need to stop it:
+- To stop the containers:
 ```sh
 docker-compose down
 ```
 
-### **4️⃣ Verify Setup**
-- Open **http://localhost:8080** to access the frontend.
-- Open **http://localhost:8080/api/auth/register.php** to check if the backend is working.
+### Verify Setup
+- Open **http://localhost:8080** in your browser to access the blogging platform.
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 ```
 ├── app/                  # Main application folder
 │   ├── api/              # Backend API (PHP)
@@ -61,16 +62,16 @@ docker-compose down
 
 ---
 
-## 🗄 Database Setup
-The MySQL container will automatically create the required database and tables.
+## Database Setup
+The MySQL container will automatically create the required database and seed it with initial data.
 
-- **Connect to MySQL:**
+- Connect to MySQL inside the container:
 ```sh
 docker exec -it mysql-db mysql -u user -p
 ```
 (Enter password when prompted)
 
-- **Check Databases:**
+- Check databases and tables:
 ```sql
 SHOW DATABASES;
 USE blogging_platform;
@@ -79,54 +80,25 @@ SHOW TABLES;
 
 ---
 
-## 🔥 API Endpoints
+## Admin Account Access
+Since the database is auto-seeded, an admin account is already created.
 
-### **Authentication**
-| Method | Endpoint                  | Description          |
-|--------|---------------------------|----------------------|
-| POST   | `/api/auth/register.php`  | Register a new user |
-| POST   | `/api/auth/login.php`     | Login user & return JWT token |
+- Go to: **http://localhost:8080**
+- Admin Login:
+  - email: `admin@example.com`
+  - Password: `adminpassword`
 
-### **User Data**
-| Method | Endpoint               | Description         |
-|--------|------------------------|---------------------|
-| GET    | `/api/user/profile.php` | Get logged-in user info |
+Use this account to access the admin dashboard.
 
 ---
 
-## 🏗 Frontend Setup
-Ensure all JavaScript files are properly loaded.
+## Reset and Rebuild Everything
+If anything breaks or you want a fresh start:
 
-- **Check in browser console:**
-  - `auth.js loaded ✅`
-  - `dashboard.js loaded ✅`
-
-If missing:
-1. Verify files exist in `frontend/js/`.
-2. Run:
-   ```sh
-   docker-compose up --build
-   ```
-
----
-
-## 🛠 Debugging & Logs
-- **Check Backend Logs:**
 ```sh
-docker logs php-backend
-```
-- **Check Database Logs:**
-```sh
-docker logs mysql-db
-```
-
-If any errors occur, **rebuild everything**:
-```sh
-docker-compose down
+docker-compose down -v
 docker-compose up --build
 ```
 
----
-
-
+This ensures volumes are removed, so MySQL gets a fresh database with seeded data.
 

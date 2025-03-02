@@ -4,91 +4,91 @@ document.addEventListener("DOMContentLoaded", function () {
     const userNameElement = document.getElementById("userName");
     const userEmailElement = document.getElementById("userEmail");
     const userJoinedElement = document.getElementById("userJoined");
+    const profilePicElement = document.getElementById("profilePic");
+    const profilePicInput = document.getElementById("profilePicInput");
     const updateProfileForm = document.getElementById("updateProfileForm");
     const deleteAccountBtn = document.getElementById("deleteAccountBtn");
     const logoutBtn = document.getElementById("logoutBtn");
 
-    const userId = localStorage.getItem("user_id");
+    const token = localStorage.getItem("token");
 
-    if (!userId) {
+    if (!token) {
         alert("You must be logged in to access the profile.");
         window.location.href = "login.html";
         return;
     }
 
     // ✅ Fetch User Info
-    fetch("../api/user.php?user_id=" + userId)
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === "success") {
-                userNameElement.textContent = data.user.name;
-                userEmailElement.textContent = data.user.email;
+    fetch("../api/auth/profile.php", {
+        method: "GET",
+        headers: {
+            "Authorization": "Bearer " + token,
+            "Content-Type": "application/json"
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log("🔹 API Response:", data);
+
+        if (data.status === "success") {
+            userNameElement.textContent = data.user.name;
+            userEmailElement.textContent = data.user.email;
+            profilePicElement.src = data.user.profile_pic || "../assets/default-profile.png";
+
+            if (data.user.created_at) {
                 userJoinedElement.textContent = new Date(data.user.created_at).toLocaleDateString();
             } else {
-                console.error("❌ Error fetching user info:", data.message);
+                userJoinedElement.textContent = "N/A";
             }
-        })
-        .catch(error => console.error("❌ Error fetching user:", error));
-
-    // ✅ Handle Profile Update
-    updateProfileForm.addEventListener("submit", function (event) {
-        event.preventDefault();
-
-        const newName = document.getElementById("newName").value.trim();
-        const newEmail = document.getElementById("newEmail").value.trim();
-        const newPassword = document.getElementById("newPassword").value.trim();
-
-        if (!newName && !newEmail && !newPassword) {
-            alert("Please enter at least one field to update.");
-            return;
+        } else {
+            alert("Session expired. Please log in again.");
+            localStorage.removeItem("token");
+            window.location.href = "login.html";
         }
-
-        const updateData = { user_id: userId };
-        if (newName) updateData.name = newName;
-        if (newEmail) updateData.email = newEmail;
-        if (newPassword) updateData.password = newPassword;
-
-        fetch("../api/update_user.php", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(updateData)
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === "success") {
-                alert("Profile updated successfully!");
-                location.reload();
-            } else {
-                alert("Error updating profile: " + data.message);
-            }
-        })
-        .catch(error => console.error("❌ Error updating profile:", error));
+    })
+    .catch(error => {
+        alert("Error fetching user data. Try again.");
+        localStorage.removeItem("token");
+        window.location.href = "login.html";
     });
 
-    // ✅ Handle Delete Account
-    deleteAccountBtn.addEventListener("click", function () {
-        if (!confirm("Are you sure you want to delete your account? This action cannot be undone.")) return;
+    // ✅ Handle Profile Picture Upload
+    profilePicInput.addEventListener("change", function () {
+        const file = profilePicInput.files[0];
+        if (file) {
+            const formData = new FormData();
+            formData.append("profile_pic", file);
 
-        fetch("../api/delete_user.php?user_id=" + userId, { method: "DELETE" })
+            fetch("../api/user/uploadProfilePic.php", {
+                method: "POST",
+                headers: {
+                    "Authorization": "Bearer " + token
+                },
+                body: formData
+            })
             .then(response => response.json())
             .then(data => {
                 if (data.status === "success") {
-                    alert("Account deleted successfully.");
-                    localStorage.clear();
-                    window.location.href = "register.html";
+                    profilePicElement.src = data.profile_pic_url;
+                    const user = JSON.parse(localStorage.getItem("user"));
+                    user.profile_pic = data.profile_pic_url;
+                    localStorage.setItem("user", JSON.stringify(user));
+                    alert("Profile picture updated successfully.");
+                    updateNavbar(); // Update the navbar to reflect the new profile picture
                 } else {
-                    alert("Error deleting account: " + data.message);
+                    alert("Failed to update profile picture: " + data.message);
                 }
             })
-            .catch(error => console.error("❌ Error deleting account:", error));
+            .catch(error => {
+                alert("Error uploading profile picture. Try again.");
+            });
+        }
     });
 
     // ✅ Logout Function
-    // ✅ Logout Functionality
-logoutBtn.addEventListener("click", function () {
-    localStorage.clear(); // Remove user data
-    alert("Logged out successfully.");
-    window.location.href = "home.html"; // Redirect to home page
-});
-
+    logoutBtn.addEventListener("click", function () {
+        localStorage.clear();
+        alert("Logged out successfully.");
+        window.location.href = "home.html";
+    });
 });
