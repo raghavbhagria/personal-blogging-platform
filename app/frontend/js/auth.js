@@ -124,20 +124,24 @@ function updateNavbar() {
     const loginLink = document.getElementById("loginLink"); // Login
     const registerLink = document.getElementById("registerLink"); // Sign Up
     const logoutBtn = document.getElementById("logoutButton"); // Logout
+    const profilePicSmall = document.getElementById("profilePicSmall"); // Small Profile Picture
 
-    if (!dashboardLink || !profileLink || !loginLink || !registerLink || !logoutBtn) return;
+    if (!dashboardLink || !profileLink || !loginLink || !registerLink || !logoutBtn || !profilePicSmall) return;
 
     if (token && user) {
-        // ✅ User is logged in → Show "Profile" & "Logout", Hide "Login" & "Sign Up"
+        // ✅ User is logged in → Show "Profile", "Logout", and Profile Picture, Hide "Login" & "Sign Up"
         profileLink.style.display = "inline";
         logoutBtn.style.display = "inline";
+        profilePicSmall.style.display = "inline";
+        profilePicSmall.src = user.profile_pic || "../assets/default-profile.png";
 
         loginLink.style.display = "none";
         registerLink.style.display = "none";
     } else {
-        // ❌ User is NOT logged in → Show "Login" & "Sign Up", Hide "Profile" & "Logout"
+        // ❌ User is NOT logged in → Show "Login" & "Sign Up", Hide "Profile", "Logout", and Profile Picture
         profileLink.style.display = "none";
         logoutBtn.style.display = "none";
+        profilePicSmall.style.display = "none";
 
         loginLink.style.display = "inline";
         registerLink.style.display = "inline";

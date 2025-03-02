@@ -8,11 +8,11 @@ CREATE TABLE IF NOT EXISTS users (
     name VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
+    profile_pic VARCHAR(255) DEFAULT NULL,
     isAdmin TINYINT(1) NOT NULL DEFAULT 0, -- 0 = Regular User, 1 = Admin
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
-
 
 -- Create posts table
 CREATE TABLE IF NOT EXISTS posts (
@@ -62,4 +62,3 @@ INSERT INTO posts (user_id, title, content, created_at) VALUES
 (6, 'How to Build a Scalable Backend with Node.js', 'Writing optimized code is an essential skill. Here’s how to speed up your web apps.', '2025-02-17 12:50:04'),
 (4, 'Why Blogging is Essential for Developers', 'Here are some neat JavaScript tricks that can boost your productivity as a developer.', '2025-02-16 02:11:04'),
 (4, '10 JavaScript Tricks You Need to Know', 'Contributing to open source projects is a great way to learn and network. Get started today!', '2025-02-06 08:11:04');
-
