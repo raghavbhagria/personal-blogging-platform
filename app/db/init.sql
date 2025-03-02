@@ -35,22 +35,19 @@ CREATE TABLE IF NOT EXISTS comments (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
-INSERT INTO users (name, email, password, isAdmin) VALUES 
-('Admin', 'admin@example.com', SHA2('adminpassword', 256), 1);
+-- Insert sample users
+INSERT INTO users (id, name, email, password, created_at) VALUES
+(2, 'John Doe', 'user2@blog.com', 'hashed_password', NOW()),
+(3, 'Tech Guru', 'user3@blog.com', 'hashed_password', NOW()),
+(4, 'DevLife', 'user4@blog.com', 'hashed_password', NOW()),
+(5, 'Coder123', 'user5@blog.com', 'hashed_password', NOW()),
+(6, 'AI Enthusiast', 'user6@blog.com', 'hashed_password', NOW()),
+(7, 'Web Master', 'user7@blog.com', 'hashed_password', NOW()),
+(8, 'Frontend Ninja', 'user8@blog.com', 'hashed_password', NOW()),
+(9, 'Backend Beast', 'user9@blog.com', 'hashed_password', NOW()),
+(10, 'Security Expert', 'user10@blog.com', 'hashed_password', NOW());
 
-INSERT INTO users (name, email, password, created_at) VALUES
-('Admin', 'user1@blog.com', 'hashed_password', NOW()),
-('John Doe', 'user2@blog.com', 'hashed_password', NOW()),
-('Tech Guru', 'user3@blog.com', 'hashed_password', NOW()),
-('DevLife', 'user4@blog.com', 'hashed_password', NOW()),
-('Coder123', 'user5@blog.com', 'hashed_password', NOW()),
-('AI Enthusiast', 'user6@blog.com', 'hashed_password', NOW()),
-('Web Master', 'user7@blog.com', 'hashed_password', NOW()),
-('Frontend Ninja', 'user8@blog.com', 'hashed_password', NOW()),
-('Backend Beast', 'user9@blog.com', 'hashed_password', NOW()),
-('Security Expert', 'user10@blog.com', 'hashed_password', NOW());
-
-
+-- Insert sample posts
 INSERT INTO posts (user_id, title, content, created_at) VALUES
 (6, 'How to Optimize Your Code for Performance', 'REST and GraphQL are popular API architectures. Which one should you choose?', '2025-02-06 07:33:04'),
 (7, 'How to Optimize Your Code for Performance', 'A responsive website is crucial in 2025. Let\'s break down key principles of mobile-friendly design.', '2025-02-04 21:28:04'),
