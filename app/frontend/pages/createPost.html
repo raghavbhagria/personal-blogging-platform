@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New Post | MyBlog</title>
+    <link rel="stylesheet" href="../assets/css/createPost.css">
+</head>
+<body>
+    <header>
+        <div class="logo">MyBlog</div>
+        <nav>
+            <a href="home.html">Home</a>
+            <a href="posts.html">Blog Posts</a>
+            <a href="createPost.html" class="active">Create Post</a>
+            <button id="logoutBtn">Logout</button>
+        </nav>
+    </header>
+    <main>
+        <h2>Create New Post</h2>
+        <form id="createPostForm">
+            <label for="postTitle">Title:</label>
+            <input type="text" id="postTitle" name="postTitle" placeholder="Enter post title" required>
+
+            <label for="postContent">Content:</label>
+            <textarea id="postContent" name="postContent" placeholder="Write your post content here..." required></textarea>
+
+            <label for="postCategory">Category:</label>
+            <select id="postCategory" name="postCategory" required>
+                <option value="">Select a category</option>
+                <option value="technology">Technology</option>
+                <option value="lifestyle">Lifestyle</option>
+                <option value="travel">Travel</option>
+                <option value="health">Health</option>
+                <option value="business">Business</option>
+            </select>
+
+            <label for="postTags">Tags:</label>
+            <input type="text" id="postTags" name="postTags" placeholder="Enter tags separated by commas">
+
+            <button type="submit">Publish</button>
+        </form>
+    </main>
+</body>
+</html>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile | MyBlog</title>
-    <link rel="stylesheet" href="../assets/css/user-profile.css">
+    <link rel="stylesheet" href="../assets/css/userPage.css">
 </head>
 <body>
     <header>
@@ -17,13 +17,24 @@
         </nav>
     </header>
     <main>
-        <h2>User Profile</h2>
-        <div id="userProfile">
-            <h3 id="userName">User Name</h3>
-            <p id="userBio">User Bio</p>
-            <div id="userPosts">
-                <!-- User's posts will be dynamically loaded here -->
+        <div class="profile-header">
+            <img src="../assets/default-profile.png" alt="Profile Picture" class="profile-pic">
+            <div class="profile-info">
+                <h2 id="userName">User Name</h2>
+                <p id="userBio">User Bio</p>
             </div>
+        </div>
+        <div id="userPosts" class="posts-container">
+            <!-- User's posts will be dynamically loaded here -->
+            <div class="post">
+                <h4>Post Title 1</h4>
+                <p>Post content goes here...</p>
+            </div>
+            <div class="post">
+                <h4>Post Title 2</h4>
+                <p>Post content goes here...</p>
+            </div>
+            <!-- Add more mock posts as needed -->
         </div>
     </main>
 </body>

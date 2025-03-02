@@ -106,7 +106,7 @@ function loginUser() {
 // ✅ Check if User is Authenticated (For Protected Pages)
 function checkUserAuthentication() {
     const token = localStorage.getItem("token");
-    const protectedPages = ["dashboard.html", "admin.html", "profile.html", "create-post.html"];
+        const protectedPages = ["dashboard.html", "admin.html", "profile.html", "createPost.html"];
 
     if (!token && protectedPages.includes(window.location.pathname.split("/").pop())) {
         alert("You must be logged in to access this page.");
@@ -121,16 +121,18 @@ function updateNavbar() {
 
     const dashboardLink = document.getElementById("dashboardLink"); // Blog Posts (Always Visible)
     const profileLink = document.getElementById("profileLink"); // View Profile
+    const createPostLink = document.getElementById("createPostLink"); // Create Post
     const loginLink = document.getElementById("loginLink"); // Login
     const registerLink = document.getElementById("registerLink"); // Sign Up
     const logoutBtn = document.getElementById("logoutButton"); // Logout
     const profilePicSmall = document.getElementById("profilePicSmall"); // Small Profile Picture
 
-    if (!dashboardLink || !profileLink || !loginLink || !registerLink || !logoutBtn || !profilePicSmall) return;
+    if (!dashboardLink || !profileLink || !createPostLink || !loginLink || !registerLink || !logoutBtn || !profilePicSmall) return;
 
     if (token && user) {
-        // ✅ User is logged in → Show "Profile", "Logout", and Profile Picture, Hide "Login" & "Sign Up"
+        // ✅ User is logged in → Show "Profile", "Create Post", "Logout", and Profile Picture, Hide "Login" & "Sign Up"
         profileLink.style.display = "inline";
+        createPostLink.style.display = "inline";
         logoutBtn.style.display = "inline";
         profilePicSmall.style.display = "inline";
         profilePicSmall.src = user.profile_pic || "../assets/default-profile.png";
@@ -138,8 +140,9 @@ function updateNavbar() {
         loginLink.style.display = "none";
         registerLink.style.display = "none";
     } else {
-        // ❌ User is NOT logged in → Show "Login" & "Sign Up", Hide "Profile", "Logout", and Profile Picture
+        // ❌ User is NOT logged in → Show "Login" & "Sign Up", Hide "Profile", "Create Post", "Logout", and Profile Picture
         profileLink.style.display = "none";
+        createPostLink.style.display = "none";
         logoutBtn.style.display = "none";
         profilePicSmall.style.display = "none";
 
