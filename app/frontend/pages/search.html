@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search | MyBlog</title>
+    <link rel="stylesheet" href="../assets/css/search.css">
+</head>
+<body>
+    <header>
+        <div class="logo">MyBlog</div>
+        <nav>
+            <a href="home.html">Home</a>
+            <a href="posts.html">Blog Posts</a>
+            <a href="search.html" class="active">Search</a>
+            <button id="logoutBtn">Logout</button>
+        </nav>
+    </header>
+    <main>
+        <h2>Search</h2>
+        <form id="searchForm">
+            <input type="text" id="searchQuery" placeholder="Search for posts, users, or tags">
+            <button type="submit">Search</button>
+        </form>
+        <div id="searchResults">
+            <!-- Search results will be dynamically loaded here -->
+        </div>
+    </main>
+</body>
+</html>

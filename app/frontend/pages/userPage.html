@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile | MyBlog</title>
+    <link rel="stylesheet" href="../assets/css/userPage.css">
+</head>
+<body>
+    <header>
+        <div class="logo">MyBlog</div>
+        <nav>
+            <a href="home.html">Home</a>
+            <a href="posts.html">Blog Posts</a>
+            <a href="profile.html" class="active">Profile</a>
+            <button id="logoutBtn">Logout</button>
+        </nav>
+    </header>
+    <main>
+        <div class="profile-header">
+            <img src="../assets/default-profile.png" alt="Profile Picture" class="profile-pic">
+            <div class="profile-info">
+                <h2 id="userName">User Name</h2>
+                <p id="userBio">User Bio</p>
+            </div>
+        </div>
+        <div id="userPosts" class="posts-container">
+            <!-- User's posts will be dynamically loaded here -->
+            <div class="post">
+                <h4>Post Title 1</h4>
+                <p>Post content goes here...</p>
+            </div>
+            <div class="post">
+                <h4>Post Title 2</h4>
+                <p>Post content goes here...</p>
+            </div>
+            <!-- Add more mock posts as needed -->
+        </div>
+    </main>
+</body>
+</html>
