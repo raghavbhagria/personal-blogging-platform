@@ -19,6 +19,18 @@ function authenticate() {
         exit;
     }
 
-    return $decoded; // Return user data if token is valid
+    // Fetch user from database to get isAdmin field
+    require __DIR__ . '/../config/database.php';
+    $stmt = $pdo->prepare("SELECT id, name, email, isAdmin FROM users WHERE id = ?");
+    $stmt->execute([$decoded['id']]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if (!$user) {
+        http_response_code(401);
+        echo json_encode(["message" => "User not found"]);
+        exit;
+    }
+
+    return $user; // Return user data if token is valid
 }
 ?>

@@ -88,9 +88,14 @@ function loginUser() {
     .then(response => response.json())
     .then(data => {
         if (data.status === "success") {
-            localStorage.setItem("token", data.token);
-            localStorage.setItem("user", JSON.stringify(data.user)); // Store user info
-            window.location.href = "dashboard.html"; 
+            localStorage.setItem("token", data.token); 
+            localStorage.setItem("user", JSON.stringify(data.user)); // Store user data
+            alert("Login successful! Redirecting...");
+            if (data.user.isAdmin) {
+                window.location.href = "admin.html"; // Redirect to admin dashboard
+            } else {
+                window.location.href = "dashboard.html"; // Redirect to user dashboard
+            }
         } else {
             showError("Login failed: " + data.message);
         }
@@ -110,7 +115,6 @@ function checkUserAuthentication() {
 }
 
 // ✅ Update Navbar Based on Authentication State
-// ✅ Update Navbar Based on Authentication State
 function updateNavbar() {
     const token = localStorage.getItem("token");
     const user = JSON.parse(localStorage.getItem("user"));
@@ -120,20 +124,24 @@ function updateNavbar() {
     const loginLink = document.getElementById("loginLink"); // Login
     const registerLink = document.getElementById("registerLink"); // Sign Up
     const logoutBtn = document.getElementById("logoutButton"); // Logout
+    const profilePicSmall = document.getElementById("profilePicSmall"); // Small Profile Picture
 
-    if (!dashboardLink || !profileLink || !loginLink || !registerLink || !logoutBtn) return;
+    if (!dashboardLink || !profileLink || !loginLink || !registerLink || !logoutBtn || !profilePicSmall) return;
 
     if (token && user) {
-        // ✅ User is logged in → Show "Profile" & "Logout", Hide "Login" & "Sign Up"
+        // ✅ User is logged in → Show "Profile", "Logout", and Profile Picture, Hide "Login" & "Sign Up"
         profileLink.style.display = "inline";
         logoutBtn.style.display = "inline";
+        profilePicSmall.style.display = "inline";
+        profilePicSmall.src = user.profile_pic || "../assets/default-profile.png";
 
         loginLink.style.display = "none";
         registerLink.style.display = "none";
     } else {
-        // ❌ User is NOT logged in → Show "Login" & "Sign Up", Hide "Profile" & "Logout"
+        // ❌ User is NOT logged in → Show "Login" & "Sign Up", Hide "Profile", "Logout", and Profile Picture
         profileLink.style.display = "none";
         logoutBtn.style.display = "none";
+        profilePicSmall.style.display = "none";
 
         loginLink.style.display = "inline";
         registerLink.style.display = "inline";
@@ -145,8 +153,6 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log("🔹 Updating Navbar...");
     updateNavbar();
 });
-
-
 
 // ✅ Logout User
 function logoutUser() {

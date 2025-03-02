@@ -11,24 +11,23 @@
 
     <!-- ✅ Navigation Bar -->
     <header>
-
         <div id="navbar-container"></div> <!-- Navbar will be loaded here -->
-
-<script>
-    // Load the shared navbar dynamically
-    fetch("navbar.html")
-        .then(response => response.text())
-        .then(html => {
-            document.getElementById("navbar-container").innerHTML = html;
-            updateNavbar(); // Ensure navbar updates based on login state
-        });
-</script>
-<script defer src="../js/auth.js"></script> <!-- Ensure auth.js is loaded -->
-
+        <script>
+            // Load the shared navbar dynamically
+            fetch("navbar.html")
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById("navbar-container").innerHTML = html;
+                    updateNavbar(); // Ensure navbar updates based on login state
+                });
+        </script>
+        <script defer src="../js/auth.js"></script> <!-- Ensure auth.js is loaded -->
     </header>
 
     <div class="profile-box">
         <h2>Your Profile</h2>
+        <img id="profilePic" src="../assets/default-profile.png" alt="Profile Picture" class="profile-pic">
+        <input type="file" id="profilePicInput" accept="image/*">
         <p><strong>Name:</strong> <span id="userName">Loading...</span></p>
         <p><strong>Email:</strong> <span id="userEmail">Loading...</span></p>
         <p><strong>Joined:</strong> <span id="userJoined">Loading...</span></p>
@@ -48,7 +47,15 @@
             <button id="deleteAccountBtn" class="delete">🗑️ Delete Account</button>
         </div>
     </div>
-    
+
+    <script>
+        // Logout Functionality
+        document.getElementById("logoutBtn").addEventListener("click", function () {
+            localStorage.clear();
+            alert("Logged out successfully.");
+            window.location.href = "home.html";
+        });
+    </script>
 
 </body>
 </html>

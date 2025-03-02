@@ -3,7 +3,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const userNameElement = document.getElementById("userName");
     const userEmailElement = document.getElementById("userEmail");
-    const userJoinedElement = document.getElementById("userJoined"); // REMOVE this if `created_at` isn't returned
+    const userJoinedElement = document.getElementById("userJoined");
+    const profilePicElement = document.getElementById("profilePic");
+    const profilePicInput = document.getElementById("profilePicInput");
     const updateProfileForm = document.getElementById("updateProfileForm");
     const deleteAccountBtn = document.getElementById("deleteAccountBtn");
     const logoutBtn = document.getElementById("logoutBtn");
@@ -31,34 +33,62 @@ document.addEventListener("DOMContentLoaded", function () {
         if (data.status === "success") {
             userNameElement.textContent = data.user.name;
             userEmailElement.textContent = data.user.email;
+            profilePicElement.src = data.user.profile_pic || "../assets/default-profile.png";
 
-            // ✅ Ensure userJoinedElement is only updated if `created_at` exists
             if (data.user.created_at) {
                 userJoinedElement.textContent = new Date(data.user.created_at).toLocaleDateString();
             } else {
-                console.warn("⚠ `created_at` field is missing from API response.");
                 userJoinedElement.textContent = "N/A";
             }
         } else {
-            console.error("❌ Error fetching user info:", data.message);
             alert("Session expired. Please log in again.");
             localStorage.removeItem("token");
             window.location.href = "login.html";
         }
     })
     .catch(error => {
-        console.error("❌ Network or Server Error:", error);
         alert("Error fetching user data. Try again.");
         localStorage.removeItem("token");
         window.location.href = "login.html";
     });
 
-    // ✅ Logout Function
-    document.addEventListener("click", function (event) {
-        if (event.target.id === "logoutBtn") {
-            localStorage.clear();
-            alert("Logged out successfully.");
-            window.location.href = "home.html";
+    // ✅ Handle Profile Picture Upload
+    profilePicInput.addEventListener("change", function () {
+        const file = profilePicInput.files[0];
+        if (file) {
+            const formData = new FormData();
+            formData.append("profile_pic", file);
+
+            fetch("../api/user/uploadProfilePic.php", {
+                method: "POST",
+                headers: {
+                    "Authorization": "Bearer " + token
+                },
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === "success") {
+                    profilePicElement.src = data.profile_pic_url;
+                    const user = JSON.parse(localStorage.getItem("user"));
+                    user.profile_pic = data.profile_pic_url;
+                    localStorage.setItem("user", JSON.stringify(user));
+                    alert("Profile picture updated successfully.");
+                    updateNavbar(); // Update the navbar to reflect the new profile picture
+                } else {
+                    alert("Failed to update profile picture: " + data.message);
+                }
+            })
+            .catch(error => {
+                alert("Error uploading profile picture. Try again.");
+            });
         }
+    });
+
+    // ✅ Logout Function
+    logoutBtn.addEventListener("click", function () {
+        localStorage.clear();
+        alert("Logged out successfully.");
+        window.location.href = "home.html";
     });
 });
