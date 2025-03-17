@@ -1,4 +1,4 @@
-/* ✅ Global Styles - Dark Mode */
+/* Global Styles - Dark Mode */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -7,7 +7,7 @@ body {
     color: #e0e0e0;
 }
 
-/* ✅ Navigation Bar - Dark Mode */
+/* Navigation Bar - Dark Mode */
 header {
     display: flex;
     justify-content: space-between;
@@ -35,6 +35,7 @@ nav a:hover {
     color: #ff9800;
 }
 
+/* Buttons */
 .btn-login, .btn-register {
     padding: 10px 15px;
     border-radius: 5px;
@@ -60,7 +61,7 @@ nav a:hover {
     background: #e68900;
 }
 
-/* ✅ Hero Section with Background Image - Dark Mode */
+/* Hero Section */
 .hero {
     text-align: center;
     padding: 100px 20px;
@@ -73,7 +74,7 @@ nav a:hover {
     position: relative;
 }
 
-/* ✅ Adding a dark overlay for better readability */
+/* Overlay for Readability */
 .hero::before {
     content: "";
     position: absolute;
@@ -81,7 +82,7 @@ nav a:hover {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.6); /* Dark overlay */
+    background: rgba(0, 0, 0, 0.6);
     z-index: 1;
 }
 
@@ -93,30 +94,33 @@ nav a:hover {
 .hero h1 {
     font-size: 42px;
     margin-bottom: 15px;
-    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
 }
 
 .hero p {
     font-size: 20px;
     margin-bottom: 25px;
-    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
 }
 
-.cta-btn {
-    background: #ff9800;
-    color: white;
-    padding: 12px 20px;
-    text-decoration: none;
+.hero .cta-btn {
+    background: white; /* Reverted to original white color */
+    color: #ff5722; /* Original text color */
+    padding: 10px 20px;
     border-radius: 5px;
-    font-size: 18px;
-    transition: 0.3s;
+    font-weight: bold;
+    transition: background 0.3s, color 0.3s; /* Added transition for hover */
+    text-decoration: none;
 }
 
-.cta-btn:hover {
-    background: #e68900;
+.hero .cta-btn:hover {
+    background: #ff5722; /* Hover effect: turns button background to orange */
+    color: white; /* Text turns white on hover */
+}
+.hero .cta-btn:visited {
+    text-decoration: none; /* Ensure no underline on visited state */
+    color: #ff5722; /* Maintain original color after visit */
 }
 
-/* ✅ Latest Posts - Dark Mode */
+/* Latest Posts Section */
 .latest-posts {
     padding: 40px 20px;
     text-align: center;
@@ -124,45 +128,20 @@ nav a:hover {
     box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.5);
 }
 
-.posts-container {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-}
-
-.post {
-    background: #222;
-    padding: 20px;
-    width: 30%;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    border-radius: 5px;
-}
-
-.post h3 {
-    color: #ff9800;
-}
-
-.post a {
-    display: inline-block;
-    margin-top: 10px;
-    color: #ff9800;
-    text-decoration: none;
-}
-
-.post a:hover {
-    text-decoration: underline;
-}
-
-/* ✅ Categories - Dark Mode */
+/* Categories */
 .categories {
     padding: 40px 20px;
     text-align: center;
     background: #222;
 }
 
+.category-list {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
 .category-list a {
-    display: inline-block;
-    margin: 10px;
     padding: 10px 15px;
     border: 1px solid #ff9800;
     border-radius: 5px;
@@ -176,7 +155,113 @@ nav a:hover {
     color: #121212;
 }
 
-/* ✅ Footer - Dark Mode */
+/* Blog Post Section */
+.user-posts {
+    padding: 50px 20px;
+    background: #1a1a1a;
+    text-align: center;
+    position: relative; /* For positioning the "More Blogs" button */
+}
+
+/* Posts Container */
+.posts-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    padding: 20px;
+}
+
+/* Blog Post Card */
+.post {
+    background: linear-gradient(135deg, #2c2c2c, #1e1e1e); /* Sexy gradient */
+    padding: 20px;
+    width: 400px;
+    min-height: 250px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Deeper shadow for depth */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-decoration: none;
+    color: #e0e0e0;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+/* Hover Effect - Now it’s working and looks dope */
+.post:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(255, 152, 0, 0.3); /* Orange-tinted shadow */
+}
+
+/* Blog Title */
+.post h3 {
+    color: #ff9800;
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Blog Content - Fixed that shitty blue text */
+.post p {
+    color: #b0b0b0; /* Lighter gray for readability */
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 30px;
+    max-height: 80px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Date */
+.post small {
+    font-size: 12px;
+    color: #a0a0a0;
+}
+
+/* Read More Button - Redesigned to fit the vibe */
+.read-more-btn {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    background: transparent;
+    color: #ff9800;
+    border: 1px solid #ff9800;
+    padding: 8px 12px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s;
+}
+
+.read-more-btn:hover {
+    background: #ff9800;
+    color: #121212;
+}
+
+/* More Blogs Button - Moved to bottom-right */
+.user-posts .cta-btn {
+    position: absolute;
+    bottom: 20px; /* Moved to bottom */
+    right: 20px; /* Stayed right */
+    background: #ff9800;
+    color: #121212;
+    padding: 12px 18px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background 0.3s;
+}
+
+.user-posts .cta-btn:hover {
+    background: #e68900;
+}
+
+/* Footer */
 footer {
     text-align: center;
     padding: 20px;
