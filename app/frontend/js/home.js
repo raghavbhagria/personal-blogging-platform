@@ -1,10 +1,15 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const recentPostsContainer = document.getElementById("recentPostsContainer");
+    const recentPostsContainer = document.getElementById("userPostsContainer");
+
+    if (!recentPostsContainer) {
+        console.error("Error: The element with id 'userPostsContainer' was not found in the DOM.");
+        return;
+    }
+
     const token = localStorage.getItem("token");
 
     if (!token) {
-        alert("You must be logged in to view your recent posts.");
-        window.location.href = "login.html";
+        recentPostsContainer.innerHTML = "<p>You must be logged in to view your recent posts.</p>";
         return;
     }
 
@@ -41,18 +46,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
             postElement.innerHTML = `
                 <h3>${post.title}</h3>
-                <p>${post.content}</p>
+                <p>${post.content.substring(0, 100)}...</p>
                 <small>Posted on: ${new Date(post.created_at).toLocaleDateString()}</small>
-                <p><strong>Category:</strong> ${post.category}</p>
-                <p><strong>Tags:</strong> ${post.tags}</p>
+                <a href="post.html?id=${post.id}" class="read-more">Read More</a>
             `;
 
             recentPostsContainer.appendChild(postElement);
         });
-
-        const morePostsLink = document.createElement("a");
-        morePostsLink.href = "userPosts.html";
-        morePostsLink.textContent = "More Blogs";
-        recentPostsContainer.appendChild(morePostsLink);
     }
 });
