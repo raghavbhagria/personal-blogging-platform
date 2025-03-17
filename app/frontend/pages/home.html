@@ -5,25 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home | Personal Blogging Platform</title>
     <link rel="stylesheet" href="../assets/css/home.css">
+    <script defer src="../js/home.js"></script>
 </head>
 <body>
 
     <!-- ✅ Navigation Bar -->
     <header>
-      
         <div id="navbar-container"></div> <!-- Navbar will be loaded here -->
-
-<script>
-    // Load the shared navbar dynamically
-    fetch("navbar.html")
-        .then(response => response.text())
-        .then(html => {
-            document.getElementById("navbar-container").innerHTML = html;
-            updateNavbar(); // Ensure navbar updates based on login state
-        });
-</script>
-<script defer src="../js/auth.js"></script> <!-- Ensure auth.js is loaded -->
-
+        <script>
+            // Load the shared navbar dynamically
+            fetch("navbar.html")
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById("navbar-container").innerHTML = html;
+                    updateNavbar(); // Ensure navbar updates based on login state
+                });
+        </script>
+        <script defer src="../js/auth.js"></script> <!-- Ensure auth.js is loaded -->
     </header>
 
     <!-- ✅ Hero Section -->
@@ -65,6 +63,15 @@
             <a href="#">Health</a>
             <a href="#">Business</a>
         </div>
+    </section>
+
+    <!-- ✅ User's Recent Posts Section -->
+    <section class="user-posts">
+        <h2>Your Recent Posts</h2>
+        <div id="userPostsContainer" class="posts-container">
+            <!-- User's posts will be dynamically loaded here -->
+        </div>
+        <a href="userPosts.html" class="cta-btn">More Blogs</a>
     </section>
 
     <!-- ✅ Footer -->

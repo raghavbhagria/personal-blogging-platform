@@ -55,45 +55,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function editPost(postId) {
-    const newTitle = prompt("Enter new title:");
-    const newContent = prompt("Enter new content:");
-    const newCategory = prompt("Enter new category:");
-    const newTags = prompt("Enter new tags (comma separated):");
-
-    if (!newTitle || !newContent || !newCategory || !newTags) {
-        alert("Title, content, category, and tags are required.");
-        return;
-    }
-
-    const token = localStorage.getItem("token");
-
-    const formData = new FormData();
-    formData.append("post_id", postId);
-    formData.append("title", newTitle);
-    formData.append("content", newContent);
-    formData.append("category", newCategory);
-    formData.append("tags", newTags);
-
-    fetch("../api/posts/update_post.php", {
-        method: "POST",
-        headers: {
-            "Authorization": "Bearer " + token
-        },
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.status === "success") {
-            alert("Post updated successfully!");
-            window.location.reload();
-        } else {
-            alert("Failed to update post: " + data.message);
-        }
-    })
-    .catch(error => {
-        console.error("Error updating post:", error);
-        alert("An error occurred while updating the post.");
-    });
+    window.location.href = `editPost.html?post_id=${postId}`;
 }
 
 function deletePost(postId) {
