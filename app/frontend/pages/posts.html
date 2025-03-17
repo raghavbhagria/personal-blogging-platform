@@ -8,18 +8,19 @@
     <script defer src="../js/posts.js"></script>
 </head>
 <body>
-
-    <!-- ✅ Navigation Bar (Dynamically Loaded) -->
-    <div id="navbar-container"></div>
-
-    <div class="container">
-        <h2 class="page-title">Recent Blog Posts</h2>
-
-        <!-- ✅ Posts will be inserted here -->
-        <div id="postsContainer" class="posts-feed">
-            <p>Loading posts...</p>
+    <header>
+        <div class="logo">MyBlog</div>
+        <nav>
+            <a href="home.html">Home</a>
+            <a href="posts.html" class="active">Blog Posts</a>
+            <button id="logoutBtn">Logout</button>
+        </nav>
+    </header>
+    <main>
+        <h2>Recent Blog Posts</h2>
+        <div id="postsContainer">
+            <!-- Posts will be dynamically loaded here -->
         </div>
-    </div>
-
+    </main>
 </body>
 </html>
