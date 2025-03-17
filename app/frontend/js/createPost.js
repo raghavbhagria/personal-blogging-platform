@@ -13,15 +13,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const title = document.getElementById("postTitle").value.trim();
         const content = document.getElementById("postContent").value.trim();
+        const category = document.getElementById("postCategory").value.trim();
+        const tags = document.getElementById("postTags").value.trim();
 
-        if (!title || !content) {
-            alert("Title and content are required.");
+        if (!title || !content || !category || !tags) {
+            alert("Title, content, category, and tags are required.");
             return;
         }
 
         const formData = new FormData();
         formData.append("title", title);
         formData.append("content", content);
+        formData.append("category", category);
+        formData.append("tags", tags);
 
         fetch("../api/posts/create_post.php", {
             method: "POST",

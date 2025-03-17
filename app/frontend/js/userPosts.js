@@ -43,6 +43,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 <h3>${post.title}</h3>
                 <p>${post.content}</p>
                 <small>Posted on: ${new Date(post.created_at).toLocaleDateString()}</small>
+                <p><strong>Category:</strong> ${post.category}</p>
+                <p><strong>Tags:</strong> ${post.tags}</p>
                 <button onclick="editPost(${post.id})">Edit</button>
                 <button onclick="deletePost(${post.id})">Delete</button>
             `;
@@ -55,9 +57,11 @@ document.addEventListener("DOMContentLoaded", function () {
 function editPost(postId) {
     const newTitle = prompt("Enter new title:");
     const newContent = prompt("Enter new content:");
+    const newCategory = prompt("Enter new category:");
+    const newTags = prompt("Enter new tags (comma separated):");
 
-    if (!newTitle || !newContent) {
-        alert("Title and content are required.");
+    if (!newTitle || !newContent || !newCategory || !newTags) {
+        alert("Title, content, category, and tags are required.");
         return;
     }
 
@@ -67,6 +71,8 @@ function editPost(postId) {
     formData.append("post_id", postId);
     formData.append("title", newTitle);
     formData.append("content", newContent);
+    formData.append("category", newCategory);
+    formData.append("tags", newTags);
 
     fetch("../api/posts/update_post.php", {
         method: "POST",
