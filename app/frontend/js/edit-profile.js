@@ -1,8 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     console.log("✅ Edit Profile Page Loaded");
 
-    const profilePicElement = document.getElementById("profilePic");
-    const profilePicInput = document.getElementById("profilePicInput");
+    
     const newNameInput = document.getElementById("newName");
     const newEmailInput = document.getElementById("newEmail");
     const newPasswordInput = document.getElementById("newPassword");
@@ -32,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (data.status === "success") {
             newNameInput.value = data.user.name;
             newEmailInput.value = data.user.email;
-            profilePicElement.src = data.user.profile_pic || "../assets/default-profile.png";
+      
         } else {
             alert("⚠️ Session expired. Please log in again.");
             localStorage.removeItem("token");
@@ -45,34 +44,8 @@ document.addEventListener("DOMContentLoaded", function () {
         window.location.href = "login.html";
     });
 
-    // ✅ Handle Profile Picture Upload
-    profilePicInput.addEventListener("change", function () {
-        const file = profilePicInput.files[0];
-        if (file) {
-            const formData = new FormData();
-            formData.append("profile_pic", file);
-
-            fetch("../api/user/uploadProfilePic.php", {
-                method: "POST",
-                headers: {
-                    "Authorization": `Bearer ${token}`
-                },
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.status === "success") {
-                    profilePicElement.src = data.profile_pic_url;
-                    alert("✅ Profile picture updated successfully.");
-                } else {
-                    alert("❌ Failed to update profile picture: " + data.message);
-                }
-            })
-            .catch(error => {
-                alert("❌ Error uploading profile picture. Try again.");
-            });
-        }
-    });
+    
+   
 
     // ✅ Handle Profile Update Form Submission (Uses `/api/user/update_profile.php`)
     editProfileForm.addEventListener("submit", function (event) {

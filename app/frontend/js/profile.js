@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const userNameElement = document.getElementById("userName");
     const userEmailElement = document.getElementById("userEmail");
   
-    const profilePicElement = document.getElementById("profilePic");
+   
     const editProfileBtn = document.getElementById("editProfileBtn");
     const logoutBtn = document.getElementById("logoutBtn");
 
@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
             // ✅ Populate the profile details
             userNameElement.textContent = data.user.name;
             userEmailElement.textContent = data.user.email;
-            profilePicElement.src = data.user.profile_pic || "../assets/default-profile.png";
+           
 
             if (data.user.created_at) {
                 userJoinedElement.textContent = new Date(data.user.created_at).toLocaleDateString();
