@@ -56,7 +56,7 @@ INSERT INTO posts (user_id, title, content, category, tags, created_at) VALUES
 (7, 'How to Optimize Your Code for Performance', 'A responsive website is crucial in 2025. Let\'s break down key principles of mobile-friendly design.', 'Technology', 'Responsive Design,Mobile', '2025-02-04 21:28:04'),
 (5, 'How to Optimize Your Code for Performance', 'Artificial Intelligence is changing how we develop web applications. Let\'s explore the trends!', 'Technology', 'AI,Web Development', '2025-02-07 20:50:04'),
 (8, 'Why Blogging is Essential for Developers', 'REST and GraphQL are popular API architectures. Which one should you choose?', 'Lifestyle', 'Blogging,Developers', '2025-01-29 06:50:04'),
-(10, 'The Power of Open Source Contributions', 'Developers should blog to share knowledge and grow their personal brand. Here\'s why!', 'Technology', 'Open Source,Contributions', '2025-01-29 22:51:04'),
+(9, 'The Power of Open Source Contributions', 'Developers should blog to share knowledge and grow their personal brand. Here\'s why!', 'Technology', 'Open Source,Contributions', '2025-01-29 22:51:04'),
 (3, 'Why Blogging is Essential for Developers', 'Scalability is key for backend systems. Learn how to make your backend robust and efficient.', 'Technology', 'Scalability,Backend', '2025-02-22 13:32:04'),
 (4, 'Understanding APIs: REST vs GraphQL', 'CSS frameworks save time. Here are the top frameworks you should consider using this year.', 'Technology', 'CSS,Frameworks', '2025-02-08 10:28:04'),
 (6, 'How to Build a Scalable Backend with Node.js', 'Writing optimized code is an essential skill. Here’s how to speed up your web apps.', 'Technology', 'Node.js,Backend', '2025-02-17 12:50:04'),
