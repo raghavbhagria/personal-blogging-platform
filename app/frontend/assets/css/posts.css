@@ -258,3 +258,44 @@ textarea:focus {
 .comments-section button:hover {
     background: #ffb74d;
 }
+/* ✅ Likes Section */
+.likes-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+/* ✅ Like Button */
+.like-btn {
+    background: #222;
+    color: #e0e0e0;
+    border: 1px solid #ff9800;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.like-btn:hover {
+    background: #ff9800;
+    color: #121212;
+}
+
+/* ✅ Like Button - Active (when post is liked) */
+.like-btn.liked {
+    background: #ff9800;
+    color: #121212;
+}
+
+/* ✅ Like Count */
+.likes-count {
+    font-size: 14px;
+    font-weight: bold;
+    color: #ff9800;
+}

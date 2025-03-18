@@ -5,7 +5,6 @@ document.addEventListener("DOMContentLoaded", function () {
     let currentPage = 1;
     const postsPerPage = 12;
     
-    // ✅ Ensure token is properly retrieved
     let token = localStorage.getItem("token");
     console.log("Retrieved token:", token);
 
@@ -30,22 +29,31 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function displayPosts(posts) {
         postsContainer.innerHTML = "";
-
+    
         if (posts.length === 0) {
             postsContainer.innerHTML = "<p>No posts found.</p>";
             return;
         }
-
+    
         posts.forEach(post => {
             const postElement = document.createElement("div");
             postElement.classList.add("post");
 
+            // ✅ Ensure likes are displayed correctly by fetching the correct count
+            let likesCount = post.likes !== null && post.likes !== undefined ? post.likes : 0;
+    
             postElement.innerHTML = `
                 <h3>${post.title}</h3>
                 <p>${post.content.substring(0, 100)}...</p>
                 <small>Posted by ${post.name} on ${new Date(post.created_at).toLocaleDateString()}</small>
                 <a href="post.html?id=${post.id}" class="read-more-btn">Read More</a>
-
+    
+                <div class="likes-section">
+                    <button class="like-btn" data-post-id="${post.id}">
+                        ❤️ Like (<span id="likes-count-${post.id}">${likesCount}</span>) 
+                    </button>
+                </div>
+    
                 <div class="comments-section">
                     <h4>Comments</h4>
                     <div id="comments-${post.id}" class="comments-list">Loading comments...</div>
@@ -53,10 +61,16 @@ document.addEventListener("DOMContentLoaded", function () {
                     <button onclick="addComment(${post.id})">Post Comment</button>
                 </div>
             `;
-
+    
             postsContainer.appendChild(postElement);
-
+    
             fetchComments(post.id);
+            fetchLikes(post.id); // ✅ Ensure correct like count is fetched
+
+            // Attach like event listener
+            document.querySelector(`.like-btn[data-post-id="${post.id}"]`).addEventListener("click", function () {
+                likePost(post.id);
+            });
         });
     }
 
@@ -82,11 +96,22 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     }
 
+    function fetchLikes(postId) {
+        fetch(`../api/posts/get_likes.php?post_id=${postId}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === "success") {
+                    document.getElementById(`likes-count-${postId}`).textContent = data.likes;
+                }
+            })
+            .catch(error => console.error("Error fetching likes:", error));
+    }
+
     function addComment(postId) {
         const commentInput = document.getElementById(`comment-input-${postId}`);
         const commentText = commentInput.value.trim();
 
-        let token = localStorage.getItem("token"); // ✅ Ensure token retrieval
+        let token = localStorage.getItem("token");
         console.log("Token being sent:", token);
 
         if (!token) {
@@ -103,7 +128,7 @@ document.addEventListener("DOMContentLoaded", function () {
             method: "POST",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
-                "Authorization": `Bearer ${token}` // ✅ Ensure correct header format
+                "Authorization": `Bearer ${token}`
             },
             body: new URLSearchParams({
                 post_id: postId,
@@ -123,7 +148,35 @@ document.addEventListener("DOMContentLoaded", function () {
         .catch(error => console.error("Error adding comment:", error));
     }
 
+    function likePost(postId) {
+        if (!token) {
+            alert("You need to be logged in to like posts.");
+            return;
+        }
+
+        fetch("../api/posts/like_post.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+                "Authorization": `Bearer ${token}`
+            },
+            body: new URLSearchParams({
+                post_id: postId
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                document.getElementById(`likes-count-${postId}`).textContent = data.likes;
+            } else {
+                alert(data.error);
+            }
+        })
+        .catch(error => console.error("Error liking post:", error));
+    }
+
     window.addComment = addComment;
+    window.likePost = likePost;
 
     function setupPagination(totalPages, category) {
         paginationContainer.innerHTML = "";

@@ -14,8 +14,13 @@ if (!$post_id) {
 }
 
 try {
-    // Fetch post details
-    $stmt = $pdo->prepare("SELECT id, title, content, category, tags FROM posts WHERE id = ?");
+    // ✅ Fetch post details along with likes count
+    $stmt = $pdo->prepare("
+        SELECT posts.id, posts.title, posts.content, posts.category, posts.tags,
+               (SELECT COUNT(*) FROM likes WHERE likes.post_id = posts.id) AS likes
+        FROM posts
+        WHERE posts.id = ?
+    ");
     $stmt->execute([$post_id]);
     $post = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -24,21 +29,23 @@ try {
         exit;
     }
 
-    // Fetch comments for the post
-    $commentStmt = $pdo->prepare("SELECT comments.id, comments.comment, comments.created_at, users.name 
-                                  FROM comments 
-                                  JOIN users ON comments.user_id = users.id 
-                                  WHERE comments.post_id = ? 
-                                  ORDER BY comments.created_at ASC");
+    // ✅ Fetch comments for the post
+    $commentStmt = $pdo->prepare("
+        SELECT comments.id, comments.comment, comments.created_at, users.name 
+        FROM comments 
+        JOIN users ON comments.user_id = users.id 
+        WHERE comments.post_id = ? 
+        ORDER BY comments.created_at ASC
+    ");
     $commentStmt->execute([$post_id]);
     $comments = $commentStmt->fetchAll(PDO::FETCH_ASSOC);
 
-    // Attach comments to the post
+    // ✅ Attach likes and comments to the post
     $post['comments'] = $comments;
 
     echo json_encode(["status" => "success", "post" => $post]);
 
 } catch (Exception $e) {
-    echo json_encode(["status" => "error", "message" => "Failed to fetch post"]);
+    echo json_encode(["status" => "error", "message" => "Failed to fetch post", "details" => $e->getMessage()]);
 }
 ?>
