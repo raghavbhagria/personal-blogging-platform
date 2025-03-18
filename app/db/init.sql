@@ -40,16 +40,15 @@ CREATE TABLE IF NOT EXISTS comments (
 
 -- Insert sample users
 INSERT INTO users (id, name, email, password, created_at) VALUES
-(1, 'Admin', 'admin@example.com', 'hashed_password', NOW()),
-(2, 'John Doe', 'user2@blog.com', 'hashed_password', NOW()),
-(3, 'Tech Guru', 'user3@blog.com', 'hashed_password', NOW()),
-(4, 'DevLife', 'user4@blog.com', 'hashed_password', NOW()),
-(5, 'Coder123', 'user5@blog.com', 'hashed_password', NOW()),
-(6, 'AI Enthusiast', 'user6@blog.com', 'hashed_password', NOW()),
-(7, 'Web Master', 'user7@blog.com', 'hashed_password', NOW()),
-(8, 'Frontend Ninja', 'user8@blog.com', 'hashed_password', NOW()),
-(9, 'Backend Beast', 'user9@blog.com', 'hashed_password', NOW()),
-(10, 'Security Expert', 'user10@blog.com', 'hashed_password', NOW());
+(1, 'John Doe', 'user2@blog.com', 'hashed_password', NOW()),
+(2, 'Tech Guru', 'user3@blog.com', 'hashed_password', NOW()),
+(3, 'DevLife', 'user4@blog.com', 'hashed_password', NOW()),
+(4, 'Coder123', 'user5@blog.com', 'hashed_password', NOW()),
+(5, 'AI Enthusiast', 'user6@blog.com', 'hashed_password', NOW()),
+(6, 'Web Master', 'user7@blog.com', 'hashed_password', NOW()),
+(7, 'Frontend Ninja', 'user8@blog.com', 'hashed_password', NOW()),
+(8, 'Backend Beast', 'user9@blog.com', 'hashed_password', NOW()),
+(9, 'Security Expert', 'user10@blog.com', 'hashed_password', NOW());
 
 -- Insert sample posts
 INSERT INTO posts (user_id, title, content, category, tags, created_at) VALUES
