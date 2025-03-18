@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const heroCTA = document.getElementById("hero-cta");
     const userPostsSection = document.getElementById("user-posts-section");
     const userPostsContainer = document.getElementById("userPostsContainer");
-    const categorySelect = document.getElementById("categorySelect");
+    const categoryTabs = document.querySelectorAll(".category-tab");
     const latestPostsContainer = document.getElementById("latestPostsContainer");
     const token = localStorage.getItem("token");
 
@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function fetchPostsByCategory(category) {
         latestPostsContainer.innerHTML = "<p>Loading...</p>";
 
-        fetch(`../api/posts/get_posts_by_category.php?category=${category}`)
+        fetch(`../api/posts/get_posts_by_category.php?category=${category}&limit=3`)
             .then(response => response.json())
             .then(data => {
                 if (data.status === "success") {
@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        posts.forEach(post => {
+        posts.slice(0, 3).forEach(post => {
             const postElement = document.createElement("a");
             postElement.classList.add("post");
             postElement.href = `post.html?id=${post.id}`;
@@ -112,10 +112,18 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Fetch posts when the category changes
-    categorySelect.addEventListener("change", function () {
-        const selectedCategory = categorySelect.value;
-        fetchPostsByCategory(selectedCategory);
+    // Handle category tab clicks
+    categoryTabs.forEach(tab => {
+        tab.addEventListener("click", function () {
+            // Remove active class from all tabs
+            categoryTabs.forEach(t => t.classList.remove("active"));
+            // Add active class to the clicked tab
+            this.classList.add("active");
+
+            // Fetch posts for the selected category
+            const selectedCategory = this.getAttribute("data-category");
+            fetchPostsByCategory(selectedCategory);
+        });
     });
 
     // Fetch posts for the default category (All) on page load

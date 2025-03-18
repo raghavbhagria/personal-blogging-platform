@@ -1,14 +1,15 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const categorySelect = document.getElementById("categorySelect");
+    const categoryTabs = document.querySelectorAll(".category-tab");
     const postsContainer = document.getElementById("postsContainer");
     const paginationContainer = document.getElementById("pagination");
     let currentPage = 1;
+    const postsPerPage = 12; // 3 columns x 4 rows
 
     // Fetch and display posts based on the selected category and page
     function fetchPostsByCategoryAndPage(category, page) {
         postsContainer.innerHTML = "<p>Loading...</p>";
 
-        fetch(`../api/posts/get_posts_by_category.php?category=${category}&page=${page}`)
+        fetch(`../api/posts/get_posts_by_category.php?category=${category}&page=${page}&limit=${postsPerPage}`)
             .then(response => response.json())
             .then(data => {
                 if (data.status === "success") {
@@ -68,13 +69,21 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // Fetch posts when the category changes
-    categorySelect.addEventListener("change", function () {
-        const selectedCategory = categorySelect.value;
-        currentPage = 1;
-        fetchPostsByCategoryAndPage(selectedCategory, currentPage);
+    // Handle category tab clicks
+    categoryTabs.forEach(tab => {
+        tab.addEventListener("click", function () {
+            // Remove active class from all tabs
+            categoryTabs.forEach(t => t.classList.remove("active"));
+            // Add active class to the clicked tab
+            this.classList.add("active");
+
+            // Fetch posts for the selected category
+            const selectedCategory = this.getAttribute("data-category");
+            currentPage = 1; // Reset to the first page
+            fetchPostsByCategoryAndPage(selectedCategory, currentPage);
+        });
     });
 
-    // Fetch posts for the default category (All) and page 1
+    // Fetch posts for the default category (All) and page 1 on page load
     fetchPostsByCategoryAndPage("all", 1);
 });

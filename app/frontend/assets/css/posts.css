@@ -44,30 +44,32 @@ h2 {
 }
 
 /* ✅ Category Filter */
-.category-filter {
-    text-align: center;
+/* Category Tabs */
+.category-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
     margin-bottom: 20px;
 }
 
-.category-filter label {
-    font-size: 16px;
-    color: #e0e0e0;
-    margin-right: 10px;
-}
-
-.category-filter select {
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ff9800;
-    border-radius: 5px;
+.category-tab {
     background: #222;
     color: #e0e0e0;
-    transition: border-color 0.3s;
+    border: 1px solid #ff9800;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s;
 }
 
-.category-filter select:focus {
-    border-color: #ff9800;
-    outline: none;
+.category-tab.active {
+    background: #ff9800;
+    color: #121212;
+}
+
+.category-tab:hover {
+    background: #ff9800;
+    color: #121212;
 }
 
 /* ✅ Posts Container */

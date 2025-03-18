@@ -31,25 +31,24 @@
         <a id="hero-cta" href="register.html" class="cta-btn">Start Writing</a>
     </section>
 
-    <!-- Latest Blog Posts Section -->
-    <section class="latest-posts">
+   <!-- Latest Blog Posts Section -->
+   <section class="latest-posts">
         <h2>Latest Blog Posts</h2>
-        <div class="category-filter">
-            <label for="categorySelect">Filter by Category:</label>
-            <select id="categorySelect">
-                <option value="all">All</option>
-                <option value="technology">Technology</option>
-                <option value="lifestyle">Lifestyle</option>
-                <option value="travel">Travel</option>
-                <option value="health">Health</option>
-                <option value="business">Business</option>
-            </select>
+        <div class="category-tabs">
+            <button class="category-tab active" data-category="all">All</button>
+            <button class="category-tab" data-category="technology">Technology</button>
+            <button class="category-tab" data-category="lifestyle">Lifestyle</button>
+            <button class="category-tab" data-category="travel">Travel</button>
+            <button class="category-tab" data-category="health">Health</button>
+            <button class="category-tab" data-category="business">Business</button>
         </div>
         <div id="latestPostsContainer" class="posts-container">
             <!-- Latest blog posts will be dynamically loaded here -->
         </div>
-        <a href="posts.html" class="cta-btn">Explore More Blogs</a>
-    </section>
+        <div class="explore-more-container">
+            <a href="posts.html" class="cta-btn explore-more-btn">Explore More Blogs</a>
+        </div>
+</section>
 
     <!-- User's Recent Posts Section -->
     <section id="user-posts-section" class="user-posts" style="display: none;">
@@ -57,7 +56,9 @@
         <div id="userPostsContainer" class="posts-container">
             <!-- User's posts will be dynamically loaded here -->
         </div>
-        <a href="userPosts.html" class="cta-btn">More Blogs</a>
+        <div class="explore-more-container">
+            <a href="userPosts.html" class="cta-btn">More Blogs</a>
+        </div>
     </section>
 
     <!-- Footer -->

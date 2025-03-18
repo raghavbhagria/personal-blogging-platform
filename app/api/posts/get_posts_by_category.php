@@ -5,7 +5,7 @@ header("Content-Type: application/json");
 
 $category = $_GET['category'] ?? 'all';
 $page = $_GET['page'] ?? 1;
-$limit = 3; // Number of posts per page
+$limit = 12; // Number of posts per page
 $offset = ($page - 1) * $limit;
 
 try {

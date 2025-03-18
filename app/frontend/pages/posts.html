@@ -19,15 +19,14 @@
     <main>
         <h2>Blog Posts</h2>
         <div class="category-filter">
-            <label for="categorySelect">Filter by Category:</label>
-            <select id="categorySelect">
-                <option value="all">All</option>
-                <option value="technology">Technology</option>
-                <option value="lifestyle">Lifestyle</option>
-                <option value="travel">Travel</option>
-                <option value="health">Health</option>
-                <option value="business">Business</option>
-            </select>
+            <div class="category-tabs">
+                <button class="category-tab active" data-category="all">All</button>
+                <button class="category-tab" data-category="technology">Technology</button>
+                <button class="category-tab" data-category="lifestyle">Lifestyle</button>
+                <button class="category-tab" data-category="travel">Travel</button>
+                <button class="category-tab" data-category="health">Health</button>
+                <button class="category-tab" data-category="business">Business</button>
+            </div>
         </div>
         <div id="postsContainer" class="posts-container">
             <!-- Blog posts will be dynamically loaded here -->
