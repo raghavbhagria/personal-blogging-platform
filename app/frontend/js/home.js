@@ -4,11 +4,14 @@ document.addEventListener("DOMContentLoaded", function () {
     const heroCTA = document.getElementById("hero-cta");
     const userPostsSection = document.getElementById("user-posts-section");
     const userPostsContainer = document.getElementById("userPostsContainer");
+    const categorySelect = document.getElementById("categorySelect");
+    const latestPostsContainer = document.getElementById("latestPostsContainer");
     const token = localStorage.getItem("token");
 
+    // Update hero section and show/hide "Your Recent Posts" section based on login state
     if (token) {
         // User is logged in
-        heroHeading.textContent = "What is on your mind Today?";
+        heroHeading.textContent = "What's on your mind today?";
         heroSubheading.textContent = "Start sharing your thoughts with the world.";
         heroCTA.textContent = "Create Post";
         heroCTA.href = "createPost.html";
@@ -40,6 +43,51 @@ document.addEventListener("DOMContentLoaded", function () {
         userPostsSection.style.display = "none";
     }
 
+    // Fetch and display posts based on the selected category
+    function fetchPostsByCategory(category) {
+        latestPostsContainer.innerHTML = "<p>Loading...</p>";
+
+        fetch(`../api/posts/get_posts_by_category.php?category=${category}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === "success") {
+                    displayLatestPosts(data.posts);
+                } else {
+                    latestPostsContainer.innerHTML = "<p>No posts found for this category.</p>";
+                }
+            })
+            .catch(error => {
+                console.error("Error fetching posts by category:", error);
+                latestPostsContainer.innerHTML = "<p>An error occurred while fetching posts.</p>";
+            });
+    }
+
+    // Display posts in the "Latest Blog Posts" section
+    function displayLatestPosts(posts) {
+        latestPostsContainer.innerHTML = "";
+
+        if (posts.length === 0) {
+            latestPostsContainer.innerHTML = "<p>No posts found.</p>";
+            return;
+        }
+
+        posts.forEach(post => {
+            const postElement = document.createElement("a");
+            postElement.classList.add("post");
+            postElement.href = `post.html?id=${post.id}`;
+
+            postElement.innerHTML = `
+                <h3>${post.title}</h3>
+                <p>${post.content.substring(0, 100)}...</p>
+                <small>Posted on: ${new Date(post.created_at).toLocaleDateString()}</small>
+                <button class="read-more-btn">Read More</button>
+            `;
+
+            latestPostsContainer.appendChild(postElement);
+        });
+    }
+
+    // Display user's recent posts in the "Your Recent Posts" section
     function displayRecentPosts(posts) {
         userPostsContainer.innerHTML = "";
 
@@ -63,4 +111,13 @@ document.addEventListener("DOMContentLoaded", function () {
             userPostsContainer.appendChild(postElement);
         });
     }
+
+    // Fetch posts when the category changes
+    categorySelect.addEventListener("change", function () {
+        const selectedCategory = categorySelect.value;
+        fetchPostsByCategory(selectedCategory);
+    });
+
+    // Fetch posts for the default category (All) on page load
+    fetchPostsByCategory("all");
 });
