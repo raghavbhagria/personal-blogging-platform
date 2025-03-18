@@ -5,59 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile | MyBlog</title>
     <link rel="stylesheet" href="../assets/css/profile.css">
-    <script defer src="../js/profile.js"></script>
 </head>
 <body>
 
     <!-- ✅ Navigation Bar -->
     <header>
-        <div id="navbar-container"></div> <!-- Navbar will be loaded here -->
+        <div id="navbar-container"></div>
         <script>
             fetch("navbar.html")
                 .then(response => response.text())
                 .then(html => {
                     document.getElementById("navbar-container").innerHTML = html;
-                    updateNavbar(); 
+                    updateNavbar();
                 });
         </script>
-        <script defer src="../js/auth.js"></script> 
     </header>
 
     <!-- ✅ Profile Section -->
     <div class="profile-container">
         <div class="profile-card">
-            <div class="profile-header">
-                <h2>Your Profile</h2>
-                <img id="profilePic" src="../assets/default-profile.png" alt="Profile Picture" class="profile-pic">
-            </div>
-            <div class="profile-details">
-                <p><strong>Name:</strong> <span id="userName">Loading...</span></p>
-                <p><strong>Email:</strong> <span id="userEmail">Loading...</span></p>
-             
-            </div>
+            <h2>Your Profile</h2>
+            <img id="profilePic" src="../assets/default-profile.png" alt="Profile Picture" class="profile-pic">
+            <p class="user-name" id="userName">Loading...</p>
+            <p class="user-email" id="userEmail">Loading...</p>
+        
 
-            <!-- ✅ Buttons Section -->
-            <div class="button-group">
+            <!-- ✅ Buttons -->
+            <div class="profile-actions">
                 <button id="editProfileBtn">✏️ Edit Profile</button>
-                <button id="logoutBtn" class="logout">🚪 Logout</button>
-                <button id="deleteAccountBtn" class="delete">🗑️ Delete Account</button>
+                <button id="logoutBtn" class="logout-btn">🚪 Logout</button>
             </div>
         </div>
     </div>
 
-    <script>
-        // Logout Functionality
-        document.getElementById("logoutBtn").addEventListener("click", function () {
-            localStorage.clear();
-            alert("Logged out successfully.");
-            window.location.href = "home.html";
-        });
-
-        // Redirect to Edit Profile Page
-        document.getElementById("editProfileBtn").addEventListener("click", function () {
-            window.location.href = "edit-profile.html";
-        });
-    </script>
-
+    <!-- ✅ JavaScript Files (Moved to Bottom) -->
+    <script defer src="../js/auth.js"></script>
+    <script defer src="../js/profile.js"></script>
 </body>
 </html>
