@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile | MyBlog</title>
+    <link rel="stylesheet" href="../assets/css/profile.css">
+    <script defer src="../js/edit-profile.js"></script>
+</head>
+<body>
+
+    <header>
+        <div id="navbar-container"></div>
+        <script>
+            fetch("navbar.html")
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById("navbar-container").innerHTML = html;
+                });
+        </script>
+    </header>
+
+    <div class="profile-container">
+        <div class="profile-card">
+            <h2>Edit Profile</h2>
+            
+            <input type="file" id="profilePicInput" accept="image/*">
+            
+            <input type="text" id="newName" placeholder="New Name">
+            <input type="email" id="newEmail" placeholder="New Email">
+            <input type="password" id="newPassword" placeholder="New Password (Leave blank to keep current)">
+            
+            <button id="saveProfileBtn">Save Changes</button>
+            <button id="cancelBtn" class="logout">Cancel</button>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("cancelBtn").addEventListener("click", function () {
+            window.location.href = "profile.html";
+        });
+    </script>
+
+</body>
+</html>
