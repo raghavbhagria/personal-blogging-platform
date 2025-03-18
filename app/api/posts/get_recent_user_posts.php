@@ -1,11 +1,14 @@
 <?php
 require '../../config/database.php';
+require '../../middleware/auth.php';
 
 header("Content-Type: application/json");
 
+$user = authenticate();
+
 try {
-    $stmt = $pdo->prepare("SELECT posts.id, posts.title, posts.content, posts.created_at, users.name AS author FROM posts JOIN users ON posts.user_id = users.id ORDER BY posts.created_at DESC");
-    $stmt->execute();
+    $stmt = $pdo->prepare("SELECT id, title, content, created_at, category, tags FROM posts WHERE user_id = ? ORDER BY created_at DESC LIMIT 3");
+    $stmt->execute([$user['id']]);
     $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     echo json_encode(["status" => "success", "posts" => $posts]);

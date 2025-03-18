@@ -1,113 +1,188 @@
-/* ✅ Dark Background */
+/* ✅ Global Styles */
 body {
-    background: #181818;
-    color: white;
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    background: #121212;
+    color: #e0e0e0;
 }
 
-/* ✅ Page Container */
-.container {
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 20px;
+/* ✅ Navigation Bar */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background: #1e1e1e;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ff9800;
+}
+
+nav a {
+    color: #e0e0e0;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 16px;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: #ff9800;
 }
 
 /* ✅ Page Title */
-.page-title {
+h2 {
     text-align: center;
     font-size: 2rem;
-    margin-bottom: 20px;
-    color: #f39c12;
+    margin: 20px 0;
+    color: #ff9800;
 }
 
-/* ✅ Facebook-Style Feed */
-.posts-feed {
+/* ✅ Category Filter */
+/* Category Tabs */
+.category-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.category-tab {
+    background: #222;
+    color: #e0e0e0;
+    border: 1px solid #ff9800;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s;
+}
+
+.category-tab.active {
+    background: #ff9800;
+    color: #121212;
+}
+
+.category-tab:hover {
+    background: #ff9800;
+    color: #121212;
+}
+
+/* ✅ Posts Container */
+.posts-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* ✅ Post Card */
+.post {
+    background: linear-gradient(135deg, #2c2c2c, #1e1e1e);
+    padding: 20px;
+    width: 300px;
+    min-height: 250px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: flex;
     flex-direction: column;
-    gap: 15px;
-}
-
-/* ✅ Individual Post */
-.post {
-    background: #222;
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(255, 255, 255, 0.1);
-    transition: transform 0.2s;
+    justify-content: space-between;
+    text-decoration: none;
+    color: #e0e0e0;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
 }
 
 .post:hover {
-    transform: scale(1.02);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(255, 152, 0, 0.3);
 }
 
-/* ✅ Post Header */
-.post-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+/* ✅ Post Title */
+.post h3 {
+    color: #ff9800;
+    font-size: 20px;
+    font-weight: bold;
     margin-bottom: 10px;
 }
 
-.post-user-icon {
-    width: 40px;
-    height: 40px;
-    background: #f39c12;
-    color: black;
-    font-size: 1.5rem;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-}
-
-/* ✅ Post Info */
-.post-info h3 {
-    margin: 0;
-    font-size: 1.2rem;
-    color: white;
-}
-
-.post-info small {
-    color: gray;
-}
-
 /* ✅ Post Content */
-.post-content {
-    font-size: 1rem;
+.post p {
+    color: #b0b0b0;
+    font-size: 14px;
     line-height: 1.5;
-    color: #ddd;
+    margin-bottom: 30px;
+    max-height: 80px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-/* ✅ Post Footer (Like & Read More) */
-.post-footer {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
+/* ✅ Post Date */
+.post small {
+    font-size: 12px;
+    color: #a0a0a0;
 }
 
-.like-button {
-    background: #3498db;
-    color: white;
-    border: none;
+/* ✅ Read More Button */
+.read-more-btn {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    background: transparent;
+    color: #ff9800;
+    border: 1px solid #ff9800;
     padding: 8px 12px;
+    font-size: 14px;
+    font-weight: bold;
     border-radius: 5px;
     cursor: pointer;
-    transition: 0.2s;
+    transition: background 0.3s, color 0.3s;
 }
 
-.like-button:hover {
-    background: #2980b9;
+.read-more-btn:hover {
+    background: #ff9800;
+    color: #121212;
 }
 
-.read-more {
-    text-decoration: none;
-    color: #f39c12;
-    font-weight: bold;
+/* ✅ Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
 }
 
-.read-more:hover {
-    text-decoration: underline;
+.pagination-btn {
+    background: #222;
+    color: #e0e0e0;
+    border: 1px solid #ff9800;
+    padding: 8px 12px;
+    margin: 0 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.pagination-btn:hover {
+    background: #ff9800;
+    color: #121212;
+}
+
+.pagination-btn.active {
+    background: #ff9800;
+    color: #121212;
+}
+
+/* ✅ Footer */
+footer {
+    text-align: center;
+    padding: 20px;
+    background: #1e1e1e;
+    color: #e0e0e0;
 }

@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create New Post | MyBlog</title>
+    <title>Edit Post | MyBlog</title>
     <link rel="stylesheet" href="../assets/css/createPost.css">
-    <script defer src="../js/createPost.js"></script>
+    <script defer src="../js/editPost.js"></script>
 </head>
 <body>
     <header>
@@ -13,13 +13,13 @@
         <nav>
             <a href="home.html">Home</a>
             <a href="posts.html">Blog Posts</a>
-            <a href="createPost.html" class="active">Create Post</a>
+            <a href="createPost.html">Create Post</a>
             <button id="logoutBtn">Logout</button>
         </nav>
     </header>
     <main>
-        <h2>Create New Post</h2>
-        <form id="createPostForm">
+        <h2>Edit Post</h2>
+        <form id="editPostForm">
             <label for="postTitle">Title:</label>
             <input type="text" id="postTitle" name="postTitle" placeholder="Enter post title" required>
 
@@ -39,7 +39,7 @@
             <label for="postTags">Tags:</label>
             <input type="text" id="postTags" name="postTags" placeholder="Enter tags separated by commas">
 
-            <button type="submit">Publish</button>
+            <button type="submit">Update</button>
         </form>
     </main>
 </body>
