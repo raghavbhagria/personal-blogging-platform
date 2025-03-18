@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const postElement = document.createElement("div");
             postElement.classList.add("post");
 
-            // ✅ Ensure likes are displayed correctly by fetching the correct count
+            // ✅ Fetching likes dynamically to prevent incorrect display
             let likesCount = post.likes !== null && post.likes !== undefined ? post.likes : 0;
     
             postElement.innerHTML = `
@@ -67,13 +67,13 @@ document.addEventListener("DOMContentLoaded", function () {
             fetchComments(post.id);
             fetchLikes(post.id); // ✅ Ensure correct like count is fetched
 
-            // Attach like event listener
-            document.querySelector(`.like-btn[data-post-id="${post.id}"]`).addEventListener("click", function () {
+            // ✅ Ensure like event listeners are attached properly
+            const likeButton = postElement.querySelector(".like-btn");
+            likeButton.addEventListener("click", function () {
                 likePost(post.id);
             });
         });
     }
-
     function fetchComments(postId) {
         fetch(`../api/comments/get_comments.php?post_id=${postId}`)
             .then(response => response.json())

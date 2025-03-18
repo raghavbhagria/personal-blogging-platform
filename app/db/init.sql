@@ -63,12 +63,12 @@ INSERT INTO users (id, name, email, password, created_at) VALUES
 (9, 'Security Expert', 'user10@blog.com', 'hashed_password', NOW());
 
 -- Insert sample posts (with default likes = 0)
-INSERT INTO posts (id, user_id, title, content, category, tags, likes, created_at) VALUES
-(1, 6, 'How to Optimize Your Code for Performance', 'REST and GraphQL are popular API architectures. Which one should you choose?', 'Technology', 'REST,GraphQL,API', 5, '2025-02-06 07:33:04'),
-(2, 7, 'How to Optimize Your Code for Performance', 'A responsive website is crucial in 2025. Let\'s break down key principles of mobile-friendly design.', 'Technology', 'Responsive Design,Mobile', 3, '2025-02-04 21:28:04'),
-(3, 5, 'How to Optimize Your Code for Performance', 'Artificial Intelligence is changing how we develop web applications. Let\'s explore the trends!', 'Technology', 'AI,Web Development', 7, '2025-02-07 20:50:04'),
-(4, 8, 'Why Blogging is Essential for Developers', 'REST and GraphQL are popular API architectures. Which one should you choose?', 'Lifestyle', 'Blogging,Developers', 2, '2025-01-29 06:50:04'),
-(5, 9, 'The Power of Open Source Contributions', 'Developers should blog to share knowledge and grow their personal brand. Here\'s why!', 'Technology', 'Open Source,Contributions', 6, '2025-01-29 22:51:04');
+INSERT INTO posts (id, user_id, title, content, category, tags, created_at) VALUES
+(1, 6, 'How to Optimize Your Code for Performance', 'REST and GraphQL are popular API architectures. Which one should you choose?', 'Technology', 'REST,GraphQL,API',  '2025-02-06 07:33:04'),
+(2, 7, 'How to Optimize Your Code for Performance', 'A responsive website is crucial in 2025. Let\'s break down key principles of mobile-friendly design.', 'Technology', 'Responsive Design,Mobile',  '2025-02-04 21:28:04'),
+(3, 5, 'How to Optimize Your Code for Performance', 'Artificial Intelligence is changing how we develop web applications. Let\'s explore the trends!', 'Technology', 'AI,Web Development', '2025-02-07 20:50:04'),
+(4, 8, 'Why Blogging is Essential for Developers', 'REST and GraphQL are popular API architectures. Which one should you choose?', 'Lifestyle', 'Blogging,Developers', '2025-01-29 06:50:04'),
+(5, 9, 'The Power of Open Source Contributions', 'Developers should blog to share knowledge and grow their personal brand. Here\'s why!', 'Technology', 'Open Source,Contributions',  '2025-01-29 22:51:04');
 
 -- ✅ Insert sample comments
 INSERT INTO comments (post_id, user_id, comment, created_at) VALUES
@@ -83,10 +83,3 @@ INSERT INTO comments (post_id, user_id, comment, created_at) VALUES
 (5, 3, 'I recently contributed to an open-source project. It was an amazing experience.', '2025-02-02 09:25:00'),
 (5, 8, 'Which open-source projects do you recommend for beginners?', '2025-02-02 16:40:00');
 
--- ✅ Insert sample likes (Each user can like only once)
-INSERT INTO likes (user_id, post_id, created_at) VALUES
-(1, 1, NOW()), (2, 1, NOW()), (3, 1, NOW()), (4, 1, NOW()), (5, 1, NOW()), -- 5 Likes on Post 1
-(1, 2, NOW()), (2, 2, NOW()), (3, 2, NOW()), -- 3 Likes on Post 2
-(1, 3, NOW()), (2, 3, NOW()), (3, 3, NOW()), (4, 3, NOW()), (5, 3, NOW()), (6, 3, NOW()), (7, 3, NOW()), -- 7 Likes on Post 3
-(1, 4, NOW()), (2, 4, NOW()), -- 2 Likes on Post 4
-(1, 5, NOW()), (2, 5, NOW()), (3, 5, NOW()), (4, 5, NOW()), (5, 5, NOW()), (6, 5, NOW()); -- 6 Likes on Post 5
