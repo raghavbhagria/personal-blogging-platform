@@ -22,8 +22,9 @@ COPY app/ /var/www/html/
 COPY app/frontend/js/ /var/www/html/frontend/js/
 COPY app/frontend/assets/ /var/www/html/frontend/assets/
 
-# Install dependencies inside the container
-RUN cd /var/www/html && composer install --no-dev --prefer-dist
+# Ensure composer dependencies are installed
+WORKDIR /var/www/html
+RUN composer install --no-dev --prefer-dist
 
 # Set home.html as default index
 RUN rm -f /var/www/html/index.html && ln -s /var/www/html/frontend/pages/home.html /var/www/html/index.html
@@ -44,4 +45,4 @@ RUN chmod +x /usr/local/bin/entrypoint.sh
 EXPOSE 80
 
 # Use the custom entrypoint script
-ENTRYPOINT ["entrypoint.sh"]
+ENTRYPOINT ["/bin/sh", "/usr/local/bin/entrypoint.sh"]

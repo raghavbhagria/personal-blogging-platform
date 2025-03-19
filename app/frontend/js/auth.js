@@ -85,19 +85,30 @@ function loginUser() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password })
     })
-    .then(response => response.json())
-    .then(data => {
-        if (data.status === "success") {
-            localStorage.setItem("token", data.token); 
-            localStorage.setItem("user", JSON.stringify(data.user)); // Store user data
-            alert("Login successful! Redirecting...");
-            if (data.user.isAdmin) {
-                window.location.href = "admin.html"; // Redirect to admin dashboard
+    .then(response => {
+        if (!response.ok) {
+            throw new Error("Network response was not ok");
+        }
+        return response.text(); // Get response as text
+    })
+    .then(text => {
+        try {
+            const data = JSON.parse(text); // Try to parse JSON
+            if (data.status === "success") {
+                localStorage.setItem("token", data.token); 
+                localStorage.setItem("user", JSON.stringify(data.user)); // Store user data
+                alert("Login successful! Redirecting...");
+                if (data.user.isAdmin) {
+                    window.location.href = "admin.html"; // Redirect to admin dashboard
+                } else {
+                    window.location.href = "dashboard.html"; // Redirect to user dashboard
+                }
             } else {
-                window.location.href = "dashboard.html"; // Redirect to user dashboard
+                showError("Login failed: " + data.message);
             }
-        } else {
-            showError("Login failed: " + data.message);
+        } catch (error) {
+            showError("❌ Error: Invalid JSON response");
+            console.error("Invalid JSON response:", text);
         }
     })
     .catch(error => showError("❌ Error: " + error.message));
