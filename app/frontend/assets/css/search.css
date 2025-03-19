@@ -116,3 +116,9 @@ button:hover {
 .result-item p {
     margin: 5px 0;
 }
+
+/* Highlighted Text */
+.highlight {
+    background-color: yellow;
+    color: black;
+}

@@ -3,7 +3,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #111;
+        background: #111;
     padding: 10px 20px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
     position: sticky;
@@ -33,7 +33,7 @@ nav {
 }
 
 nav a {
-    text-decoration: none;
+        text-decoration: none;
     color: white;
     font-size: 1rem;
     font-weight: 500;
@@ -61,7 +61,7 @@ nav a.active {
     border: none;
     padding: 8px 12px;
     border-radius: 8px;
-    font-size: 1rem;
+font-size: 1rem;
     font-weight: bold;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
@@ -80,6 +80,40 @@ nav a.active {
     object-fit: cover;
     margin-left: 10px;
     border: 2px solid #f39c12; /* Add a border for better visibility */
+}
+
+/* ✅ Navbar Search Form */
+#navbarSearchForm {
+    display: flex;
+    align-items: center;
+}
+
+#navbarSearchQuery {
+    padding: 5px;
+    margin-left: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: #222;
+    color: white;
+}
+
+#navbarSearchQuery:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+#navbarSearchForm button {
+    padding: 5px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+#navbarSearchForm button:hover {
+    background: #0056b3;
 }
 
 /* ✅ Responsive Design */

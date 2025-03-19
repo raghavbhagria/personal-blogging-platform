@@ -4,14 +4,15 @@
     <nav>
         <a href="home.html">Home</a>
         <a href="posts.html" id="dashboardLink">Blog Posts</a> <!-- Always Visible -->
-       
-        
         <a href="createPost.html" id="createPostLink" style="display: none;">📝 Create Post</a>
         <a href="profile.html" id="profileLink" style="display: none;">👤 View Profile</a>
-        
         <a href="login.html" id="loginLink" style="display: none;">Login</a>
         <a href="register.html" id="registerLink" style="display: none;">Sign Up</a>
-       
+        <!-- Search Form -->
+        <form id="navbarSearchForm" style="display: flex; align-items: center;">
+            <input type="text" id="navbarSearchQuery" placeholder="Search..." style="padding: 5px; margin-left: 10px;">
+            <button type="submit" style="padding: 5px;">🔍</button>
+        </form>
         <button id="logoutButton" style="display: none;">Logout</button>
     </nav>
 </header>

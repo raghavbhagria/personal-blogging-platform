@@ -7,6 +7,31 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(html => {
             document.getElementById("navbar-container").innerHTML = html;
             updateNavbar(); // Update navbar based on login state
+
+            // Add search functionality
+            const navbarSearchForm = document.getElementById("navbarSearchForm");
+            const navbarSearchQuery = document.getElementById("navbarSearchQuery");
+
+            if (navbarSearchForm && navbarSearchQuery) {
+                navbarSearchForm.addEventListener("submit", function (event) {
+                    event.preventDefault();
+                    const query = navbarSearchQuery.value.trim();
+                    if (query) {
+                        // Redirect to search.html with the query as a parameter
+                        window.location.href = `search.html?query=${encodeURIComponent(query)}`;
+                    }
+                });
+
+                // Add input event listener for real-time search
+                navbarSearchQuery.addEventListener("input", function () {
+                    const query = navbarSearchQuery.value.trim();
+                    if (query) {
+                        searchAndHighlight(query);
+                    } else {
+                        clearHighlights();
+                    }
+                });
+            }
         });
 
     // Check user authentication for protected pages
@@ -37,6 +62,23 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
+
+// Search and highlight function
+function searchAndHighlight(query) {
+    const posts = document.querySelectorAll(".post-content");
+    posts.forEach(post => {
+        const regex = new RegExp(`(${query})`, "gi");
+        post.innerHTML = post.innerHTML.replace(regex, '<span class="highlight">$1</span>');
+    });
+}
+
+// Clear highlights function
+function clearHighlights() {
+    const posts = document.querySelectorAll(".post-content");
+    posts.forEach(post => {
+        post.innerHTML = post.innerHTML.replace(/<span class="highlight">(.*?)<\/span>/gi, '$1');
+    });
+}
 
 // ✅ Register User Function
 function registerUser() {
@@ -117,7 +159,7 @@ function loginUser() {
 // ✅ Check if User is Authenticated (For Protected Pages)
 function checkUserAuthentication() {
     const token = localStorage.getItem("token");
-        const protectedPages = ["dashboard.html", "admin.html", "profile.html", "createPost.html"];
+    const protectedPages = ["dashboard.html", "admin.html", "profile.html", "createPost.html"];
 
     if (!token && protectedPages.includes(window.location.pathname.split("/").pop())) {
         alert("You must be logged in to access this page.");

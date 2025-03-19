@@ -43,24 +43,25 @@ document.addEventListener("DOMContentLoaded", function () {
             let likesCount = post.likes !== null && post.likes !== undefined ? post.likes : 0;
     
             postElement.innerHTML = `
-                <h3>${post.title}</h3>
-                <p>${post.content.substring(0, 100)}...</p>
-                <small>Posted by ${post.name} on ${new Date(post.created_at).toLocaleDateString()}</small>
-                <a href="post.html?id=${post.id}" class="read-more-btn">Read More</a>
-    
-                <div class="likes-section">
-                    <button class="like-btn" data-post-id="${post.id}">
-                        ❤️ Like (<span id="likes-count-${post.id}">${likesCount}</span>) 
-                    </button>
-                </div>
-    
-                <div class="comments-section">
-                    <h4>Comments</h4>
-                    <div id="comments-${post.id}" class="comments-list">Loading comments...</div>
-                    <textarea id="comment-input-${post.id}" placeholder="Write a comment..."></textarea>
-                    <button onclick="addComment(${post.id})">Post Comment</button>
-                </div>
-            `;
+            <h3>${post.title}</h3>
+            <p class="post-content">${post.content.substring(0, 100)}...</p>
+            <small>Posted by ${post.name} on ${new Date(post.created_at).toLocaleDateString()}</small>
+            <a href="post.html?id=${post.id}" class="read-more-btn">Read More</a>
+
+            <div class="likes-section">
+                <button class="like-btn" data-post-id="${post.id}">
+                    ❤️ Like (<span id="likes-count-${post.id}">${likesCount}</span>) 
+                </button>
+                <span class="likes-count" id="likes-count-${post.id}">${likesCount}</span>
+            </div>
+
+            <div class="comments-section">
+                <h4>Comments</h4>
+                <div id="comments-${post.id}" class="comments-list">Loading comments...</div>
+                <textarea id="comment-input-${post.id}" placeholder="Write a comment..."></textarea>
+                <button onclick="addComment(${post.id})">Post Comment</button>
+            </div>
+        `;
     
             postsContainer.appendChild(postElement);
     
