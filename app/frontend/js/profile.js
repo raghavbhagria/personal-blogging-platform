@@ -4,8 +4,8 @@ document.addEventListener("DOMContentLoaded", function () {
     // ✅ Select Elements Safely
     const userNameElement = document.getElementById("userName");
     const userEmailElement = document.getElementById("userEmail");
-  
-   
+    const profileImage = document.getElementById("profileImage"); // Get the image element
+
     const editProfileBtn = document.getElementById("editProfileBtn");
     const logoutBtn = document.getElementById("logoutBtn");
 
@@ -34,12 +34,12 @@ document.addEventListener("DOMContentLoaded", function () {
             // ✅ Populate the profile details
             userNameElement.textContent = data.user.name;
             userEmailElement.textContent = data.user.email;
-           
 
-            if (data.user.created_at) {
-                userJoinedElement.textContent = new Date(data.user.created_at).toLocaleDateString();
+            // Set the profile image
+            if (data.user.profile_image) {
+                profileImage.src = `uploads/${data.user.profile_image}`; // Adjust path as needed
             } else {
-                
+                profileImage.src = 'path/to/default/image.png'; // Set a default image
             }
         } else {
             console.error("⚠️ Session expired. Logging out.");

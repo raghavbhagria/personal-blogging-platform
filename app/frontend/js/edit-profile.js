@@ -1,12 +1,14 @@
 document.addEventListener("DOMContentLoaded", function () {
     console.log("✅ Edit Profile Page Loaded");
 
-    
+    // ✅ Select Elements Safely
     const newNameInput = document.getElementById("newName");
     const newEmailInput = document.getElementById("newEmail");
     const newPasswordInput = document.getElementById("newPassword");
     const editProfileForm = document.getElementById("editProfileForm");
     const cancelEditBtn = document.getElementById("cancelEditBtn");
+    const newProfileImageInput = document.getElementById("newProfileImage"); // Get the file input
+    const currentProfileImage = document.getElementById("currentProfileImage");
 
     const token = localStorage.getItem("token");
 
@@ -31,7 +33,13 @@ document.addEventListener("DOMContentLoaded", function () {
         if (data.status === "success") {
             newNameInput.value = data.user.name;
             newEmailInput.value = data.user.email;
-      
+
+            // Set the current profile image
+            if (data.user.profile_image) {
+                currentProfileImage.src = `uploads/${data.user.profile_image}`; // Adjust path as needed
+            } else {
+                currentProfileImage.src = 'path/to/default/image.png'; // Set a default image
+            }
         } else {
             alert("⚠️ Session expired. Please log in again.");
             localStorage.removeItem("token");
@@ -43,9 +51,6 @@ document.addEventListener("DOMContentLoaded", function () {
         localStorage.removeItem("token");
         window.location.href = "login.html";
     });
-
-    
-   
 
     // ✅ Handle Profile Update Form Submission (Uses `/api/user/update_profile.php`)
     editProfileForm.addEventListener("submit", function (event) {
@@ -60,17 +65,22 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
+        const formData = new FormData();
+        formData.append("name", newName);
+        formData.append("email", newEmail);
+        if (newPassword) {
+            formData.append("password", newPassword);
+        }
+        if (newProfileImageInput.files.length > 0) {
+            formData.append("profile_image", newProfileImageInput.files[0]);
+        }
+
         fetch("../api/user/update_profile.php", {  // ✅ Correct API path
             method: "POST",
             headers: {
-                "Authorization": `Bearer ${token}`,
-                "Content-Type": "application/json"
+                "Authorization": `Bearer ${token}`
             },
-            body: JSON.stringify({
-                name: newName,
-                email: newEmail,
-                password: newPassword ? newPassword : null
-            })
+            body: formData // Use FormData for file uploads
         })
         .then(response => response.json())
         .then(data => {

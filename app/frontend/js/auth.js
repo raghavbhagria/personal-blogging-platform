@@ -87,16 +87,24 @@ function registerUser() {
     const name = document.getElementById("name").value.trim();
     const email = document.getElementById("email").value.trim();
     const password = document.getElementById("password").value.trim();
+    const profileImageInput = document.getElementById("profile_image"); // Get the file input
 
     if (!name || !email || !password) {
         showError("All fields are required.");
         return;
     }
 
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("email", email);
+    formData.append("password", password);
+    if (profileImageInput.files.length > 0) {
+        formData.append("profile_image", profileImageInput.files[0]); // Append the image file
+    }
+
     fetch("../api/auth/register.php", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, password })
+        body: formData // Use FormData for file uploads
     })
     .then(response => response.json())
     .then(data => {

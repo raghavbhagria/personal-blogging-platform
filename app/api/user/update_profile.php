@@ -29,6 +29,21 @@ $name = trim($input['name'] ?? '');
 $email = trim($input['email'] ?? '');
 $password = $input['password'] ?? null;
 
+// Image Upload Handling
+$profile_image = null;
+
+if (isset($_FILES['profile_image']) && $_FILES['profile_image']['error'] === UPLOAD_ERR_OK) {
+    $uploadDir = '../../uploads/';
+    $uploadFile = $uploadDir . basename($_FILES['profile_image']['name']);
+
+    if (move_uploaded_file($_FILES['profile_image']['tmp_name'], $uploadFile)) {
+        $profile_image = basename($uploadFile);
+    } else {
+        echo json_encode(["status" => "error", "message" => "Image upload failed."]);
+        exit;
+    }
+}
+
 if (!$name || !$email) {
     echo json_encode(["status" => "error", "message" => "Name and email are required"]);
     exit;
@@ -37,11 +52,22 @@ if (!$name || !$email) {
 // ✅ Step 2: Update User Info in Database
 if ($password) {
     $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
-    $stmt = $pdo->prepare("UPDATE users SET name = ?, email = ?, password = ? WHERE id = ?");
-    $stmt->execute([$name, $email, $hashedPassword, $userData['id']]);
+    if ($profile_image) {
+        $stmt = $pdo->prepare("UPDATE users SET name = ?, email = ?, password = ?, profile_image = ? WHERE id = ?");
+        $stmt->execute([$name, $email, $hashedPassword, $profile_image, $userData['id']]);
+    } else {
+        $stmt = $pdo->prepare("UPDATE users SET name = ?, email = ?, password = ? WHERE id = ?");
+        $stmt->execute([$name, $email, $hashedPassword, $userData['id']]);
+    }
 } else {
-    $stmt = $pdo->prepare("UPDATE users SET name = ?, email = ? WHERE id = ?");
-    $stmt->execute([$name, $email, $userData['id']]);
+    if ($profile_image) {
+        $stmt = $pdo->prepare("UPDATE users SET name = ?, email = ?, profile_image = ? WHERE id = ?");
+        $stmt->execute([$name, $email, $profile_image, $userData['id']]);
+    } else {
+        $stmt = $pdo->prepare("UPDATE users SET name = ?, email = ? WHERE id = ?");
+        $stmt->execute([$name, $email, $userData['id']]);
+    }
 }
 
 echo json_encode(["status" => "success", "message" => "Profile updated"]);
+?>

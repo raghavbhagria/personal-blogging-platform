@@ -26,9 +26,11 @@
         <div class="profile-card">
             <h2>Edit Profile</h2>
             
-            
-            <!-- ✅ Upload Profile Picture -->
-           
+            <!-- ✅ Display Current Profile Picture -->
+            <div class="profile-pic-section">
+                <img id="currentProfileImage" src="" alt="Profile Picture" class="profile-pic">
+                <input type="file" id="newProfileImage" name="profile_image" accept="image/*">
+            </div>
             
             <form id="editProfileForm">
                 <input type="text" id="newName" placeholder="New Name">
