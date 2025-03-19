@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS users (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
--- Create posts table
+-- Create posts table (with likes column)
 CREATE TABLE IF NOT EXISTS posts (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
@@ -22,6 +22,7 @@ CREATE TABLE IF NOT EXISTS posts (
     content TEXT NOT NULL,
     category VARCHAR(255) NOT NULL,
     tags VARCHAR(255) NOT NULL,
+    likes INT DEFAULT 0, -- ✅ Added likes column
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
@@ -38,6 +39,17 @@ CREATE TABLE IF NOT EXISTS comments (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
+-- ✅ Create likes table (Prevents duplicate likes by tracking user ID and post ID)
+CREATE TABLE IF NOT EXISTS likes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    post_id INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (post_id) REFERENCES posts(id) ON DELETE CASCADE,
+    UNIQUE (user_id, post_id) -- Ensures each user can only like a post once
+);
+
 -- Insert sample users
 INSERT INTO users (id, name, email, password, created_at) VALUES
 (1, 'John Doe', 'user2@blog.com', 'hashed_password', NOW()),
@@ -50,15 +62,24 @@ INSERT INTO users (id, name, email, password, created_at) VALUES
 (8, 'Backend Beast', 'user9@blog.com', 'hashed_password', NOW()),
 (9, 'Security Expert', 'user10@blog.com', 'hashed_password', NOW());
 
--- Insert sample posts
-INSERT INTO posts (user_id, title, content, category, tags, created_at) VALUES
-(6, 'How to Optimize Your Code for Performance', 'REST and GraphQL are popular API architectures. Which one should you choose?', 'Technology', 'REST,GraphQL,API', '2025-02-06 07:33:04'),
-(7, 'How to Optimize Your Code for Performance', 'A responsive website is crucial in 2025. Let\'s break down key principles of mobile-friendly design.', 'Technology', 'Responsive Design,Mobile', '2025-02-04 21:28:04'),
-(5, 'How to Optimize Your Code for Performance', 'Artificial Intelligence is changing how we develop web applications. Let\'s explore the trends!', 'Technology', 'AI,Web Development', '2025-02-07 20:50:04'),
-(8, 'Why Blogging is Essential for Developers', 'REST and GraphQL are popular API architectures. Which one should you choose?', 'Lifestyle', 'Blogging,Developers', '2025-01-29 06:50:04'),
-(9, 'The Power of Open Source Contributions', 'Developers should blog to share knowledge and grow their personal brand. Here\'s why!', 'Technology', 'Open Source,Contributions', '2025-01-29 22:51:04'),
-(3, 'Why Blogging is Essential for Developers', 'Scalability is key for backend systems. Learn how to make your backend robust and efficient.', 'Technology', 'Scalability,Backend', '2025-02-22 13:32:04'),
-(4, 'Understanding APIs: REST vs GraphQL', 'CSS frameworks save time. Here are the top frameworks you should consider using this year.', 'Technology', 'CSS,Frameworks', '2025-02-08 10:28:04'),
-(6, 'How to Build a Scalable Backend with Node.js', 'Writing optimized code is an essential skill. Here’s how to speed up your web apps.', 'Technology', 'Node.js,Backend', '2025-02-17 12:50:04'),
-(4, 'Why Blogging is Essential for Developers', 'Here are some neat JavaScript tricks that can boost your productivity as a developer.', 'Technology', 'JavaScript,Productivity', '2025-02-16 02:11:04'),
-(4, '10 JavaScript Tricks You Need to Know', 'Contributing to open source projects is a great way to learn and network. Get started today!', 'Technology', 'JavaScript,Open Source', '2025-02-06 08:11:04');
+-- Insert sample posts (with default likes = 0)
+INSERT INTO posts (id, user_id, title, content, category, tags, created_at) VALUES
+(1, 6, 'How to Optimize Your Code for Performance', 'REST and GraphQL are popular API architectures. Which one should you choose?', 'Technology', 'REST,GraphQL,API',  '2025-02-06 07:33:04'),
+(2, 7, 'How to Optimize Your Code for Performance', 'A responsive website is crucial in 2025. Let\'s break down key principles of mobile-friendly design.', 'Technology', 'Responsive Design,Mobile',  '2025-02-04 21:28:04'),
+(3, 5, 'How to Optimize Your Code for Performance', 'Artificial Intelligence is changing how we develop web applications. Let\'s explore the trends!', 'Technology', 'AI,Web Development', '2025-02-07 20:50:04'),
+(4, 8, 'Why Blogging is Essential for Developers', 'REST and GraphQL are popular API architectures. Which one should you choose?', 'Lifestyle', 'Blogging,Developers', '2025-01-29 06:50:04'),
+(5, 9, 'The Power of Open Source Contributions', 'Developers should blog to share knowledge and grow their personal brand. Here\'s why!', 'Technology', 'Open Source,Contributions',  '2025-01-29 22:51:04');
+
+-- ✅ Insert sample comments
+INSERT INTO comments (post_id, user_id, comment, created_at) VALUES
+(1, 2, 'Great post! Really helped me understand the difference between REST and GraphQL.', '2025-02-06 10:15:00'),
+(1, 3, 'I prefer REST for small projects but GraphQL for larger ones. Thoughts?', '2025-02-06 11:30:00'),
+(2, 4, 'Responsive design is a must these days. Do you have recommendations for frameworks?', '2025-02-05 09:45:00'),
+(3, 6, 'AI is revolutionizing web dev. I love using TensorFlow.js!', '2025-02-08 13:20:00'),
+(3, 7, 'What are your thoughts on AI-generated code? Will it replace developers?', '2025-02-08 15:45:00'),
+(4, 5, 'Blogging is essential for personal branding. I started my own last year!', '2025-01-30 08:50:00'),
+(4, 9, 'Nice insights! Blogging has really helped me share my knowledge.', '2025-02-01 14:10:00'),
+(5, 1, 'Open-source contributions helped me land my first dev job!', '2025-01-30 18:30:00'),
+(5, 3, 'I recently contributed to an open-source project. It was an amazing experience.', '2025-02-02 09:25:00'),
+(5, 8, 'Which open-source projects do you recommend for beginners?', '2025-02-02 16:40:00');
+

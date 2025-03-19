@@ -125,17 +125,16 @@ function updateNavbar() {
     const loginLink = document.getElementById("loginLink"); // Login
     const registerLink = document.getElementById("registerLink"); // Sign Up
     const logoutBtn = document.getElementById("logoutButton"); // Logout
-    const profilePicSmall = document.getElementById("profilePicSmall"); // Small Profile Picture
+   
 
-    if (!dashboardLink || !profileLink || !createPostLink || !loginLink || !registerLink || !logoutBtn || !profilePicSmall) return;
+    if (!dashboardLink || !profileLink || !createPostLink || !loginLink || !registerLink || !logoutBtn  ) return;
 
     if (token && user) {
         // ✅ User is logged in → Show "Profile", "Create Post", "Logout", and Profile Picture, Hide "Login" & "Sign Up"
         profileLink.style.display = "inline";
         createPostLink.style.display = "inline";
         logoutBtn.style.display = "inline";
-        profilePicSmall.style.display = "inline";
-        profilePicSmall.src = user.profile_pic || "../assets/default-profile.png";
+     
 
         loginLink.style.display = "none";
         registerLink.style.display = "none";
@@ -144,7 +143,7 @@ function updateNavbar() {
         profileLink.style.display = "none";
         createPostLink.style.display = "none";
         logoutBtn.style.display = "none";
-        profilePicSmall.style.display = "none";
+     
 
         loginLink.style.display = "inline";
         registerLink.style.display = "inline";

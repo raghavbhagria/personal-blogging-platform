@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile | MyBlog</title>
+    <title>Edit Profile | MyBlog</title>
     <link rel="stylesheet" href="../assets/css/profile.css">
 </head>
 <body>
@@ -21,25 +21,31 @@
         </script>
     </header>
 
-    <!-- ✅ Profile Section -->
+    <!-- ✅ Edit Profile Section -->
     <div class="profile-container">
         <div class="profile-card">
-            <h2>Your Profile</h2>
-          
-            <p class="user-name" id="userName">Loading...</p>
-            <p class="user-email" id="userEmail">Loading...</p>
-        
+            <h2>Edit Profile</h2>
+            
+            
+            <!-- ✅ Upload Profile Picture -->
+           
+            
+            <form id="editProfileForm">
+                <input type="text" id="newName" placeholder="New Name">
+                <input type="email" id="newEmail" placeholder="New Email">
+                <input type="password" id="newPassword" placeholder="New Password (Leave blank to keep current)">
+                <button type="submit">Save Changes</button>
+            </form>
 
             <!-- ✅ Buttons -->
             <div class="profile-actions">
-                <button id="editProfileBtn">✏️ Edit Profile</button>
-                <button id="logoutBtn" class="logout-btn">🚪 Logout</button>
+                <button id="cancelEditBtn">❌ Cancel</button>
             </div>
         </div>
     </div>
 
-    <!-- ✅ JavaScript Files (Moved to Bottom) -->
-    <script defer src="../js/auth.js"></script>
-    <script defer src="../js/profile.js"></script>
+    <!-- ✅ JavaScript Files -->
+    <script defer src="../js/edit-profile.js"></script>
+
 </body>
 </html>
