@@ -1,51 +1,53 @@
 <?php
 require '../../config/database.php';
-require '../../middleware/auth.php';
+require '../../config/jwt.php';
 
 header("Content-Type: application/json");
 
-$user = authenticate(); // Ensure user is authenticated
+$headers = getallheaders();
+$authHeader = isset($headers['Authorization']) ? trim($headers['Authorization']) : '';
 
-$post_id = $_GET['post_id'] ?? null;
+if (!$authHeader || !preg_match('/Bearer\s(\S+)/', $authHeader, $matches)) {
+    http_response_code(401);
+    echo json_encode(["status" => "error", "message" => "Unauthorized - No Authorization header found"]);
+    exit;
+}
 
-if (!$post_id) {
-    echo json_encode(["status" => "error", "message" => "Post ID is required."]);
+$token = $matches[1];
+
+try {
+    $userData = JWTHandler::validateToken($token);
+} catch (Exception $e) {
+    http_response_code(401);
+    echo json_encode(["status" => "error", "message" => "Invalid session"]);
+    exit;
+}
+
+$postId = $_GET['id'] ?? null;
+
+if (!$postId) {
+    echo json_encode(["status" => "error", "message" => "Post ID is required"]);
     exit;
 }
 
 try {
-    // ✅ Fetch post details along with likes count
-    $stmt = $pdo->prepare("
-        SELECT posts.id, posts.title, posts.content, posts.category, posts.tags,
-               (SELECT COUNT(*) FROM likes WHERE likes.post_id = posts.id) AS likes
-        FROM posts
-        WHERE posts.id = ?
-    ");
-    $stmt->execute([$post_id]);
+    $stmt = $pdo->prepare("SELECT posts.*, users.name AS author FROM posts JOIN users ON posts.user_id = users.id WHERE posts.id = ?");
+    $stmt->execute([$postId]);
     $post = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if (!$post) {
-        echo json_encode(["status" => "error", "message" => "Post not found."]);
-        exit;
+    if ($post) {
+        // Fetch comments
+        $stmt = $pdo->prepare("SELECT comments.*, users.name FROM comments JOIN users ON comments.user_id = users.id WHERE comments.post_id = ? ORDER BY comments.created_at ASC");
+        $stmt->execute([$postId]);
+        $comments = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $post['comments'] = $comments;
+
+        echo json_encode(["status" => "success", "post" => $post]);
+    } else {
+        echo json_encode(["status" => "error", "message" => "Post not found"]);
     }
-
-    // ✅ Fetch comments for the post
-    $commentStmt = $pdo->prepare("
-        SELECT comments.id, comments.comment, comments.created_at, users.name 
-        FROM comments 
-        JOIN users ON comments.user_id = users.id 
-        WHERE comments.post_id = ? 
-        ORDER BY comments.created_at ASC
-    ");
-    $commentStmt->execute([$post_id]);
-    $comments = $commentStmt->fetchAll(PDO::FETCH_ASSOC);
-
-    // ✅ Attach likes and comments to the post
-    $post['comments'] = $comments;
-
-    echo json_encode(["status" => "success", "post" => $post]);
-
-} catch (Exception $e) {
-    echo json_encode(["status" => "error", "message" => "Failed to fetch post", "details" => $e->getMessage()]);
+} catch (PDOException $e) {
+    echo json_encode(["status" => "error", "message" => "Failed to fetch post: " . $e->getMessage()]);
 }
 ?>
