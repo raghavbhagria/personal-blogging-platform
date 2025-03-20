@@ -1,0 +1,7 @@
+# .htaccess file in the root of your project
+
+# Enable the RewriteEngine
+RewriteEngine On
+
+# Serve files from the uploads directory
+RewriteRule ^uploads/(.*)$ app/uploads/$1 [L]
