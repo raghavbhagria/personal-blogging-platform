@@ -37,10 +37,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // Set the profile image
             if (data.user.profile_image) {
-                profileImage.src = `uploads/${data.user.profile_image}`; // Adjust path as needed
+                profileImage.src = `../uploads/${data.user.profile_image}`; // Adjust path as needed
             } else {
-                profileImage.src = 'path/to/default/image.png'; // Set a default image
+                profileImage.src = '../assets/default-profile.png'; // Set a default image
             }
+
+            // Update localStorage with the latest user data
+            localStorage.setItem("user", JSON.stringify(data.user));
+            updateNavbar(); // Update the navbar with the new profile picture
         } else {
             console.error("⚠️ Session expired. Logging out.");
             alert("⚠️ Session expired. Please log in again.");

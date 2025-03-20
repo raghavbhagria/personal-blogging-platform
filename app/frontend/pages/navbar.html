@@ -4,17 +4,16 @@
     <nav>
         <a href="home.html">Home</a>
         <a href="posts.html" id="dashboardLink">Blog Posts</a> <!-- Always Visible -->
-        <a href="search.html">Search</a> <!-- Added Search Link -->
         <a href="profile.html" id="profileLink" style="display: none;">👤 View Profile</a>
         <a href="createPost.html" id="createPostLink" style="display: none;">📝 Create Post</a> <!-- Create Post Link -->
         <a href="login.html" id="loginLink" style="display: none;">Login</a>
         <a href="register.html" id="registerLink" style="display: none;">Sign Up</a>
-        <img id="profilePicSmall" src="../assets/default-profile.png" alt="Profile Picture" class="profile-pic-small" style="display: none;">
-        <button id="logoutButton" style="display: none;">Logout</button>
         <!-- Search Form -->
         <form id="navbarSearchForm" action="search.html" method="get" style="display: flex; align-items: center;">
             <input type="text" id="navbarSearchQuery" name="query" placeholder="Search..." style="padding: 5px; margin-left: 10px;">
             <button type="submit" style="padding: 5px;">🔍</button>
         </form>
+        <img id="profilePicSmall" src="../assets/default-profile.png" alt="Profile Picture" class="profile-pic-small" style="display: none;">
+        <button id="logoutButton" style="display: none;">Logout</button>
     </nav>
 </header>

@@ -36,9 +36,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // Set the current profile image
             if (data.user.profile_image) {
-                currentProfileImage.src = `uploads/${data.user.profile_image}`; // Adjust path as needed
+                currentProfileImage.src = `../uploads/${data.user.profile_image}`; // Adjust path as needed
             } else {
-                currentProfileImage.src = 'path/to/default/image.png'; // Set a default image
+                currentProfileImage.src = '../assets/default-profile.png'; // Set a default image
             }
         } else {
             alert("⚠️ Session expired. Please log in again.");
@@ -48,6 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
     })
     .catch(error => {
         alert("⚠️ Error fetching user data. Try again.");
+        console.error("⚠️ Error fetching user data:", error);
         localStorage.removeItem("token");
         window.location.href = "login.html";
     });
@@ -93,6 +94,7 @@ document.addEventListener("DOMContentLoaded", function () {
         })
         .catch(error => {
             alert("❌ Error updating profile. Try again.");
+            console.error("❌ Error updating profile:", error);
         });
     });
 
