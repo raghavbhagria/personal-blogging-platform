@@ -20,6 +20,7 @@ CREATE TABLE IF NOT EXISTS posts (
     user_id INT NOT NULL,
     title VARCHAR(255) NOT NULL,
     content TEXT NOT NULL,
+    image_path VARCHAR(255) DEFAULT NULL,
     category VARCHAR(255) NOT NULL,
     tags VARCHAR(255) NOT NULL,
     likes INT DEFAULT 0, -- ✅ Added likes column

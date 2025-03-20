@@ -21,7 +21,7 @@
     </header>
     <main>
         <h2>Create New Post</h2>
-        <form id="createPostForm">
+        <form id="createPostForm" enctype="multipart/form-data">
             <label for="postTitle">Title:</label>
             <input type="text" id="postTitle" name="postTitle" placeholder="Enter post title" required>
 
@@ -40,6 +40,9 @@
 
             <label for="postTags">Tags:</label>
             <input type="text" id="postTags" name="postTags" placeholder="Enter tags separated by commas">
+
+            <label for="postImage">Image:</label>
+            <input type="file" id="postImage" name="image" accept="image/*">
 
             <button type="submit">Publish</button>
         </form>
