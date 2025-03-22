@@ -21,7 +21,11 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Fetch post details
+
     fetch(`/personal-blogging-platform/app/api/posts/get_post.php?id=${postId}`, {
+
+   
+
         method: "GET",
         headers: { "Authorization": `Bearer ${token}` }
     })
@@ -40,7 +44,11 @@ document.addEventListener("DOMContentLoaded", function () {
     .catch(error => console.error("Error fetching post details:", error));
 
     // Fetch comments for the post
+
     fetch(`/personal-blogging-platform/app/api/comments/get_comments.php?post_id=${postId}`, {
+
+   
+
         method: "GET",
         headers: { "Authorization": `Bearer ${token}` }
     })
@@ -72,7 +80,9 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
+
         fetch("/personal-blogging-platform/app/api/comments/delete_comment.php", {
+
             method: "POST",
             headers: {
                 "Authorization": `Bearer ${token}`,

@@ -8,8 +8,10 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
-    // Fetch all comments
+
     fetch("/personal-blogging-platform/app/api/comments/get_all_comments.php", {
+
+
         method: "GET",
         headers: { "Authorization": `Bearer ${token}` }
     })
@@ -41,7 +43,10 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
+
         fetch("/personal-blogging-platform/app/api/comments/delete_comment.php", {
+
+
             method: "POST",
             headers: {
                 "Authorization": `Bearer ${token}`,
@@ -60,4 +65,6 @@ document.addEventListener("DOMContentLoaded", function () {
         })
         .catch(error => console.error("Error deleting comment:", error));
     };
+
 });
+

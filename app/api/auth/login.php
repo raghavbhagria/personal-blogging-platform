@@ -28,6 +28,7 @@ if (!$user['status']) {
     echo json_encode(["status" => "error", "message" => "Your account has been disabled by the admin."]);
     exit;
 }
+
 // Generate JWT token
 $token = JWTHandler::generateToken($user['id'], $user['email'], $user['isAdmin']);
 

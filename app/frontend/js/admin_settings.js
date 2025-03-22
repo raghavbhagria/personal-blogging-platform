@@ -10,7 +10,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const adminSettingsForm = document.getElementById("adminSettingsForm");
 
     // Pre-fill the current admin email
+
     fetch("/personal-blogging-platform/app/api/admin/get_admin_details.php", {
+
+   
+
         method: "GET",
         headers: { "Authorization": `Bearer ${token}` }
     })
@@ -43,6 +47,8 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         fetch("/personal-blogging-platform/app/api/admin/update_admin_details.php", {
+
+    
             method: "POST",
             headers: {
                 "Authorization": `Bearer ${token}`,
@@ -61,4 +67,7 @@ document.addEventListener("DOMContentLoaded", function () {
         })
         .catch(error => console.error("Error updating admin details:", error));
     });
+
 });
+
+

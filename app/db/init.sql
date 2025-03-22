@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS users (
     password VARCHAR(255) NOT NULL,
     profile_image VARCHAR(255) DEFAULT NULL,
     isAdmin TINYINT(1) NOT NULL DEFAULT 0, -- 0 = Regular User, 1 = Admin
+    status TINYINT(1) NOT NULL DEFAULT 1, -- 1 = Enabled, 0 = Disabled
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
@@ -52,17 +53,21 @@ CREATE TABLE IF NOT EXISTS likes (
 );
 
 -- Insert sample users
-INSERT INTO users (id, name, email, password, created_at) VALUES
-(1, 'John Doe', 'user2@blog.com', 'hashed_password', NOW()),
-(2, 'Tech Guru', 'user3@blog.com', 'hashed_password', NOW()),
-(3, 'DevLife', 'user4@blog.com', 'hashed_password', NOW()),
-(4, 'Coder123', 'user5@blog.com', 'hashed_password', NOW()),
-(5, 'AI Enthusiast', 'user6@blog.com', 'hashed_password', NOW()),
-(6, 'Web Master', 'user7@blog.com', 'hashed_password', NOW()),
-(7, 'Frontend Ninja', 'user8@blog.com', 'hashed_password', NOW()),
-(8, 'Backend Beast', 'user9@blog.com', 'hashed_password', NOW()),
-(9, 'Security Expert', 'user10@blog.com', 'hashed_password', NOW());
-INSERT INTO users (id, name, email, password, isAdmin, created_at) VALUES
+
+
+
+
+=======
+INSERT INTO users (id, name, email, password, isAdmin, status, created_at) VALUES
+(1, 'John Doe', 'user2@blog.com', 'hashed_password', 0, 1, NOW()),
+(2, 'Tech Guru', 'user3@blog.com', 'hashed_password', 0, 1, NOW()),
+(3, 'DevLife', 'user4@blog.com', 'hashed_password', 0, 1, NOW()),
+(4, 'Coder123', 'user5@blog.com', 'hashed_password', 0, 1, NOW()),
+(5, 'AI Enthusiast', 'user6@blog.com', 'hashed_password', 0, 1, NOW()),
+(6, 'Web Master', 'user7@blog.com', 'hashed_password', 1, 1, NOW()), -- Admin
+(7, 'Frontend Ninja', 'user8@blog.com', 'hashed_password', 0, 1, NOW()),
+(8, 'Backend Beast', 'user9@blog.com', 'hashed_password', 0, 1, NOW()),
+(9, 'Security Expert', 'user10@blog.com', 'hashed_password', 0, 0, NOW()); -- Disabled user
 (10, 'Admin', 'admin@example.com', '$2y$12$NO6VmmUfqs9yr2THPLw9KeHWL0fGvQP7Gn97Q/mpSZPAX9g4VZQRu', 1, NOW());
 
 
@@ -86,4 +91,3 @@ INSERT INTO comments (post_id, user_id, comment, created_at) VALUES
 (5, 1, 'Open-source contributions helped me land my first dev job!', '2025-01-30 18:30:00'),
 (5, 3, 'I recently contributed to an open-source project. It was an amazing experience.', '2025-02-02 09:25:00'),
 (5, 8, 'Which open-source projects do you recommend for beginners?', '2025-02-02 16:40:00');
-

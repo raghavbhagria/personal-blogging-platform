@@ -11,8 +11,11 @@ document.addEventListener("DOMContentLoaded", function () {
     // Fetch and display users
     function fetchUsers(query = "") {
         const url = query
+
             ? `/personal-blogging-platform/app/api/user/searchUsers.php?query=${encodeURIComponent(query)}`
             : "/personal-blogging-platform/app/api/user/listUsers.php";
+
+
 
         fetch(url, {
             method: "GET",
@@ -230,7 +233,9 @@ function toggleUserStatus(userId, currentStatus) {
     }
 
     const newStatus = currentStatus ? 0 : 1; // Toggle status
+
     fetch("/personal-blogging-platform/app/api/user/toggleUserStatus.php", {
+
         method: "POST",
         headers: {
             "Authorization": `Bearer ${token}`,
