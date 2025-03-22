@@ -151,7 +151,7 @@ function loginUser() {
                 if (data.user.isAdmin) {
                     window.location.href = "admin.html"; // Redirect to admin dashboard
                 } else {
-                    window.location.href = "dashboard.html"; // Redirect to user dashboard
+                    window.location.href = "home.html"; // Redirect to user dashboard
                 }
             } else {
                 showError("Login failed: " + data.message);
