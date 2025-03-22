@@ -201,7 +201,13 @@ function updateNavbar() {
         createPostLink.style.display = "inline";
         logoutBtn.style.display = "inline";
         profilePicSmall.style.display = "inline";
-        profilePicSmall.src = user.profile_image ? `../uploads/${user.profile_image}` : "../assets/default-profile.png";
+
+        // Set the profile picture (check if the user has a profile image and set the correct path)
+        if (user.profile_image) {
+            profilePicSmall.src = `/personal-blogging-platform/app/uploads/${user.profile_image}`;  // Corrected the path
+        } else {
+            profilePicSmall.src = "/personal-blogging-platform/app/assets/default-profile.png"; // Default image if no profile picture
+        }
 
         loginLink.style.display = "none";
         registerLink.style.display = "none";
@@ -216,6 +222,7 @@ function updateNavbar() {
         registerLink.style.display = "inline";
     }
 }
+
 
 // ✅ Ensure Navbar Updates on Page Load
 document.addEventListener("DOMContentLoaded", function () {

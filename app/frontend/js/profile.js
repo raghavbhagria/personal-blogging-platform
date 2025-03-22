@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // Set the profile image
             if (data.user.profile_image) {
-                profileImage.src = `../uploads/${data.user.profile_image}`; // Adjust path as needed
+                profileImage.src = `/personal-blogging-platform/app/uploads/${data.user.profile_image}`; // Correct path to the image
             } else {
                 profileImage.src = '../assets/default-profile.png'; // Set a default image
             }
