@@ -4,22 +4,25 @@ document.addEventListener("DOMContentLoaded", function () {
     const urlParams = new URLSearchParams(window.location.search);
     const postId = urlParams.get("post_id");
 
+    // Redirect to login if the user is not authenticated
     if (!token) {
         alert("You must be logged in to edit a post.");
         window.location.href = "login.html";
         return;
     }
 
+    // Redirect to User Posts if post_id is missing
     if (!postId) {
         alert("Post ID is required.");
         window.location.href = "userPosts.html";
         return;
     }
 
-    fetch(`../api/posts/get_post.php?post_id=${postId}`, {
+    // Fetch the post details for editing
+    fetch(`../api/posts/get_post.php?id=${postId}`, {
         method: "GET",
         headers: {
-            "Authorization": "Bearer " + token
+            "Authorization": `Bearer ${token}`
         }
     })
     .then(response => response.json())
@@ -41,6 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
         window.location.href = "userPosts.html";
     });
 
+    // Handle form submission for updating the post
     editPostForm.addEventListener("submit", function (event) {
         event.preventDefault();
 
@@ -64,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function () {
         fetch("../api/posts/update_post.php", {
             method: "POST",
             headers: {
-                "Authorization": "Bearer " + token
+                "Authorization": `Bearer ${token}`
             },
             body: formData
         })

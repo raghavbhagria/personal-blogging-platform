@@ -1,4 +1,4 @@
-/* General Styles */
+/* ✅ General Styles */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -7,13 +7,17 @@ body {
     color: white;
 }
 
-/* Navigation Bar */
+/* ✅ Navigation Bar */
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 15px 30px;
     background: #1e1e1e;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
 .logo {
@@ -22,32 +26,102 @@ header {
     color: #ff9800;
 }
 
-nav a, #logoutBtn {
-    color: #e0e0e0;
+nav {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: nowrap; /* Prevent wrapping of navbar items */
+}
+
+nav a {
     text-decoration: none;
-    margin: 0 15px;
+    color: #e0e0e0;
     font-size: 16px;
-    transition: color 0.3s;
+    font-weight: 500;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: all 0.3s ease-in-out;
 }
 
-nav a:hover, .active {
-    color: #ff9800;
+nav a:hover {
+    background: #ff9800;
+    color: #121212;
 }
 
-#logoutBtn {
-    background: transparent;
-    border: 1px solid #ff9800;
-    padding: 8px 15px;
+nav a.active {
+    background: #ff9800;
+    color: #121212;
+}
+
+/* ✅ Logout Button Styling */
+#logoutButton {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+#logoutButton:hover {
+    background: #c0392b;
+    transform: scale(1.1);
+}
+
+/* ✅ Small Profile Picture Styling */
+.profile-pic-small {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-left: 10px;
+    border: 2px solid #ff9800; /* Add a border for better visibility */
+}
+
+/* ✅ Navbar Search Form */
+#navbarSearchForm {
+    display: flex;
+    align-items: center; /* Align items horizontally */
+    gap: 5px; /* Add spacing between the search bar and button */
+    flex-wrap: nowrap; /* Prevent wrapping of the search bar and button */
+}
+
+#navbarSearchQuery {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: #222;
+    color: white;
+    font-size: 14px;
+    width: 200px; /* Set a consistent width for the search bar */
+    box-sizing: border-box; /* Ensure padding doesn't affect width */
+}
+
+#navbarSearchQuery:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+#navbarSearchForm button {
+    padding: 8px 12px;
+    background: #007bff;
+    color: white;
+    border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-size: 14px;
+    transition: 0.3s ease;
+    white-space: nowrap; /* Prevent button text from wrapping */
 }
 
-#logoutBtn:hover {
-    background: #ff9800;
-    color: black;
+#navbarSearchForm button:hover {
+    background: #0056b3;
 }
 
-/* Main Content */
+/* ✅ Main Content */
 main {
     max-width: 800px;
     margin: auto;
@@ -62,7 +136,7 @@ h2 {
     margin-bottom: 20px;
 }
 
-/* Form Styles */
+/* ✅ Form Styles */
 form {
     display: flex;
     flex-direction: column;
@@ -89,13 +163,37 @@ input:focus, textarea:focus, select:focus {
 }
 
 button {
-    background: #007bff;
-    color: white;
+    background: #ff9800;
+    color: black;
     border: none;
     cursor: pointer;
     transition: 0.3s ease;
 }
 
 button:hover {
-    background: #0056b3;
+    background: #e68900;
+}
+
+/* ✅ Responsive Design */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    #navbarSearchForm {
+        width: 100%;
+        justify-content: center;
+    }
+
+    #navbarSearchQuery {
+        width: 100%; /* Full width on smaller screens */
+    }
 }
