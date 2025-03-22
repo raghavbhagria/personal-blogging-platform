@@ -15,7 +15,7 @@ $email = trim($input['email']);
 $password = trim($input['password']);
 
 // Fetch user from database
-$stmt = $pdo->prepare("SELECT id, name, email, password, isAdmin FROM users WHERE email = ?");
+$stmt = $pdo->prepare("SELECT id, name, email, password, isAdmin, status FROM users WHERE email = ?");
 $stmt->execute([$email]);
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -24,6 +24,10 @@ if (!$user || !password_verify($password, $user['password'])) {
     exit;
 }
 
+if (!$user['status']) {
+    echo json_encode(["status" => "error", "message" => "Your account has been disabled by the admin."]);
+    exit;
+}
 // Generate JWT token
 $token = JWTHandler::generateToken($user['id'], $user['email'], $user['isAdmin']);
 
