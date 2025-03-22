@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
             formData.append("image", image);
         }
 
-        fetch("/personal-blogging-platform/app/api/posts/create_post.php", {
+        fetch("/ganainy/app/api/posts/create_post.php", {
             method: "POST",
             headers: {
                 "Authorization": "Bearer " + token

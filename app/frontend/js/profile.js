@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // ✅ Step 2: Fetch User Info
-    fetch("/personal-blogging-platform/app/api/auth/profile.php", {
+    fetch("/ganainy/app/api/auth/profile.php", {
         method: "GET",
         headers: {
             "Authorization": `Bearer ${token}`,
@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // Set the profile image
             if (data.user.profile_image) {
-                profileImage.src = `/personal-blogging-platform/app/uploads/${data.user.profile_image}`; // Correct path to the image
+                profileImage.src = `/ganainy/app/uploads/${data.user.profile_image}`; // Correct path to the image
             } else {
                 profileImage.src = '../assets/default-profile.png'; // Set a default image
             }

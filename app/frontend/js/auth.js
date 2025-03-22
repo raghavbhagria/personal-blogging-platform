@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     
     // Load Navbar First
-fetch("/personal-blogging-platform/app/frontend/pages/navbar.html")
+fetch("/ganainy/app/frontend/pages/navbar.html")
 .then(response => response.text())
 .then(html => {
     const navbarContainer = document.getElementById("navbar-container");
@@ -107,7 +107,7 @@ function registerUser() {
         formData.append("profile_image", profileImage);
     }
 
-    fetch("/personal-blogging-platform/app/api/auth/register.php", {
+    fetch("/ganainy/app/api/auth/register.php", {
         method: "POST",
         body: formData
     })
@@ -135,7 +135,7 @@ function loginUser() {
         return;
     }
 
-    fetch("/personal-blogging-platform/app/api/auth/login.php", {
+    fetch("/ganainy/app/api/auth/login.php", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password })
@@ -204,9 +204,9 @@ function updateNavbar() {
 
         // Set the profile picture (check if the user has a profile image and set the correct path)
         if (user.profile_image) {
-            profilePicSmall.src = `/personal-blogging-platform/app/uploads/${user.profile_image}`;  // Corrected the path
+            profilePicSmall.src = `/ganainy/app/uploads/${user.profile_image}`;  // Corrected the path
         } else {
-            profilePicSmall.src = "/personal-blogging-platform/app/assets/default-profile.png"; // Default image if no profile picture
+            profilePicSmall.src = "/ganainy/app/assets/default-profile.png"; // Default image if no profile picture
         }
 
         loginLink.style.display = "none";
