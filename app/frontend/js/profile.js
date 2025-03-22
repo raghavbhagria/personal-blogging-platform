@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // ✅ Step 2: Fetch User Info
-    fetch("../api/auth/profile.php", {
+    fetch("/personal-blogging-platform/app/api/auth/profile.php", {
         method: "GET",
         headers: {
             "Authorization": `Bearer ${token}`,
@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", function () {
         localStorage.removeItem("token");
         window.location.href = "login.html";
     });
-
+    
     // ✅ Step 3: Add "Edit Profile" Button Functionality
     if (editProfileBtn) {
         editProfileBtn.addEventListener("click", function () {

@@ -62,6 +62,9 @@ INSERT INTO users (id, name, email, password, created_at) VALUES
 (7, 'Frontend Ninja', 'user8@blog.com', 'hashed_password', NOW()),
 (8, 'Backend Beast', 'user9@blog.com', 'hashed_password', NOW()),
 (9, 'Security Expert', 'user10@blog.com', 'hashed_password', NOW());
+INSERT INTO users (id, name, email, password, isAdmin, created_at) VALUES
+(10, 'Admin', 'admin@example.com', '$2y$12$NO6VmmUfqs9yr2THPLw9KeHWL0fGvQP7Gn97Q/mpSZPAX9g4VZQRu', 1, NOW());
+
 
 -- Insert sample posts (with default likes = 0)
 INSERT INTO posts (id, user_id, title, content, category, tags, created_at) VALUES

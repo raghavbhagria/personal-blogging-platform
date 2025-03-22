@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
-    fetch(`../api/posts/get_post.php?id=${postId}`, {
+    fetch(`/personal-blogging-platform/app/api/posts/get_post.php?id=${postId}`, {
         method: "GET",
         headers: {
             "Authorization": `Bearer ${token}`
@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", function () {
             postAuthor.textContent = `Posted by ${post.author} on ${new Date(post.created_at).toLocaleDateString()}`;
 
             if (post.image_path) {
-                postImage.src = `../uploads/${post.image_path}`;
+                postImage.src = `/personal-blogging-platform/uploads/${post.image_path}`; // ✅ Fixed path
                 postImage.style.display = "block";
             }
 
@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        fetch("../api/comments/add_comment.php", {
+        fetch("/personal-blogging-platform/app/api/comments/add_comment.php", {
             method: "POST",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",

@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Fetch and display users
-    fetch("../api/user/listUsers.php", {
+    fetch("/personal-blogging-platform/app/api/user/listUsers.php", {
         method: "GET",
         headers: { "Authorization": `Bearer ${token}` }
     })
@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", function () {
         formData.append("password", password);
         formData.append("isAdmin", isAdmin);
 
-        fetch("../api/user/addUser.php", {
+        fetch("/personal-blogging-platform/app/api/user/addUser.php", {
             method: "POST",
             headers: { 
                 "Content-Type": "application/x-www-form-urlencoded",

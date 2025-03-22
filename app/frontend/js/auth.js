@@ -1,12 +1,17 @@
 document.addEventListener("DOMContentLoaded", function () {
     console.log("🔹 auth.js loaded");
 
+    
     // Load Navbar First
-    fetch("navbar.html") // Ensure correct path
-        .then(response => response.text())
-        .then(html => {
-            document.getElementById("navbar-container").innerHTML = html;
-            updateNavbar(); // Update navbar based on login state
+fetch("/personal-blogging-platform/app/frontend/pages/navbar.html")
+.then(response => response.text())
+.then(html => {
+    const navbarContainer = document.getElementById("navbar-container");
+    if (navbarContainer) {
+        navbarContainer.innerHTML = html;
+        updateNavbar(); // Update navbar based on login state
+    }
+
 
             // Add search functionality
             const navbarSearchForm = document.getElementById("navbarSearchForm");
@@ -102,7 +107,7 @@ function registerUser() {
         formData.append("profile_image", profileImage);
     }
 
-    fetch("../api/auth/register.php", {
+    fetch("/personal-blogging-platform/app/api/auth/register.php", {
         method: "POST",
         body: formData
     })
@@ -130,7 +135,7 @@ function loginUser() {
         return;
     }
 
-    fetch("../api/auth/login.php", {
+    fetch("/personal-blogging-platform/app/api/auth/login.php", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password })

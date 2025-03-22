@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
         userPostsSection.style.display = "block";
 
         // Fetch and display user's recent posts
-        fetch("../api/posts/get_recent_user_posts.php", {
+        fetch("/personal-blogging-platform/app/api/posts/get_recent_user_posts.php", {
             method: "GET",
             headers: {
                 "Authorization": "Bearer " + token
@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function fetchPostsByCategory(category) {
         latestPostsContainer.innerHTML = "<p>Loading...</p>";
 
-        fetch(`../api/posts/get_posts_by_category.php?category=${category}&limit=3`)
+        fetch(`/personal-blogging-platform/app/api/posts/get_posts_by_category.php?category=${category}&limit=3`)
             .then(response => response.json())
             .then(data => {
                 if (data.status === "success") {

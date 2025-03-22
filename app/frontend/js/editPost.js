@@ -19,7 +19,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Fetch the post details for editing
-    fetch(`../api/posts/get_post.php?id=${postId}`, {
+    fetch(`/personal-blogging-platform/app/api/posts/get_post.php?id=${postId}`, {
+
         method: "GET",
         headers: {
             "Authorization": `Bearer ${token}`
@@ -65,7 +66,8 @@ document.addEventListener("DOMContentLoaded", function () {
         formData.append("category", category);
         formData.append("tags", tags);
 
-        fetch("../api/posts/update_post.php", {
+        fetch("/personal-blogging-platform/app/api/posts/update_post.php", {
+
             method: "POST",
             headers: {
                 "Authorization": `Bearer ${token}`
