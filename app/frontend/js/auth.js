@@ -7,6 +7,31 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(html => {
             document.getElementById("navbar-container").innerHTML = html;
             updateNavbar(); // Update navbar based on login state
+
+            // Add search functionality
+            const navbarSearchForm = document.getElementById("navbarSearchForm");
+            const navbarSearchQuery = document.getElementById("navbarSearchQuery");
+
+            if (navbarSearchForm && navbarSearchQuery) {
+                navbarSearchForm.addEventListener("submit", function (event) {
+                    event.preventDefault();
+                    const query = navbarSearchQuery.value.trim();
+                    if (query) {
+                        // Redirect to search.html with the query as a parameter
+                        window.location.href = `search.html?query=${encodeURIComponent(query)}`;
+                    }
+                });
+
+                // Add input event listener for real-time search
+                navbarSearchQuery.addEventListener("input", function () {
+                    const query = navbarSearchQuery.value.trim();
+                    if (query) {
+                        searchAndHighlight(query);
+                    } else {
+                        clearHighlights();
+                    }
+                });
+            }
         });
 
     // Check user authentication for protected pages
@@ -38,6 +63,23 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+// Search and highlight function
+function searchAndHighlight(query) {
+    const posts = document.querySelectorAll(".post-content");
+    posts.forEach(post => {
+        const regex = new RegExp(`(${query})`, "gi");
+        post.innerHTML = post.innerHTML.replace(regex, '<span class="highlight">$1</span>');
+    });
+}
+
+// Clear highlights function
+function clearHighlights() {
+    const posts = document.querySelectorAll(".post-content");
+    posts.forEach(post => {
+        post.innerHTML = post.innerHTML.replace(/<span class="highlight">(.*?)<\/span>/gi, '$1');
+    });
+}
+
 // ✅ Register User Function
 function registerUser() {
     console.log("🔹 Registering User...");
@@ -45,16 +87,24 @@ function registerUser() {
     const name = document.getElementById("name").value.trim();
     const email = document.getElementById("email").value.trim();
     const password = document.getElementById("password").value.trim();
+    const profileImage = document.getElementById("profile_image").files[0];
 
     if (!name || !email || !password) {
         showError("All fields are required.");
         return;
     }
 
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("email", email);
+    formData.append("password", password);
+    if (profileImage) {
+        formData.append("profile_image", profileImage);
+    }
+
     fetch("../api/auth/register.php", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, password })
+        body: formData
     })
     .then(response => response.json())
     .then(data => {
@@ -85,19 +135,30 @@ function loginUser() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password })
     })
-    .then(response => response.json())
-    .then(data => {
-        if (data.status === "success") {
-            localStorage.setItem("token", data.token); 
-            localStorage.setItem("user", JSON.stringify(data.user)); // Store user data
-            alert("Login successful! Redirecting...");
-            if (data.user.isAdmin) {
-                window.location.href = "admin.html"; // Redirect to admin dashboard
+    .then(response => {
+        if (!response.ok) {
+            throw new Error("Network response was not ok");
+        }
+        return response.text(); // Get response as text
+    })
+    .then(text => {
+        try {
+            const data = JSON.parse(text); // Try to parse JSON
+            if (data.status === "success") {
+                localStorage.setItem("token", data.token); 
+                localStorage.setItem("user", JSON.stringify(data.user)); // Store user data
+                alert("Login successful! Redirecting...");
+                if (data.user.isAdmin) {
+                    window.location.href = "admin.html"; // Redirect to admin dashboard
+                } else {
+                    window.location.href = "dashboard.html"; // Redirect to user dashboard
+                }
             } else {
-                window.location.href = "dashboard.html"; // Redirect to user dashboard
+                showError("Login failed: " + data.message);
             }
-        } else {
-            showError("Login failed: " + data.message);
+        } catch (error) {
+            showError("❌ Error: Invalid JSON response");
+            console.error("Invalid JSON response:", text);
         }
     })
     .catch(error => showError("❌ Error: " + error.message));
@@ -106,7 +167,7 @@ function loginUser() {
 // ✅ Check if User is Authenticated (For Protected Pages)
 function checkUserAuthentication() {
     const token = localStorage.getItem("token");
-        const protectedPages = ["dashboard.html", "admin.html", "profile.html", "createPost.html"];
+    const protectedPages = ["dashboard.html", "admin.html", "profile.html", "createPost.html"];
 
     if (!token && protectedPages.includes(window.location.pathname.split("/").pop())) {
         alert("You must be logged in to access this page.");
@@ -125,16 +186,17 @@ function updateNavbar() {
     const loginLink = document.getElementById("loginLink"); // Login
     const registerLink = document.getElementById("registerLink"); // Sign Up
     const logoutBtn = document.getElementById("logoutButton"); // Logout
-   
+    const profilePicSmall = document.getElementById("profilePicSmall"); // Small Profile Picture
 
-    if (!dashboardLink || !profileLink || !createPostLink || !loginLink || !registerLink || !logoutBtn  ) return;
+    if (!dashboardLink || !profileLink || !createPostLink || !loginLink || !registerLink || !logoutBtn || !profilePicSmall) return;
 
     if (token && user) {
         // ✅ User is logged in → Show "Profile", "Create Post", "Logout", and Profile Picture, Hide "Login" & "Sign Up"
         profileLink.style.display = "inline";
         createPostLink.style.display = "inline";
         logoutBtn.style.display = "inline";
-     
+        profilePicSmall.style.display = "inline";
+        profilePicSmall.src = user.profile_image ? `../uploads/${user.profile_image}` : "../assets/default-profile.png";
 
         loginLink.style.display = "none";
         registerLink.style.display = "none";
@@ -143,7 +205,7 @@ function updateNavbar() {
         profileLink.style.display = "none";
         createPostLink.style.display = "none";
         logoutBtn.style.display = "none";
-     
+        profilePicSmall.style.display = "none";
 
         loginLink.style.display = "inline";
         registerLink.style.display = "inline";

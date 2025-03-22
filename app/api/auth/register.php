@@ -2,17 +2,30 @@
 require '../../config/database.php';
 header("Content-Type: application/json");
 
-// Read JSON input
-$input = json_decode(file_get_contents("php://input"), true);
+$name = $_POST['name'] ?? null;
+$email = $_POST['email'] ?? null;
+$password = $_POST['password'] ?? null;
 
-if (!$input || !isset($input['name']) || !isset($input['email']) || !isset($input['password'])) {
+// Image Upload Handling
+$profile_image = null; // Default value
+
+if (isset($_FILES['profile_image']) && $_FILES['profile_image']['error'] === UPLOAD_ERR_OK) {
+    $uploadDir = '../../uploads/'; // Create this directory if it doesn't exist
+    $uploadFile = $uploadDir . basename($_FILES['profile_image']['name']);
+
+    if (move_uploaded_file($_FILES['profile_image']['tmp_name'], $uploadFile)) {
+        $profile_image = basename($uploadFile); // Store just the filename
+    } else {
+        // Handle upload error (e.g., insufficient permissions)
+        echo json_encode(["status" => "error", "message" => "Image upload failed."]);
+        exit;
+    }
+}
+
+if (!$name || !$email || !$password) {
     echo json_encode(["status" => "error", "message" => "All fields are required."]);
     exit;
 }
-
-$name = trim($input['name']);
-$email = trim($input['email']);
-$password = trim($input['password']);
 
 // Validate email format
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -21,13 +34,13 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 }
 
 // Hash the password
-$hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+$hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
 // Insert user into database (isAdmin defaults to 0)
-$stmt = $pdo->prepare("INSERT INTO users (name, email, password, isAdmin) VALUES (?, ?, ?, 0)");
+$stmt = $pdo->prepare("INSERT INTO users (name, email, password, profile_image) VALUES (?, ?, ?, ?)");
 
 try {
-    $stmt->execute([$name, $email, $hashedPassword]);
+    $stmt->execute([$name, $email, $hashed_password, $profile_image]);
     echo json_encode(["status" => "success", "message" => "Registration successful!"]);
 } catch (PDOException $e) {
     if ($e->getCode() == 23000) { // Unique constraint violation (duplicate email)

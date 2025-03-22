@@ -28,6 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function displayPosts(posts) {
+        const postsContainer = document.getElementById("postsContainer");
         postsContainer.innerHTML = "";
     
         if (posts.length === 0) {
@@ -39,28 +40,35 @@ document.addEventListener("DOMContentLoaded", function () {
             const postElement = document.createElement("div");
             postElement.classList.add("post");
 
-            // ✅ Fetching likes dynamically to prevent incorrect display
-            let likesCount = post.likes !== null && post.likes !== undefined ? post.likes : 0;
+                        // ✅ Fetching likes dynamically to prevent incorrect display
+                        let likesCount = post.likes !== null && post.likes !== undefined ? post.likes : 0;
+
+            let postImage = "";
+            if (post.image_path) {
+                postImage = `<img src="/uploads/${post.image_path}" alt="Post Image" class="post-image">`;
+            }
     
             postElement.innerHTML = `
-                <h3>${post.title}</h3>
-                <p>${post.content.substring(0, 100)}...</p>
-                <small>Posted by ${post.name} on ${new Date(post.created_at).toLocaleDateString()}</small>
-                <a href="post.html?id=${post.id}" class="read-more-btn">Read More</a>
-    
-                <div class="likes-section">
-                    <button class="like-btn" data-post-id="${post.id}">
-                        ❤️ Like (<span id="likes-count-${post.id}">${likesCount}</span>) 
-                    </button>
-                </div>
-    
-                <div class="comments-section">
-                    <h4>Comments</h4>
-                    <div id="comments-${post.id}" class="comments-list">Loading comments...</div>
-                    <textarea id="comment-input-${post.id}" placeholder="Write a comment..."></textarea>
-                    <button onclick="addComment(${post.id})">Post Comment</button>
-                </div>
-            `;
+            <h3>${post.title}</h3>
+            ${postImage}
+            <p class="post-content">${post.content.substring(0, 100)}...</p>
+            <small>Posted by ${post.name} on ${new Date(post.created_at).toLocaleDateString()}</small>
+            <a href="post.html?id=${post.id}" class="read-more-btn">Read More</a>
+
+            <div class="likes-section">
+                <button class="like-btn" data-post-id="${post.id}">
+                    ❤️ Like (<span id="likes-count-${post.id}">${likesCount}</span>) 
+                </button>
+                <span class="likes-count" id="likes-count-${post.id}">${likesCount}</span>
+            </div>
+
+            <div class="comments-section">
+                <h4>Comments</h4>
+                <div id="comments-${post.id}" class="comments-list">Loading comments...</div>
+                <textarea id="comment-input-${post.id}" placeholder="Write a comment..."></textarea>
+                <button onclick="addComment(${post.id})">Post Comment</button>
+            </div>
+        `;
     
             postsContainer.appendChild(postElement);
     

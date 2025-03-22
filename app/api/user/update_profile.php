@@ -24,10 +24,37 @@ try {
     exit;
 }
 
-$input = json_decode(file_get_contents("php://input"), true);
-$name = trim($input['name'] ?? '');
-$email = trim($input['email'] ?? '');
-$password = $input['password'] ?? null;
+// Fetch current user details from the database
+$stmt = $pdo->prepare("SELECT name, email, profile_image FROM users WHERE id = ?");
+$stmt->execute([$userData['id']]);
+$currentUser = $stmt->fetch(PDO::FETCH_ASSOC);
+
+if (!$currentUser) {
+    http_response_code(404);
+    echo json_encode(["status" => "error", "message" => "User not found"]);
+    exit;
+}
+
+$name = trim($_POST['name'] ?? $currentUser['name']);
+$email = trim($_POST['email'] ?? $currentUser['email']);
+$password = $_POST['password'] ?? null;
+
+// Image Upload Handling
+$profile_image = $currentUser['profile_image']; // Default to current profile image
+
+if (isset($_FILES['profile_image']) && $_FILES['profile_image']['error'] === UPLOAD_ERR_OK) {
+    $uploadDir = '../../uploads/';
+    $uploadFile = $uploadDir . basename($_FILES['profile_image']['name']);
+
+    if (move_uploaded_file($_FILES['profile_image']['tmp_name'], $uploadFile)) {
+        $profile_image = basename($uploadFile);
+        // Log the full path of the uploaded image
+        error_log("Profile image uploaded to: " . realpath($uploadFile));
+    } else {
+        echo json_encode(["status" => "error", "message" => "Image upload failed."]);
+        exit;
+    }
+}
 
 if (!$name || !$email) {
     echo json_encode(["status" => "error", "message" => "Name and email are required"]);
@@ -37,11 +64,12 @@ if (!$name || !$email) {
 // ✅ Step 2: Update User Info in Database
 if ($password) {
     $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
-    $stmt = $pdo->prepare("UPDATE users SET name = ?, email = ?, password = ? WHERE id = ?");
-    $stmt->execute([$name, $email, $hashedPassword, $userData['id']]);
+    $stmt = $pdo->prepare("UPDATE users SET name = ?, email = ?, password = ?, profile_image = ? WHERE id = ?");
+    $stmt->execute([$name, $email, $hashedPassword, $profile_image, $userData['id']]);
 } else {
-    $stmt = $pdo->prepare("UPDATE users SET name = ?, email = ? WHERE id = ?");
-    $stmt->execute([$name, $email, $userData['id']]);
+    $stmt = $pdo->prepare("UPDATE users SET name = ?, email = ?, profile_image = ? WHERE id = ?");
+    $stmt->execute([$name, $email, $profile_image, $userData['id']]);
 }
 
 echo json_encode(["status" => "success", "message" => "Profile updated"]);
+?>

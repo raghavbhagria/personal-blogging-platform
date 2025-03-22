@@ -1,4 +1,4 @@
-/* ✅ Global Styles */
+/* General Styles */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -7,36 +7,84 @@ body {
     color: white;
 }
 
-/* ✅ Centered Profile Container */
+/* Navigation Bar */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background: #1e1e1e;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ff9800;
+}
+
+nav a, #logoutBtn {
+    color: #e0e0e0;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 16px;
+    transition: color 0.3s;
+}
+
+nav a:hover, .active {
+    color: #ff9800;
+}
+
+#logoutBtn {
+    background: transparent;
+    border: 1px solid #ff9800;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#logoutBtn:hover {
+    background: #ff9800;
+    color: black;
+}
+
+/* Main Content */
+main {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    background: #1e1e1e;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+h2 {
+    color: #ff9800;
+    margin-bottom: 20px;
+}
+
+/* Profile Container */
 .profile-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 90vh;
+    height: 100vh;
 }
 
-/* ✅ Profile Card */
 .profile-card {
-    background: #1e1e1e;
-    padding: 30px;
+    background: #333;
+    padding: 20px;
     border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     text-align: center;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-    max-width: 400px;
-    width: 100%;
 }
 
-/* ✅ Profile Picture */
 .profile-pic {
-    width: 120px;
-    height: 120px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 10px;
-    border: 3px solid #ff9800;
+    margin-bottom: 20px;
 }
 
-/* ✅ User Info */
 .user-name {
     font-size: 22px;
     font-weight: bold;
@@ -49,7 +97,7 @@ body {
     margin-bottom: 10px;
 }
 
-/* ✅ Profile Actions */
+/* Profile Actions */
 .profile-actions {
     display: flex;
     justify-content: center;
@@ -57,7 +105,7 @@ body {
     margin-top: 15px;
 }
 
-/* ✅ Buttons */
+/* Buttons */
 button {
     padding: 10px 15px;
     border: none;
@@ -73,7 +121,7 @@ button:hover {
     background: #e68900;
 }
 
-/* ✅ Logout Button */
+/* Logout Button */
 .logout-btn {
     background: red;
     color: white;

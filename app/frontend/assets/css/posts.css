@@ -105,6 +105,14 @@ h2 {
     box-shadow: 0 8px 20px rgba(255, 152, 0, 0.3);
 }
 
+/* Post Image */
+.post-image {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
 /* ✅ Post Title */
 .post h3 {
     color: #ff9800;

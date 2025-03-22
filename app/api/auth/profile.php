@@ -25,7 +25,7 @@ try {
 }
 
 // Fetch user details from the database
-$stmt = $pdo->prepare("SELECT id, name, email FROM users WHERE id = ?");
+$stmt = $pdo->prepare("SELECT id, name, email, profile_image FROM users WHERE id = ?");
 $stmt->execute([$userData['id']]);
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
