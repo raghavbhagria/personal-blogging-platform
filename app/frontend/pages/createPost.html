@@ -6,17 +6,20 @@
     <title>Create New Post | MyBlog</title>
     <link rel="stylesheet" href="../assets/css/createPost.css">
     <script defer src="../js/createPost.js"></script>
+    <script defer src="../js/auth.js"></script>
 </head>
 <body>
     <header>
-        <div id="navbar-container"></div>
+        <div id="navbar-container"></div> <!-- Navbar will be dynamically loaded here -->
         <script>
+            // Load the shared navbar dynamically
             fetch("navbar.html")
                 .then(response => response.text())
                 .then(html => {
                     document.getElementById("navbar-container").innerHTML = html;
-                    updateNavbar();
-                });
+                    updateNavbar(); // Ensure navbar updates based on login state
+                })
+                .catch(error => console.error("Error loading navbar:", error));
         </script>
     </header>
     <main>
