@@ -26,6 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     <td>
                         <button class="edit-btn" onclick="editBlog(${post.id})">Edit</button>
                         <button class="delete-btn" onclick="deleteBlog(${post.id})">Delete</button>
+                        <button class="view-comments-btn" onclick="viewPostComments(${post.id})">View Post Comments →</button>
                     </td>
                 `;
                 blogsTableBody.appendChild(row);
@@ -60,6 +61,11 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         })
         .catch(error => console.error("Error deleting blog post:", error));
+    };
+
+    // View comments for a specific post
+    window.viewPostComments = function (postId) {
+        window.location.href = `post_comments.html?post_id=${postId}`;
     };
 
     // Edit a blog

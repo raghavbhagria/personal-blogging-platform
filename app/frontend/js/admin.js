@@ -29,9 +29,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 const actionsCell = row.insertCell(5);
                 actionsCell.innerHTML = `
-                    <button onclick="editUser(${user.id}, '${user.name}', '${user.email}', ${user.isAdmin})">Edit</button>
-                    <button onclick="deleteUser(${user.id})">Delete</button>
-                    <button onclick="toggleUserStatus(${user.id}, ${user.status})">
+                    <button class="edit-btn" onclick="editUser(${user.id}, '${user.name}', '${user.email}', ${user.isAdmin})">Edit</button>
+                    <button class="delete-btn" onclick="deleteUser(${user.id})">Delete</button>
+                    <button class="disable-btn" onclick="toggleUserStatus(${user.id}, ${user.status})">
                         ${user.status ? "Disable" : "Enable"}
                     </button>
                 `;

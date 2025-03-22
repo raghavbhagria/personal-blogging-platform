@@ -169,3 +169,77 @@ button:hover {
     text-decoration: none;
     cursor: pointer;
 }
+
+/* Add spacing between buttons in the Actions column */
+.blog-table td button {
+    margin: 5px 0; 
+    padding: 8px 12px;
+    font-size: 14px; 
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Specific styles for each button type */
+.blog-table td .edit-btn {
+    background-color: #007bff;
+    color: white;
+}
+
+.blog-table td .edit-btn:hover {
+    background-color: #0056b3;
+}
+
+.blog-table td .delete-btn {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.blog-table td .delete-btn:hover {
+    background-color: #c0392b;
+}
+
+.blog-table td .view-comments-btn {
+    background-color: #28a745;
+    color: white;
+}
+
+.blog-table td .view-comments-btn:hover {
+    background-color: #218838;
+}
+
+/* Ensure proper alignment of buttons in the Actions column */
+.blog-table td {
+    vertical-align: middle; 
+    text-align: center; 
+}
+
+/* New: Style for disabled buttons */
+button:disabled {
+    background: #555;
+    color: #ccc;
+    cursor: not-allowed;
+}
+
+/* New: Style for table row hover effect */
+table tr:hover {
+    background: #444;
+    transition: background 0.3s ease;
+}
+
+/* Delete Button */
+button.delete-btn {
+    background-color: #e74c3c;
+    color: white;
+    padding: 8px 12px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button.delete-btn:hover {
+    background-color: #c0392b;
+}
