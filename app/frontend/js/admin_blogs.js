@@ -9,7 +9,11 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Fetch all blogs
-    fetch("../api/posts/get_all_posts.php", {
+
+    fetch("/personal-blogging-platform/app/api/posts/get_all_posts.php", {
+
+ 
+
         method: "GET",
         headers: { "Authorization": `Bearer ${token}` }
     })
@@ -43,7 +47,9 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        fetch("../api/posts/delete_post.php", {
+
+        fetch("/personal-blogging-platform/app/api/posts/delete_post.php", {
+
             method: "POST",
             headers: {
                 "Authorization": `Bearer ${token}`,

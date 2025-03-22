@@ -23,4 +23,6 @@ try {
 } catch (Exception $e) {
     echo json_encode(["status" => "error", "message" => "Failed to fetch posts"]);
 }
+
 ?>
+

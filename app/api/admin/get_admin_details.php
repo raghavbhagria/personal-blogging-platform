@@ -25,4 +25,6 @@ try {
 } catch (Exception $e) {
     echo json_encode(["status" => "error", "message" => "Failed to fetch admin details", "details" => $e->getMessage()]);
 }
+
 ?>
+

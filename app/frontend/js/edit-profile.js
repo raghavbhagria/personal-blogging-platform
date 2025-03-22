@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // ✅ Fetch Current Profile Data
-    fetch("../api/auth/profile.php", {
+    fetch("/personal-blogging-platform/app/api/auth/profile.php", {
         method: "GET",
         headers: {
             "Authorization": `Bearer ${token}`,
@@ -76,7 +76,7 @@ document.addEventListener("DOMContentLoaded", function () {
             formData.append("profile_image", newProfileImageInput.files[0]);
         }
 
-        fetch("../api/user/update_profile.php", {  // ✅ Correct API path
+        fetch("/personal-blogging-platform/app/api/user/update_profile.php", {  // ✅ Correct API path
             method: "POST",
             headers: {
                 "Authorization": `Bearer ${token}`

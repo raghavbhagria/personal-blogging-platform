@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function fetchPostsByCategoryAndPage(category, page) {
         postsContainer.innerHTML = "<p>Loading...</p>";
 
-        fetch(`../api/posts/get_posts_by_category.php?category=${category}&page=${page}&limit=${postsPerPage}`)
+        fetch(`/personal-blogging-platform/app/api/posts/get_posts_by_category.php?category=${category}&page=${page}&limit=${postsPerPage}`)
             .then(response => response.json())
             .then(data => {
                 if (data.status === "success") {
@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 <button class="like-btn" data-post-id="${post.id}">
                     ❤️ Like (<span id="likes-count-${post.id}">${likesCount}</span>) 
                 </button>
-                <span class="likes-count" id="likes-count-${post.id}">${likesCount}</span>
+                
             </div>
 
             <div class="comments-section">
@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
     function fetchComments(postId) {
-        fetch(`../api/comments/get_comments.php?post_id=${postId}`)
+        fetch(`/personal-blogging-platform/app/api/comments/get_comments.php?post_id=${postId}`)
             .then(response => response.json())
             .then(data => {
                 const commentsContainer = document.getElementById(`comments-${postId}`);
@@ -105,7 +105,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function fetchLikes(postId) {
-        fetch(`../api/posts/get_likes.php?post_id=${postId}`)
+        fetch(`/personal-blogging-platform/app/api/posts/get_likes.php?post_id=${postId}`)
             .then(response => response.json())
             .then(data => {
                 if (data.status === "success") {
@@ -132,7 +132,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        fetch("../api/comments/add_comment.php", {
+        fetch("/personal-blogging-platform/app/api/comments/add_comment.php", {
             method: "POST",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
@@ -162,7 +162,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        fetch("../api/posts/like_post.php", {
+        fetch("/personal-blogging-platform/app/api/posts/like_post.php", {
             method: "POST",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",

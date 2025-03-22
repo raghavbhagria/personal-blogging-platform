@@ -1,9 +1,8 @@
 <?php
-
-$host = 'mysql-db'; // Make sure this matches the MySQL service name in docker-compose.yml
+$host = '127.0.0.1'; // ✅ or localhost
 $dbname = 'blogging_platform';
-$username = 'user';
-$password = 'userpassword';
+$username = 'root';
+$password = ''; // ✅ XAMPP default
 
 try {
     $pdo = new PDO("mysql:host=$host;port=3306;dbname=$dbname;charset=utf8", $username, $password);
@@ -11,5 +10,4 @@ try {
 } catch (PDOException $e) {
     die("Database connection failed: " . $e->getMessage());
 }
-
 ?>

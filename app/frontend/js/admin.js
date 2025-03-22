@@ -11,8 +11,11 @@ document.addEventListener("DOMContentLoaded", function () {
     // Fetch and display users
     function fetchUsers(query = "") {
         const url = query
-            ? `../api/user/searchUsers.php?query=${encodeURIComponent(query)}`
-            : "../api/user/listUsers.php";
+
+            ? `/personal-blogging-platform/app/api/user/searchUsers.php?query=${encodeURIComponent(query)}`
+            : "/personal-blogging-platform/app/api/user/listUsers.php";
+
+
 
         fetch(url, {
             method: "GET",
@@ -101,7 +104,7 @@ document.addEventListener("DOMContentLoaded", function () {
         formData.append("password", password);
         formData.append("isAdmin", isAdmin);
 
-        fetch("../api/user/addUser.php", {
+        fetch("/personal-blogging-platform/app/api/user/addUser.php", {
             method: "POST",
             headers: { 
                 "Content-Type": "application/x-www-form-urlencoded",
@@ -140,7 +143,7 @@ document.addEventListener("DOMContentLoaded", function () {
         formData.append("email", email);
         formData.append("isAdmin", isAdmin);
 
-        fetch("../api/user/editUser.php", {
+        fetch("/personal-blogging-platform/app/api/user/editUser.php", {
             method: "POST",
             headers: { 
                 "Content-Type": "application/x-www-form-urlencoded",
@@ -196,7 +199,7 @@ function deleteUser(id) {
         const formData = new URLSearchParams();
         formData.append("id", id);
 
-        fetch("../api/user/deleteUser.php", {
+        fetch("/personal-blogging-platform/app/api/user/deleteUser.php", {
             method: "POST",
             headers: { 
                 "Content-Type": "application/x-www-form-urlencoded",
@@ -230,7 +233,9 @@ function toggleUserStatus(userId, currentStatus) {
     }
 
     const newStatus = currentStatus ? 0 : 1; // Toggle status
-    fetch("../api/user/toggleUserStatus.php", {
+
+    fetch("/personal-blogging-platform/app/api/user/toggleUserStatus.php", {
+
         method: "POST",
         headers: {
             "Authorization": `Bearer ${token}`,
