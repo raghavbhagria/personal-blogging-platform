@@ -1,8 +1,8 @@
 <?php
-$host = '127.0.0.1'; // ✅ or localhost
-$dbname = 'blogging_platform';
-$username = 'root';
-$password = ''; // ✅ XAMPP default
+$host = 'cosc360.ubc.ok.ca'; // ✅ or localhost
+$dbname = 'ganainy';
+$username = 'ganainy';
+$password = 'ganainy'; // ✅ XAMPP default
 
 try {
     $pdo = new PDO("mysql:host=$host;port=3306;dbname=$dbname;charset=utf8", $username, $password);
