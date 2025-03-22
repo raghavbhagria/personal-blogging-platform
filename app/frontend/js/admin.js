@@ -25,10 +25,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 row.insertCell(1).textContent = user.name;
                 row.insertCell(2).textContent = user.email;
                 row.insertCell(3).textContent = user.isAdmin ? "Yes" : "No";
-                const actionsCell = row.insertCell(4);
+                row.insertCell(4).textContent = user.status ? "Enabled" : "Disabled";
+
+                const actionsCell = row.insertCell(5);
                 actionsCell.innerHTML = `
                     <button onclick="editUser(${user.id}, '${user.name}', '${user.email}', ${user.isAdmin})">Edit</button>
                     <button onclick="deleteUser(${user.id})">Delete</button>
+                    <button onclick="toggleUserStatus(${user.id}, ${user.status})">
+                        ${user.status ? "Disable" : "Enable"}
+                    </button>
                 `;
             });
         } else {
@@ -201,4 +206,33 @@ function deleteUser(id) {
         })
         .catch(error => console.error("Error deleting user:", error));
     }
+}
+
+// Function to toggle user status (Enable/Disable)
+function toggleUserStatus(userId, currentStatus) {
+    const token = localStorage.getItem("token");
+    if (!token) {
+        window.location.href = "login.html";
+        return;
+    }
+
+    const newStatus = currentStatus ? 0 : 1; // Toggle status
+    fetch("../api/user/toggleUserStatus.php", {
+        method: "POST",
+        headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: new URLSearchParams({ id: userId, status: newStatus })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === "success") {
+            alert(`User has been ${newStatus ? "enabled" : "disabled"}.`);
+            window.location.reload();
+        } else {
+            alert("Failed to update user status: " + data.message);
+        }
+    })
+    .catch(error => console.error("Error updating user status:", error));
 }
