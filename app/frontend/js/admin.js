@@ -1,46 +1,59 @@
 document.addEventListener("DOMContentLoaded", function () {
     const token = localStorage.getItem("token");
+    const usersTableBody = document.getElementById("usersTable").getElementsByTagName("tbody")[0];
+    const searchInput = document.getElementById("searchInput");
+
     if (!token) {
         window.location.href = "login.html";
         return;
     }
 
     // Fetch and display users
-    fetch("../api/user/listUsers.php", {
-        method: "GET",
-        headers: { "Authorization": `Bearer ${token}` }
-    })
-    .then(response => response.text())
-    .then(text => {
-        console.log("🔹 Raw Response (User List):", text);
-        return JSON.parse(text);
-    })
-    .then(data => {
-        if (data.status === "success") {
-            const usersTable = document.getElementById("usersTable").getElementsByTagName("tbody")[0];
-            usersTable.innerHTML = ""; // Clear table before inserting new data
-            data.users.forEach(user => {
-                const row = usersTable.insertRow();
-                row.insertCell(0).textContent = user.id;
-                row.insertCell(1).textContent = user.name;
-                row.insertCell(2).textContent = user.email;
-                row.insertCell(3).textContent = user.isAdmin ? "Yes" : "No";
-                row.insertCell(4).textContent = user.status ? "Enabled" : "Disabled";
+    function fetchUsers(query = "") {
+        const url = query
+            ? `../api/user/searchUsers.php?query=${encodeURIComponent(query)}`
+            : "../api/user/listUsers.php";
 
-                const actionsCell = row.insertCell(5);
-                actionsCell.innerHTML = `
-                    <button class="edit-btn" onclick="editUser(${user.id}, '${user.name}', '${user.email}', ${user.isAdmin})">Edit</button>
-                    <button class="delete-btn" onclick="deleteUser(${user.id})">Delete</button>
-                    <button class="disable-btn" onclick="toggleUserStatus(${user.id}, ${user.status})">
-                        ${user.status ? "Disable" : "Enable"}
-                    </button>
-                `;
-            });
-        } else {
-            alert("Failed to fetch users: " + data.message);
-        }
-    })
-    .catch(error => console.error("Error fetching users:", error));
+        fetch(url, {
+            method: "GET",
+            headers: { "Authorization": `Bearer ${token}` }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === "success") {
+                usersTableBody.innerHTML = ""; // Clear table before inserting new data
+                data.users.forEach(user => {
+                    const row = usersTableBody.insertRow();
+                    row.insertCell(0).textContent = user.id;
+                    row.insertCell(1).textContent = user.name;
+                    row.insertCell(2).textContent = user.email;
+                    row.insertCell(3).textContent = user.isAdmin ? "Yes" : "No";
+                    row.insertCell(4).textContent = user.status ? "Enabled" : "Disabled";
+
+                    const actionsCell = row.insertCell(5);
+                    actionsCell.innerHTML = `
+                        <button class="edit-btn" onclick="editUser(${user.id}, '${user.name}', '${user.email}', ${user.isAdmin})">Edit</button>
+                        <button class="delete-btn" onclick="deleteUser(${user.id})">Delete</button>
+                        <button class="disable-btn" onclick="toggleUserStatus(${user.id}, ${user.status})">
+                            ${user.status ? "Disable" : "Enable"}
+                        </button>
+                    `;
+                });
+            } else {
+                alert("Failed to fetch users: " + data.message);
+            }
+        })
+        .catch(error => console.error("Error fetching users:", error));
+    }
+
+    // Initial fetch of users
+    fetchUsers();
+
+    // Live search functionality
+    searchInput.addEventListener("input", function () {
+        const query = searchInput.value.trim();
+        fetchUsers(query);
+    });
 
     // Add User Modal functionality
     const addUserBtn = document.getElementById("addUserBtn");

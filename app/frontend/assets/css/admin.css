@@ -58,6 +58,7 @@ nav a:hover, .active {
     transition: background 0.3s;
     font-size: 16px;
     margin-bottom: 20px;
+    float: right; /* Position the button at the top-right */
 }
 
 #addUserBtn:hover {
@@ -242,4 +243,41 @@ button.delete-btn {
 
 button.delete-btn:hover {
     background-color: #c0392b;
+}
+
+/* Search Bar Styles */
+.search-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.search-container input {
+    width: 300px; /* Wider search bar */
+    padding: 8px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: #222;
+    color: white;
+    font-size: 14px;
+}
+
+.search-container input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.search-container button {
+    padding: 8px 12px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.search-container button:hover {
+    background: #0056b3;
 }
