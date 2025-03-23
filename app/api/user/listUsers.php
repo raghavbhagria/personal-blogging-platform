@@ -12,7 +12,7 @@ if (!$user['isAdmin']) {
     exit;
 }
 
-$stmt = $pdo->query("SELECT id, name, email, isAdmin FROM users");
+$stmt = $pdo->query("SELECT id, name, email, isAdmin, status FROM users");
 $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 echo json_encode(["status" => "success", "users" => $users]);

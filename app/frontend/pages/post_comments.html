@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post Comments - Admin</title>
+    <link rel="stylesheet" href="../assets/css/admin.css">
+    <script defer src="../js/post_comments.js"></script>
+    <script src="../js/breadcrumbs-admin.js" defer></script>
+    <link rel="stylesheet" href="../assets/css/breadcrumbs.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo">MyBlog Admin</div>
+        <nav>
+            <a href="admin.html">Users</a>
+            <a href="admin_blogs.html">Blogs</a>
+            <a href="admin_comments.html">Comments</a>
+            <a href="admin_settings.html">Settings</a>
+            <button id="logoutButton">Logout</button>
+        </nav>
+    </header>
+    <div id="breadcrumb-container"></div>
+
+    <main>
+        <h2 id="postTitle">Post Title</h2>
+        <p id="postDetails">Author: <span id="postAuthor"></span> | Date Posted: <span id="postDate"></span></p>
+        <table class="comment-table">
+            <thead>
+                <tr>
+                    <th>Comment Author</th>
+                    <th>Comment</th>
+                    <th>Date Posted</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="postCommentsTableBody">
+                <!-- Comments will be dynamically loaded here -->
+            </tbody>
+        </table>
+    </main>
+
+    <script>
+        // Logout Functionality
+        document.getElementById("logoutButton").addEventListener("click", function () {
+            localStorage.clear();
+            alert("Logged out successfully.");
+            window.location.href = "home.html";
+        });
+    </script>
+
+</body>
+</html>

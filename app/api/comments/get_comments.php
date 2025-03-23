@@ -14,7 +14,7 @@ if (!$post_id) {
 }
 
 try {
-    $stmt = $pdo->prepare("SELECT c.id, c.comment, c.created_at, u.name 
+    $stmt = $pdo->prepare("SELECT c.id, c.comment, c.created_at, u.name AS author
                            FROM comments c 
                            JOIN users u ON c.user_id = u.id 
                            WHERE c.post_id = ? 

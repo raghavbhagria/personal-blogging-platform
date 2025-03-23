@@ -169,3 +169,100 @@ button:hover {
     text-decoration: none;
     cursor: pointer;
 }
+/* ✅ Responsive Styles */
+
+/* Medium Devices (Tablets, < 768px) */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: center;
+        padding: 10px 20px;
+    }
+
+    .logo {
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    nav {
+        flex-wrap: wrap;
+        justify-content: center;
+        text-align: center;
+    }
+
+    nav a, #logoutBtn {
+        font-size: 14px;
+        margin: 5px 10px;
+    }
+
+    #addUserBtn {
+        display: block;
+        width: 100%;
+        margin-bottom: 20px;
+        font-size: 15px;
+    }
+
+    main {
+        padding: 15px;
+    }
+
+    .modal-content {
+        width: 90%;
+    }
+}
+
+/* Small Devices (Phones, < 480px) */
+@media (max-width: 480px) {
+    nav {
+        flex-direction: column;
+        gap: 5px;
+        align-items: center;
+    }
+
+    nav a, #logoutBtn {
+        display: block;
+        width: 100%;
+        margin: 4px 0;
+    }
+
+    .logo {
+        font-size: 18px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    input, textarea, button {
+        font-size: 14px;
+    }
+
+    #addUserBtn {
+        font-size: 14px;
+        padding: 8px 15px;
+    }
+
+    table, thead, tbody, th, td, tr {
+        display: block;
+        width: 100%;
+    }
+
+    table tr {
+        margin-bottom: 15px;
+    }
+
+    table td {
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+    }
+
+    table td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 10px;
+        top: 10px;
+        font-weight: bold;
+        text-align: left;
+    }
+}

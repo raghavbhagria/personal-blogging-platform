@@ -58,6 +58,7 @@ nav a:hover, .active {
     transition: background 0.3s;
     font-size: 16px;
     margin-bottom: 20px;
+    float: right; /* Position the button at the top-right */
 }
 
 #addUserBtn:hover {
@@ -168,4 +169,206 @@ button:hover {
     color: white;
     text-decoration: none;
     cursor: pointer;
+}
+
+/* Add spacing between buttons in the Actions column */
+.blog-table td button {
+    margin: 5px 0; 
+    padding: 8px 12px;
+    font-size: 14px; 
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Specific styles for each button type */
+.blog-table td .edit-btn {
+    background-color: #007bff;
+    color: white;
+}
+
+.blog-table td .edit-btn:hover {
+    background-color: #0056b3;
+}
+
+.blog-table td .delete-btn {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.blog-table td .delete-btn:hover {
+    background-color: #c0392b;
+}
+
+.blog-table td .view-comments-btn {
+    background-color: #28a745;
+    color: white;
+}
+
+.blog-table td .view-comments-btn:hover {
+    background-color: #218838;
+}
+
+/* Ensure proper alignment of buttons in the Actions column */
+.blog-table td {
+    vertical-align: middle; 
+    text-align: center; 
+}
+
+/* New: Style for disabled buttons */
+button:disabled {
+    background: #555;
+    color: #ccc;
+    cursor: not-allowed;
+}
+
+/* New: Style for table row hover effect */
+table tr:hover {
+    background: #444;
+    transition: background 0.3s ease;
+}
+
+/* Delete Button */
+button.delete-btn {
+    background-color: #e74c3c;
+    color: white;
+    padding: 8px 12px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button.delete-btn:hover {
+    background-color: #c0392b;
+}
+
+/* Search Bar Styles */
+.search-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.search-container input {
+    width: 300px; /* Wider search bar */
+    padding: 8px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: #222;
+    color: white;
+    font-size: 14px;
+}
+
+.search-container input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.search-container button {
+    padding: 8px 12px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.search-container button:hover {
+    background: #0056b3;
+}
+
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: center;
+        padding: 10px 20px;
+    }
+
+    nav a, #logoutBtn {
+        font-size: 14px;
+        margin: 5px 8px;
+    }
+
+    #addUserBtn {
+        float: none;
+        margin: 10px auto;
+        display: block;
+    }
+
+    .search-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-container input {
+        width: 100%;
+        margin: 0 0 10px 0;
+    }
+
+    .search-container button {
+        width: 100%;
+    }
+
+    main {
+        padding: 15px;
+    }
+
+    .modal-content {
+        width: 95%;
+    }
+}
+
+/* Small Devices (Phones) */
+@media (max-width: 480px) {
+    .logo {
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    nav {
+        flex-direction: column;
+        gap: 8px;
+        align-items: center;
+    }
+
+    nav a, #logoutBtn {
+        display: block;
+        width: 100%;
+        text-align: center;
+        margin: 4px 0;
+    }
+
+    table, thead, tbody, th, td, tr {
+        display: block;
+        width: 100%;
+    }
+
+    table tr {
+        margin-bottom: 15px;
+    }
+
+    table td {
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+    }
+
+    table td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 10px;
+        top: 10px;
+        font-weight: bold;
+        text-align: left;
+    }
+
+    .blog-table td button {
+        width: 100%;
+        margin: 6px 0;
+    }
 }

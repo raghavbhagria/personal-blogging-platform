@@ -307,3 +307,15 @@ textarea:focus {
     font-weight: bold;
     color: #ff9800;
 }
+@media (min-width: 1024px) {
+    .posts-container {
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+  
+    .post {
+      flex: 1 1 calc(33.33% - 40px); /* Max 3 columns */
+      max-width: 300px;
+    }
+  }
+  

@@ -1,41 +1,62 @@
 document.addEventListener("DOMContentLoaded", function () {
     const token = localStorage.getItem("token");
+    const usersTableBody = document.getElementById("usersTable").getElementsByTagName("tbody")[0];
+    const searchInput = document.getElementById("searchInput");
+
     if (!token) {
         window.location.href = "login.html";
         return;
     }
 
     // Fetch and display users
-    fetch("../api/user/listUsers.php", {
-        method: "GET",
-        headers: { "Authorization": `Bearer ${token}` }
-    })
-    .then(response => response.text())
-    .then(text => {
-        console.log("🔹 Raw Response (User List):", text);
-        return JSON.parse(text);
-    })
-    .then(data => {
-        if (data.status === "success") {
-            const usersTable = document.getElementById("usersTable").getElementsByTagName("tbody")[0];
-            usersTable.innerHTML = ""; // Clear table before inserting new data
-            data.users.forEach(user => {
-                const row = usersTable.insertRow();
-                row.insertCell(0).textContent = user.id;
-                row.insertCell(1).textContent = user.name;
-                row.insertCell(2).textContent = user.email;
-                row.insertCell(3).textContent = user.isAdmin ? "Yes" : "No";
-                const actionsCell = row.insertCell(4);
-                actionsCell.innerHTML = `
-                    <button onclick="editUser(${user.id}, '${user.name}', '${user.email}', ${user.isAdmin})">Edit</button>
-                    <button onclick="deleteUser(${user.id})">Delete</button>
-                `;
-            });
-        } else {
-            alert("Failed to fetch users: " + data.message);
-        }
-    })
-    .catch(error => console.error("Error fetching users:", error));
+    function fetchUsers(query = "") {
+        const url = query
+
+            ? `/personal-blogging-platform/app/api/user/searchUsers.php?query=${encodeURIComponent(query)}`
+            : "/personal-blogging-platform/app/api/user/listUsers.php";
+
+
+
+        fetch(url, {
+            method: "GET",
+            headers: { "Authorization": `Bearer ${token}` }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === "success") {
+                usersTableBody.innerHTML = ""; // Clear table before inserting new data
+                data.users.forEach(user => {
+                    const row = usersTableBody.insertRow();
+                    row.insertCell(0).textContent = user.id;
+                    row.insertCell(1).textContent = user.name;
+                    row.insertCell(2).textContent = user.email;
+                    row.insertCell(3).textContent = user.isAdmin ? "Yes" : "No";
+                    row.insertCell(4).textContent = user.status ? "Enabled" : "Disabled";
+
+                    const actionsCell = row.insertCell(5);
+                    actionsCell.innerHTML = `
+                        <button class="edit-btn" onclick="editUser(${user.id}, '${user.name}', '${user.email}', ${user.isAdmin})">Edit</button>
+                        <button class="delete-btn" onclick="deleteUser(${user.id})">Delete</button>
+                        <button class="disable-btn" onclick="toggleUserStatus(${user.id}, ${user.status})">
+                            ${user.status ? "Disable" : "Enable"}
+                        </button>
+                    `;
+                });
+            } else {
+                alert("Failed to fetch users: " + data.message);
+            }
+        })
+        .catch(error => console.error("Error fetching users:", error));
+    }
+
+    // Initial fetch of users
+    fetchUsers();
+
+    // Live search functionality
+    searchInput.addEventListener("input", function () {
+        const query = searchInput.value.trim();
+        fetchUsers(query);
+    });
 
     // Add User Modal functionality
     const addUserBtn = document.getElementById("addUserBtn");
@@ -83,7 +104,7 @@ document.addEventListener("DOMContentLoaded", function () {
         formData.append("password", password);
         formData.append("isAdmin", isAdmin);
 
-        fetch("../api/user/addUser.php", {
+        fetch("/personal-blogging-platform/app/api/user/addUser.php", {
             method: "POST",
             headers: { 
                 "Content-Type": "application/x-www-form-urlencoded",
@@ -122,7 +143,7 @@ document.addEventListener("DOMContentLoaded", function () {
         formData.append("email", email);
         formData.append("isAdmin", isAdmin);
 
-        fetch("../api/user/editUser.php", {
+        fetch("/personal-blogging-platform/app/api/user/editUser.php", {
             method: "POST",
             headers: { 
                 "Content-Type": "application/x-www-form-urlencoded",
@@ -178,7 +199,7 @@ function deleteUser(id) {
         const formData = new URLSearchParams();
         formData.append("id", id);
 
-        fetch("../api/user/deleteUser.php", {
+        fetch("/personal-blogging-platform/app/api/user/deleteUser.php", {
             method: "POST",
             headers: { 
                 "Content-Type": "application/x-www-form-urlencoded",
@@ -201,4 +222,35 @@ function deleteUser(id) {
         })
         .catch(error => console.error("Error deleting user:", error));
     }
+}
+
+// Function to toggle user status (Enable/Disable)
+function toggleUserStatus(userId, currentStatus) {
+    const token = localStorage.getItem("token");
+    if (!token) {
+        window.location.href = "login.html";
+        return;
+    }
+
+    const newStatus = currentStatus ? 0 : 1; // Toggle status
+
+    fetch("/personal-blogging-platform/app/api/user/toggleUserStatus.php", {
+
+        method: "POST",
+        headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: new URLSearchParams({ id: userId, status: newStatus })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === "success") {
+            alert(`User has been ${newStatus ? "enabled" : "disabled"}.`);
+            window.location.reload();
+        } else {
+            alert("Failed to update user status: " + data.message);
+        }
+    })
+    .catch(error => console.error("Error updating user status:", error));
 }

@@ -83,3 +83,80 @@ h2 {
 .notification-item p {
     margin: 5px 0;
 }
+/* Tablets (≤768px) */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 10px 20px;
+    }
+
+    nav {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    nav a, #logoutBtn {
+        font-size: 14px;
+        margin: 5px 10px;
+    }
+
+    main {
+        padding: 15px;
+        width: 90%;
+    }
+
+    h2 {
+        font-size: 22px;
+    }
+
+    .notification-item h3 {
+        font-size: 18px;
+    }
+
+    .notification-item p {
+        font-size: 14px;
+    }
+}
+
+/* Phones (≤480px) */
+@media (max-width: 480px) {
+    .logo {
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    nav {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav a, #logoutBtn {
+        display: block;
+        width: 100%;
+        margin: 6px 0;
+        text-align: center;
+    }
+
+    main {
+        padding: 10px;
+        border-radius: 8px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    .notification-item {
+        padding: 12px;
+    }
+
+    .notification-item h3 {
+        font-size: 16px;
+    }
+
+    .notification-item p {
+        font-size: 13px;
+    }
+}

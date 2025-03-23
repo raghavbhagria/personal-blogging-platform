@@ -5,7 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Post | MyBlog</title>
     <link rel="stylesheet" href="../assets/css/createPost.css">
+    <link rel="stylesheet" href="../assets/css/breadcrumbs.css">
     <script defer src="../js/editPost.js"></script>
+    <script src="../js/breadcrumbs.js"></script>
+    <!-- <script defer src="../js/auth.js"></script> -->
 </head>
 <body>
     <header>
@@ -17,6 +20,9 @@
             <button id="logoutBtn">Logout</button>
         </nav>
     </header>
+    
+    <div id="breadcrumb-container"></div>
+
     <main>
         <h2>Edit Post</h2>
         <form id="editPostForm">
