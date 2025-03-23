@@ -119,3 +119,47 @@ a {
 a:hover {
     text-decoration: underline;
 }
+/* ✅ Responsive Styling */
+@media (max-width: 768px) {
+    .typing-text {
+        font-size: 22px;
+        max-width: 18ch;
+        animation: typing 2s steps(18, end) forwards, blink 0.7s infinite;
+    }
+
+    main {
+        width: 90%;
+        padding: 30px;
+    }
+
+    input, button {
+        font-size: 15px;
+        padding: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .typing-text {
+        font-size: 20px;
+        max-width: 16ch;
+        animation: typing 2s steps(16, end) forwards, blink 0.7s infinite;
+    }
+
+    main {
+        width: 95%;
+        padding: 25px;
+    }
+
+    input, button {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    p {
+        font-size: 13px;
+    }
+
+    a {
+        font-size: 13px;
+    }
+}

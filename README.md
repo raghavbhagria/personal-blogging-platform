@@ -1,3 +1,6 @@
+> **Side Note for macOS Users:**  
+> In `app/config/database.php`, we are using `127.0.0.1` instead of `localhost` for the database host.  
+> This is because `localhost` was causing connection issues on macOS systems with XAMPP.
 
 # Personal Blogging Platform
 

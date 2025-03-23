@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Post Details | MyBlog</title>
     <link rel="stylesheet" href="../assets/css/post.css">
-    <script defer src="/personal-blogging-platform/app/frontend/js/posts.js?v=1.0.3"></script>
+    <link rel="stylesheet" href="../assets/css/breadcrumbs.css">
+    <script defer src="../js/post.js"></script>
     <script defer src="../js/auth.js"></script>
+    <script defer src="../js/breadcrumbs.js"></script>
 </head>
 <body>
     <header>
@@ -20,6 +22,9 @@
                 });
         </script>
     </header>
+
+    <div id="breadcrumb-container"></div>
+
     <main>
         <div class="post-container">
             <h2 id="postTitle">Loading...</h2>
