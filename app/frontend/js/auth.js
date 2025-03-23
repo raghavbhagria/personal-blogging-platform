@@ -235,7 +235,7 @@ function logoutUser() {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     alert("Logged out successfully.");
-    window.location.href = "home.html";
+    window.location.href = "/personal-blogging-platform/index.php";
 }
 
 // ✅ Utility Functions
