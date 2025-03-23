@@ -129,3 +129,72 @@ textarea:focus {
 .comments-section button:hover {
     background: #ffb74d;
 }
+/* Responsive Styles */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        padding: 10px 20px;
+    }
+
+    nav {
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 10px;
+    }
+
+    nav a {
+        margin: 5px 10px;
+        font-size: 14px;
+    }
+
+    main {
+        padding: 15px;
+    }
+
+    h2 {
+        font-size: 1.6rem;
+    }
+
+    .comments-section button,
+    textarea {
+        font-size: 14px;
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo {
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    nav {
+        flex-direction: column;
+    }
+
+    nav a {
+        display: block;
+        width: 100%;
+        margin: 6px 0;
+        text-align: center;
+    }
+
+    h2 {
+        font-size: 1.4rem;
+        margin-bottom: 15px;
+    }
+
+    .comment {
+        font-size: 13px;
+    }
+
+    textarea {
+        height: 60px;
+        font-size: 13px;
+    }
+
+    .comments-section button {
+        font-size: 13px;
+        padding: 8px 10px;
+    }
+}

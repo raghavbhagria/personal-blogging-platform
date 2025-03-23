@@ -207,3 +207,52 @@ textarea:focus {
 .comments-section button:hover {
     background: #ffb74d;
 }
+/* Responsive: Max 3 Columns */
+@media (min-width: 1024px) {
+    .posts-container {
+      justify-content: center;
+    }
+  
+    .post {
+      flex: 1 1 calc(33.333% - 40px); /* 3 columns with 30px gap */
+      max-width: 300px;
+    }
+  }
+  
+  @media (max-width: 1023px) and (min-width: 768px) {
+    .post {
+      flex: 1 1 calc(50% - 30px); /* 2 columns */
+      max-width: 100%;
+    }
+  }
+  
+  @media (max-width: 767px) {
+    .post {
+      flex: 1 1 100%; /* 1 column */
+      max-width: 100%;
+    }
+  
+    .posts-container {
+      padding: 10px;
+      gap: 20px;
+    }
+  
+    .post .post-actions {
+      flex-direction: column;
+      gap: 10px;
+    }
+  
+    .likes-section {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    textarea {
+      font-size: 13px;
+    }
+  
+    .comments-section button {
+      width: 100%;
+    }
+  }
+  
