@@ -45,7 +45,7 @@
     font-weight: bold;
 }
 
-/* Responsive Design */
+
 @media (max-width: 768px) {
     .breadcrumb {
         font-size: 13px;

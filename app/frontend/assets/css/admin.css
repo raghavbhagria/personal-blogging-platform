@@ -281,3 +281,94 @@ button.delete-btn:hover {
 .search-container button:hover {
     background: #0056b3;
 }
+
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: center;
+        padding: 10px 20px;
+    }
+
+    nav a, #logoutBtn {
+        font-size: 14px;
+        margin: 5px 8px;
+    }
+
+    #addUserBtn {
+        float: none;
+        margin: 10px auto;
+        display: block;
+    }
+
+    .search-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-container input {
+        width: 100%;
+        margin: 0 0 10px 0;
+    }
+
+    .search-container button {
+        width: 100%;
+    }
+
+    main {
+        padding: 15px;
+    }
+
+    .modal-content {
+        width: 95%;
+    }
+}
+
+/* Small Devices (Phones) */
+@media (max-width: 480px) {
+    .logo {
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    nav {
+        flex-direction: column;
+        gap: 8px;
+        align-items: center;
+    }
+
+    nav a, #logoutBtn {
+        display: block;
+        width: 100%;
+        text-align: center;
+        margin: 4px 0;
+    }
+
+    table, thead, tbody, th, td, tr {
+        display: block;
+        width: 100%;
+    }
+
+    table tr {
+        margin-bottom: 15px;
+    }
+
+    table td {
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+    }
+
+    table td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 10px;
+        top: 10px;
+        font-weight: bold;
+        text-align: left;
+    }
+
+    .blog-table td button {
+        width: 100%;
+        margin: 6px 0;
+    }
+}
