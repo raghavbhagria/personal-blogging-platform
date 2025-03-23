@@ -1,17 +1,15 @@
 document.addEventListener("DOMContentLoaded", function () {
     console.log("🔹 auth.js loaded");
 
-    
     // Load Navbar First
-fetch("/ganainy/app/frontend/pages/navbar.html")
-.then(response => response.text())
-.then(html => {
-    const navbarContainer = document.getElementById("navbar-container");
-    if (navbarContainer) {
-        navbarContainer.innerHTML = html;
-        updateNavbar(); // Update navbar based on login state
-    }
-
+    fetch("https://cosc360.ok.ubc.ca/ganainy/app/frontend/pages/navbar.html")
+        .then(response => response.text())
+        .then(html => {
+            const navbarContainer = document.getElementById("navbar-container");
+            if (navbarContainer) {
+                navbarContainer.innerHTML = html;
+                updateNavbar(); // Update navbar based on login state
+            }
 
             // Add search functionality
             const navbarSearchForm = document.getElementById("navbarSearchForm");
@@ -107,7 +105,7 @@ function registerUser() {
         formData.append("profile_image", profileImage);
     }
 
-    fetch("/ganainy/app/api/auth/register.php", {
+    fetch("https://cosc360.ok.ubc.ca/ganainy/app/api/auth/register.php", {
         method: "POST",
         body: formData
     })
@@ -135,7 +133,7 @@ function loginUser() {
         return;
     }
 
-    fetch("/ganainy/app/api/auth/login.php", {
+    fetch("https://cosc360.ok.ubc.ca/ganainy/app/api/auth/login.php", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password })
@@ -204,9 +202,9 @@ function updateNavbar() {
 
         // Set the profile picture (check if the user has a profile image and set the correct path)
         if (user.profile_image) {
-            profilePicSmall.src = `/ganainy/app/uploads/${user.profile_image}`;  // Corrected the path
+            profilePicSmall.src = `https://cosc360.ok.ubc.ca/ganainy/app/uploads/${user.profile_image}`;  // Corrected the path
         } else {
-            profilePicSmall.src = "/ganainy/app/assets/default-profile.png"; // Default image if no profile picture
+            profilePicSmall.src = "https://cosc360.ok.ubc.ca/ganainy/app/frontend/assets/default-profile.png"; // Default image if no profile picture
         }
 
         loginLink.style.display = "none";
@@ -222,7 +220,6 @@ function updateNavbar() {
         registerLink.style.display = "inline";
     }
 }
-
 
 // ✅ Ensure Navbar Updates on Page Load
 document.addEventListener("DOMContentLoaded", function () {
