@@ -206,7 +206,7 @@ function updateNavbar() {
         if (user.profile_image) {
             profilePicSmall.src = `/personal-blogging-platform/app/uploads/${user.profile_image}`;  // Corrected the path
         } else {
-            profilePicSmall.src = "/personal-blogging-platform/app/assets/default-profile.png"; // Default image if no profile picture
+            profilePicSmall.src = "/personal-blogging-platform/app/frontend/assets/default-profile.png"; // Default image if no profile picture
         }
 
         loginLink.style.display = "none";
