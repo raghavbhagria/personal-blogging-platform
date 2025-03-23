@@ -5,7 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Posts | MyBlog</title>
     <link rel="stylesheet" href="../assets/css/userPosts.css">
+    <link rel="stylesheet" href="../assets/css/breadcrumbs.css">
     <script defer src="../js/userPosts.js"></script>
+    <script src="../js/breadcrumbs.js"></script>
+
 </head>
 <body>
     <header>
@@ -21,6 +24,9 @@
                 .catch(error => console.error("Error loading navbar:", error));
         </script>
     </header>
+
+    <div id="breadcrumb-container"></div>
+
     <main>
         <h2>Your Blog Posts</h2>
         <div id="userPostsContainer" class="posts-container">

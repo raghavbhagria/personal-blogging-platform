@@ -5,11 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Profile | MyBlog</title>
     <link rel="stylesheet" href="../assets/css/profile.css">
+    <link rel="stylesheet" href="../assets/css/breadcrumbs.css">
     <script defer src="../js/auth.js"></script>
+    <script src="../js/breadcrumbs.js"></script>
+
 </head>
 <body>
 
-    <!-- ✅ Navigation Bar -->
+    <!-- Navigation Bar -->
     <header>
         <div id="navbar-container"></div>
         <script>
@@ -22,12 +25,14 @@
         </script>
     </header>
 
-    <!-- ✅ Edit Profile Section -->
+    <div id="breadcrumb-container"></div>
+
+    <!-- Edit Profile Section -->
     <div class="profile-container">
         <div class="profile-card">
             <h2>Edit Profile</h2>
             
-            <!-- ✅ Display Current Profile Picture -->
+            <!-- Display Current Profile Picture -->
             <div class="profile-pic-section">
                 <img id="currentProfileImage" src="" alt="Profile Picture" class="profile-pic">
                 <input type="file" id="newProfileImage" name="profile_image" accept="image/*">
@@ -40,14 +45,14 @@
                 <button type="submit">Save Changes</button>
             </form>
 
-            <!-- ✅ Buttons -->
+            <!--  Buttons -->
             <div class="profile-actions">
                 <button id="cancelEditBtn">❌ Cancel</button>
             </div>
         </div>
     </div>
 
-    <!-- ✅ JavaScript Files -->
+    <!--  JavaScript Files -->
     <script defer src="../js/edit-profile.js"></script>
 
 </body>
