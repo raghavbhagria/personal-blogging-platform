@@ -1,8 +1,12 @@
 <?php
-$host = 'cosc360.ubc.ok.ca/ganainy'; // ✅ or localhost
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+$host = 'localhost'; // Use localhost if the database is on the same server
 $dbname = 'ganainy';
 $username = 'ganainy';
-$password = 'ganainy'; // ✅ XAMPP default
+$password = 'ganainy'; // Replace with the correct password
 
 try {
     $pdo = new PDO("mysql:host=$host;port=3306;dbname=$dbname;charset=utf8", $username, $password);
