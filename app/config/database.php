@@ -1,5 +1,5 @@
 <?php
-$host = 'cosc360.ubc.ok.ca'; // ✅ or localhost
+$host = 'localhost'; // ✅ or localhost
 $dbname = 'ganainy';
 $username = 'ganainy';
 $password = 'ganainy'; // ✅ XAMPP default
