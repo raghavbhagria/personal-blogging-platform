@@ -53,7 +53,8 @@ document.addEventListener("DOMContentLoaded", function () {
             ${postImage}
             <p class="post-content">${post.content.substring(0, 100)}...</p>
             <small>Posted by ${post.name} on ${new Date(post.created_at).toLocaleDateString()}</small>
-            <a href="post.html?id=${post.id}" class="read-more-btn">Read More</a>
+            <a href="/personal-blogging-platform/app/frontend/pages/post.html?id=${post.id}" class="read-more-btn">Read More</a>
+
 
             <div class="likes-section">
                 <button class="like-btn" data-post-id="${post.id}">

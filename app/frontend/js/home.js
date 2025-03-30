@@ -74,7 +74,8 @@ document.addEventListener("DOMContentLoaded", function () {
         posts.slice(0, 3).forEach(post => {
             const postElement = document.createElement("a");
             postElement.classList.add("post");
-            postElement.href = `post.html?id=${post.id}`;
+            postElement.href = `/personal-blogging-platform/app/frontend/pages/post.html?id=${post.id}`;
+
 
             postElement.innerHTML = `
                 <h3>${post.title}</h3>
