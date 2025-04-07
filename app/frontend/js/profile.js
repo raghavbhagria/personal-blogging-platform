@@ -1,71 +1,69 @@
 document.addEventListener("DOMContentLoaded", function () {
     console.log("✅ Profile Page Loaded");
 
-    // ✅ Select Elements Safely
+    // DOM Elements
     const userNameElement = document.getElementById("userName");
     const userEmailElement = document.getElementById("userEmail");
-    const profileImage = document.getElementById("profileImage"); // Get the image element
-
+    const profileImage = document.getElementById("profileImage");
     const editProfileBtn = document.getElementById("editProfileBtn");
     const logoutBtn = document.getElementById("logoutBtn");
 
-
-
-   
-
-    // ✅ Step 2: Fetch User Info
+    // ✅ Step 1: Fetch user profile from session
     fetch("/raghav49/app/api/auth/profile.php", {
         method: "GET",
-        credentials: "include" // ✅ Important: Sends session cookies with the request
+        credentials: "include"
     })
     .then(response => response.json())
     .then(data => {
         console.log("🔹 API Response:", data);
 
         if (data.status === "success") {
-            // ✅ Populate the profile details
-            userNameElement.textContent = data.user.name;
-            userEmailElement.textContent = data.user.email;
+            const user = data.user;
 
-            // Set the profile image
-            if (data.user.profile_image) {
-                profileImage.src = `/raghav49/app/uploads/${data.user.profile_image}`; // Correct path to the image
+            // ✅ Update DOM
+            userNameElement.textContent = user.name;
+            userEmailElement.textContent = user.email;
+
+            // ✅ Handle profile image
+            if (user.profile_image) {
+                const imageUrl = `/raghav49/uploads/${user.profile_image}`;
+                console.log("🖼️ Image URL:", imageUrl);
+
+                // Test loading image and fallback if broken
+                profileImage.src = imageUrl;
+                profileImage.onerror = () => {
+                    console.warn("⚠️ Image not found, loading default");
+                    profileImage.src = '../assets/default-profile.png';
+                };
             } else {
-                profileImage.src = '../assets/default-profile.png'; // Set a default image
+                profileImage.src = '../assets/default-profile.png';
             }
 
-            // Update localStorage with the latest user data
-            localStorage.setItem("user", JSON.stringify(data.user));
-            updateNavbar(); // Update the navbar with the new profile picture
+            // Store user in localStorage
+            localStorage.setItem("user", JSON.stringify(user));
+            updateNavbar?.();
         } else {
-            console.error("⚠️ Session expired. Logging out.");
+            console.error("⚠️ Session expired.");
             alert("⚠️ Session expired. Please log in again.");
             localStorage.removeItem("token");
             window.location.href = "login.html";
         }
     })
     .catch(error => {
-        console.error("⚠️ Error fetching user data:", error);
-        alert("⚠️ Error fetching user data. Try again.");
-        localStorage.removeItem("token");
+        console.error("❌ Failed to fetch profile:", error);
+        alert("⚠️ Could not load profile.");
         window.location.href = "login.html";
     });
-    
-    // ✅ Step 3: Add "Edit Profile" Button Functionality
-    if (editProfileBtn) {
-        editProfileBtn.addEventListener("click", function () {
-            console.log("🔹 Navigating to Edit Profile Page");
-            window.location.href = "edit-profile.html"; // ✅ Redirect to Edit Profile
-        });
-    }
 
-    // ✅ Step 4: Add "Logout" Button Functionality
-    if (logoutBtn) {
-        logoutBtn.addEventListener("click", function () {
-            console.log("🔹 Logging out user");
-            localStorage.clear();
-            alert("✅ Logged out successfully.");
-            window.location.href = "login.html"; // ✅ Redirect to login page
-        });
-    }
+    // ✅ Edit Profile Redirect
+    editProfileBtn?.addEventListener("click", () => {
+        window.location.href = "edit-profile.html";
+    });
+
+    // ✅ Logout Functionality
+    logoutBtn?.addEventListener("click", () => {
+        localStorage.clear();
+        alert("✅ Logged out.");
+        window.location.href = "login.html";
+    });
 });

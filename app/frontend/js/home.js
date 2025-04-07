@@ -14,7 +14,8 @@ document.addEventListener("DOMContentLoaded", function () {
         heroHeading.textContent = "What's on your mind today?";
         heroSubheading.textContent = "Start sharing your thoughts with the world.";
         heroCTA.textContent = "Create Post";
-        heroCTA.href = "createPost.html";
+        heroCTA.href = "/raghav49/app/frontend/pages/createPost.html";
+
 
         // Show "Your Recent Posts" section
         userPostsSection.style.display = "block";
