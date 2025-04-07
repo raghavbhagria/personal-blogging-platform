@@ -9,22 +9,14 @@ document.addEventListener("DOMContentLoaded", function () {
     const editProfileBtn = document.getElementById("editProfileBtn");
     const logoutBtn = document.getElementById("logoutBtn");
 
-    const token = localStorage.getItem("token");
 
-    // ✅ Step 1: Ensure User is Logged In
-    if (!token) {
-        alert("⚠️ You must be logged in to access the profile.");
-        window.location.href = "login.html";
-        return;
-    }
+
+   
 
     // ✅ Step 2: Fetch User Info
     fetch("/raghav49/app/api/auth/profile.php", {
         method: "GET",
-        headers: {
-            "Authorization": `Bearer ${token}`,
-            "Content-Type": "application/json"
-        }
+        credentials: "include" // ✅ Important: Sends session cookies with the request
     })
     .then(response => response.json())
     .then(data => {

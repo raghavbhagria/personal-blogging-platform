@@ -1,32 +1,19 @@
 <?php
+session_start();
 require '../../config/database.php';
-require '../../config/jwt.php'; // Ensure JWTHandler class is included
 
 header("Content-Type: application/json");
 
-// Get JWT token from the request
-$headers = getallheaders(); // More reliable than apache_request_headers()
-$authHeader = isset($headers['Authorization']) ? trim($headers['Authorization']) : '';
-
-if (!$authHeader || !preg_match('/Bearer\s(\S+)/', $authHeader, $matches)) {
+// Check if the user is logged in via session
+if (!isset($_SESSION['user_id'])) {
     http_response_code(401);
-    echo json_encode(["status" => "error", "message" => "Unauthorized"]);
-    exit;
-}
-
-$token = $matches[1];
-
-try {
-    $userData = JWTHandler::validateToken($token); // Decode token
-} catch (Exception $e) {
-    http_response_code(401);
-    echo json_encode(["status" => "error", "message" => "Invalid session", "error" => $e->getMessage()]);
+    echo json_encode(["status" => "error", "message" => "Unauthorized - not logged in"]);
     exit;
 }
 
 // Fetch user details from the database
 $stmt = $pdo->prepare("SELECT id, name, email, profile_image FROM users WHERE id = ?");
-$stmt->execute([$userData['id']]);
+$stmt->execute([$_SESSION['user_id']]);
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if ($user) {

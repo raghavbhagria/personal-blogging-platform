@@ -1,32 +1,22 @@
 <?php
-require '../../config/database.php';
-require '../../config/jwt.php';
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
+session_start();
+require '../../config/database.php';
 header("Content-Type: application/json");
 
-// ✅ Step 1: Get JWT Token from Header
-$headers = getallheaders();
-$authHeader = isset($headers['Authorization']) ? trim($headers['Authorization']) : '';
-
-if (!$authHeader || !preg_match('/Bearer\s(\S+)/', $authHeader, $matches)) {
+// ✅ Step 1: Check Session
+if (!isset($_SESSION['user_id'])) {
     http_response_code(401);
-    echo json_encode(["status" => "error", "message" => "Unauthorized"]);
+    echo json_encode(["status" => "error", "message" => "Unauthorized - not logged in"]);
     exit;
 }
 
-$token = $matches[1];
-
-try {
-    $userData = JWTHandler::validateToken($token); // ✅ Decode JWT Token
-} catch (Exception $e) {
-    http_response_code(401);
-    echo json_encode(["status" => "error", "message" => "Invalid session"]);
-    exit;
-}
-
-// Fetch current user details from the database
+// ✅ Step 2: Fetch current user info
 $stmt = $pdo->prepare("SELECT name, email, profile_image FROM users WHERE id = ?");
-$stmt->execute([$userData['id']]);
+$stmt->execute([$_SESSION['user_id']]);
 $currentUser = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$currentUser) {
@@ -39,55 +29,59 @@ $name = trim($_POST['name'] ?? $currentUser['name']);
 $email = trim($_POST['email'] ?? $currentUser['email']);
 $password = $_POST['password'] ?? null;
 
-// Image Upload Handling
-$profile_image = $currentUser['profile_image']; // Default to current profile image
+echo json_encode($_FILES);
+exit;
 
-// Check if a file has been uploaded
+
+$profile_image = $currentUser['profile_image']; // default to existing
+
 if (isset($_FILES['profile_image']) && $_FILES['profile_image']['error'] === UPLOAD_ERR_OK) {
-    // Validate file size (max 2MB for example)
-    if ($_FILES['profile_image']['size'] > 2 * 1024 * 1024) {
-        echo json_encode(["status" => "error", "message" => "File size exceeds 2MB."]);
+    $uploadDir = realpath(__DIR__ . '/../../../uploads'); // Absolute path
+
+    if (!$uploadDir) {
+        error_log("Upload directory does not exist or is invalid.");
+        echo json_encode(["status" => "error", "message" => "Upload directory not found."]);
         exit;
     }
 
-    // Validate file type (only JPG, PNG, GIF)
-    $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
-    $fileType = mime_content_type($_FILES['profile_image']['tmp_name']);
-    if (!in_array($fileType, $allowedTypes)) {
-        echo json_encode(["status" => "error", "message" => "Invalid file type. Only JPG, PNG, and GIF are allowed."]);
+    if (!is_writable($uploadDir)) {
+        error_log("Upload directory is not writable.");
+        echo json_encode(["status" => "error", "message" => "Server error: Upload directory is not writable."]);
         exit;
     }
 
-    // Set the upload directory
-    $uploadDir = '../../uploads/';
-    $uploadFile = $uploadDir . basename($_FILES['profile_image']['name']);
-    
-    // Move the uploaded file
-    if (move_uploaded_file($_FILES['profile_image']['tmp_name'], $uploadFile)) {
-        $profile_image = basename($uploadFile);  // Store the filename (relative to the uploads directory)
-        error_log("Profile image uploaded to: " . realpath($uploadFile));
+    $fileTmp = $_FILES['profile_image']['tmp_name'];
+    $fileName = basename($_FILES['profile_image']['name']);
+    $targetPath = $uploadDir . DIRECTORY_SEPARATOR . $fileName;
+
+    error_log("Trying to move file from $fileTmp to $targetPath");
+
+    if (move_uploaded_file($fileTmp, $targetPath)) {
+        $profile_image = $fileName;
+        error_log("✅ File uploaded successfully!");
     } else {
+        error_log("❌ move_uploaded_file failed.");
         echo json_encode(["status" => "error", "message" => "Image upload failed."]);
         exit;
     }
 }
 
-// Ensure name and email are present
+
+
+
+// ✅ Step 3: Update User Info
 if (!$name || !$email) {
     echo json_encode(["status" => "error", "message" => "Name and email are required"]);
     exit;
 }
 
-// ✅ Step 2: Update User Info in Database
 if ($password) {
-    // If the password is being updated, hash it
     $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
     $stmt = $pdo->prepare("UPDATE users SET name = ?, email = ?, password = ?, profile_image = ? WHERE id = ?");
-    $stmt->execute([$name, $email, $hashedPassword, $profile_image, $userData['id']]);
+    $stmt->execute([$name, $email, $hashedPassword, $profile_image, $_SESSION['user_id']]);
 } else {
-    // If no password change, just update name, email, and profile image
     $stmt = $pdo->prepare("UPDATE users SET name = ?, email = ?, profile_image = ? WHERE id = ?");
-    $stmt->execute([$name, $email, $profile_image, $userData['id']]);
+    $stmt->execute([$name, $email, $profile_image, $_SESSION['user_id']]);
 }
 
 echo json_encode(["status" => "success", "message" => "Profile updated"]);
