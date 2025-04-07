@@ -90,7 +90,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (data.status === "success") {
                     commentsContainer.innerHTML = data.comments.map(comment => `
                         <div class="comment">
-                            <strong>${comment.name}</strong>: ${comment.comment} <br>
+                          <strong>${comment.author || "Anonymous"}</strong>: ${comment.comment} <br>
+
+
                             <small>${new Date(comment.created_at).toLocaleString()}</small>
                         </div>
                     `).join("");
