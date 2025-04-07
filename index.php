@@ -14,7 +14,7 @@
         <div id="navbar-container"></div> <!-- Navbar will be loaded here -->
         <script>
             // Load the shared navbar dynamically
-            fetch("/personal-blogging-platform/app/frontend/pages/navbar.html")
+            fetch("/raghav49/app/frontend/pages/navbar.html")
                 .then(response => response.text())
                 .then(html => {
                     document.getElementById("navbar-container").innerHTML = html;

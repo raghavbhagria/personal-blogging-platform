@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    fetch("/personal-blogging-platform/app/api/comments/get_all_comments.php", {
+    fetch("/raghav49/app/api/comments/get_all_comments.php", {
 
 
         method: "GET",
@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
 
-        fetch("/personal-blogging-platform/app/api/comments/delete_comment.php", {
+        fetch("/raghav49/app/api/comments/delete_comment.php", {
 
 
             method: "POST",

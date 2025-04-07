@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Fetch user's posts
-    fetch("/personal-blogging-platform/app/api/posts/get_user_posts.php", {
+    fetch("/raghav49/app/api/posts/get_user_posts.php", {
 
         method: "GET",
         headers: {
@@ -79,7 +79,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        fetch("/personal-blogging-platform/app/api/posts/delete_post.php", {
+        fetch("/raghav49/app/api/posts/delete_post.php", {
 
             method: "POST",
             headers: {
@@ -105,7 +105,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Fetch comments for a post
     function fetchComments(postId) {
-        fetch(`/personal-blogging-platform/app/api/comments/get_comments.php?post_id=${postId}`)
+        fetch(`/raghav49/app/api/comments/get_comments.php?post_id=${postId}`)
 
             .then(response => response.json())
             .then(data => {
@@ -137,7 +137,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        fetch("/personal-blogging-platform/app/api/comments/add_comment.php", {
+        fetch("/raghav49/app/api/comments/add_comment.php", {
 
             method: "POST",
             headers: {
@@ -173,7 +173,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Fetch likes for a post
     function fetchLikes(postId) {
-        fetch(`/personal-blogging-platform/app/api/posts/get_likes.php?post_id=${postId}`)
+        fetch(`/raghav49/app/api/posts/get_likes.php?post_id=${postId}`)
 
             .then(response => response.json())
             .then(data => {
@@ -188,7 +188,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Like a post
     window.likePost = function (postId) {
-        fetch("/personal-blogging-platform/app/api/posts/like_post.php", {
+        fetch("/raghav49/app/api/posts/like_post.php", {
 
             method: "POST",
             headers: {

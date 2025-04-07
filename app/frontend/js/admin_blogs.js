@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Fetch all blogs
 
-    fetch("/personal-blogging-platform/app/api/posts/get_all_posts.php", {
+    fetch("/raghav49/app/api/posts/get_all_posts.php", {
 
  
 
@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
 
-        fetch("/personal-blogging-platform/app/api/posts/delete_post.php", {
+        fetch("raghav49/app/api/posts/delete_post.php", {
 
             method: "POST",
             headers: {

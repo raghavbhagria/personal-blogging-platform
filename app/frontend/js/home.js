@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
         userPostsSection.style.display = "block";
 
         // Fetch and display user's recent posts
-        fetch("/personal-blogging-platform/app/api/posts/get_recent_user_posts.php", {
+        fetch("/raghav49/app/api/posts/get_recent_user_posts.php", {
             method: "GET",
             headers: {
                 "Authorization": "Bearer " + token
@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function fetchPostsByCategory(category) {
         latestPostsContainer.innerHTML = "<p>Loading...</p>";
 
-        fetch(`/personal-blogging-platform/app/api/posts/get_posts_by_category.php?category=${category}&limit=3`)
+        fetch(`/raghav49/app/api/posts/get_posts_by_category.php?category=${category}&limit=3`)
             .then(response => response.json())
             .then(data => {
                 if (data.status === "success") {
@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", function () {
         posts.slice(0, 3).forEach(post => {
             const postElement = document.createElement("a");
             postElement.classList.add("post");
-            postElement.href = `/personal-blogging-platform/app/frontend/pages/post.html?id=${post.id}`;
+            postElement.href = `/raghav49/app/frontend/pages/post.html?id=${post.id}`;
 
 
             postElement.innerHTML = `

@@ -1,9 +1,8 @@
 <?php
+session_start();
 require '../../config/database.php';
-require '../../config/jwt.php';
 header("Content-Type: application/json");
 
-// Read JSON input
 $input = json_decode(file_get_contents("php://input"), true);
 
 if (!$input || !isset($input['email']) || !isset($input['password'])) {
@@ -14,7 +13,6 @@ if (!$input || !isset($input['email']) || !isset($input['password'])) {
 $email = trim($input['email']);
 $password = trim($input['password']);
 
-// Fetch user from database
 $stmt = $pdo->prepare("SELECT id, name, email, password, isAdmin, status FROM users WHERE email = ?");
 $stmt->execute([$email]);
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -29,17 +27,14 @@ if (!$user['status']) {
     exit;
 }
 
-// Generate JWT token
-$token = JWTHandler::generateToken($user['id'], $user['email'], $user['isAdmin']);
+// ✅ Login successful — set session
+$_SESSION['user_id'] = $user['id'];
+$_SESSION['is_admin'] = $user['isAdmin'];
 
-echo json_encode([
-    "status" => "success",
-    "token" => $token,
-    "user" => [
-        "id" => $user['id'],
-        "name" => $user['name'],
-        "email" => $user['email'],
-        "isAdmin" => $user['isAdmin']
-    ]
-]);
+echo json_encode(["status" => "success", "user" => [
+    "id" => $user['id'],
+    "name" => $user['name'],
+    "email" => $user['email'],
+    "isAdmin" => $user['isAdmin']
+]]);
 ?>

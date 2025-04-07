@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Fetch post details
 
-    fetch(`/personal-blogging-platform/app/api/posts/get_post.php?id=${postId}`, {
+    fetch(`/raghav49/app/api/posts/get_post.php?id=${postId}`, {
 
    
 
@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Fetch comments for the post
 
-    fetch(`/personal-blogging-platform/app/api/comments/get_comments.php?post_id=${postId}`, {
+    fetch(`/raghav49/app/api/comments/get_comments.php?post_id=${postId}`, {
 
    
 
@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
 
-        fetch("/personal-blogging-platform/app/api/comments/delete_comment.php", {
+        fetch("/raghav49/app/api/comments/delete_comment.php", {
 
             method: "POST",
             headers: {

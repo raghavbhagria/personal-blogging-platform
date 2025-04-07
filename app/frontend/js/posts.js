@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function fetchPostsByCategoryAndPage(category, page) {
         postsContainer.innerHTML = "<p>Loading...</p>";
 
-        fetch(`/personal-blogging-platform/app/api/posts/get_posts_by_category.php?category=${category}&page=${page}&limit=${postsPerPage}`)
+        fetch(`/raghav49/app/api/posts/get_posts_by_category.php?category=${category}&page=${page}&limit=${postsPerPage}`)
             .then(response => response.json())
             .then(data => {
                 if (data.status === "success") {
@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
             ${postImage}
             <p class="post-content">${post.content.substring(0, 100)}...</p>
             <small>Posted by ${post.name} on ${new Date(post.created_at).toLocaleDateString()}</small>
-            <a href="/personal-blogging-platform/app/frontend/pages/post.html?id=${post.id}" class="read-more-btn">Read More</a>
+            <a href="/raghav49/app/frontend/pages/post.html?id=${post.id}" class="read-more-btn">Read More</a>
 
 
             <div class="likes-section">
@@ -84,7 +84,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
     function fetchComments(postId) {
-        fetch(`/personal-blogging-platform/app/api/comments/get_comments.php?post_id=${postId}`)
+        fetch(`/raghav49/app/api/comments/get_comments.php?post_id=${postId}`)
             .then(response => response.json())
             .then(data => {
                 const commentsContainer = document.getElementById(`comments-${postId}`);
@@ -106,7 +106,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function fetchLikes(postId) {
-        fetch(`/personal-blogging-platform/app/api/posts/get_likes.php?post_id=${postId}`)
+        fetch(`/raghav49/app/api/posts/get_likes.php?post_id=${postId}`)
             .then(response => response.json())
             .then(data => {
                 if (data.status === "success") {
@@ -133,7 +133,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        fetch("/personal-blogging-platform/app/api/comments/add_comment.php", {
+        fetch("/raghav49/app/api/comments/add_comment.php", {
             method: "POST",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
@@ -163,7 +163,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        fetch("/personal-blogging-platform/app/api/posts/like_post.php", {
+        fetch("/raghav49/app/api/posts/like_post.php", {
             method: "POST",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",

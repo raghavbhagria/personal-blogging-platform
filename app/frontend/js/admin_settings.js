@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Pre-fill the current admin email
 
-    fetch("/personal-blogging-platform/app/api/admin/get_admin_details.php", {
+    fetch("/raghav49/app/api/admin/get_admin_details.php", {
 
    
 
@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
             formData.append("password", password);
         }
 
-        fetch("/personal-blogging-platform/app/api/admin/update_admin_details.php", {
+        fetch("/raghav49/app/api/admin/update_admin_details.php", {
 
     
             method: "POST",

@@ -4,26 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About | MyBlog</title>
-    <link rel="stylesheet" href="../assets/css/about.css">
+    <link rel="stylesheet" href="/raghav49/app/frontend/assets/css/about.css">
 </head>
 <body>
 
     <!-- ✅ Navigation Bar -->
     <header>
-   
         <div id="navbar-container"></div> <!-- Navbar will be loaded here -->
 
-<script>
-    // Load the shared navbar dynamically
-    fetch("navbar.html")
-        .then(response => response.text())
-        .then(html => {
-            document.getElementById("navbar-container").innerHTML = html;
-            updateNavbar(); // Ensure navbar updates based on login state
-        });
-</script>
-<script defer src="../js/auth.js"></script> <!-- Ensure auth.js is loaded -->
-
+        <script>
+            // Load the shared navbar dynamically
+            fetch("/raghav49/app/frontend/pages/navbar.html")
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById("navbar-container").innerHTML = html;
+                    updateNavbar(); // Ensure navbar updates based on login state
+                });
+        </script>
+        <script defer src="/raghav49/app/frontend/js/auth.js"></script> <!-- Ensure auth.js is loaded -->
     </header>
 
     <!-- ✅ About Page Content -->
@@ -47,11 +45,16 @@
     </div>
 
     <script>
-        // ✅ Logout Functionality
-        document.getElementById("logoutBtn").addEventListener("click", function () {
-            localStorage.clear();
-            alert("Logged out successfully.");
-            window.location.href = "home.html";
+        // ✅ Logout Functionality (fixed in case logoutBtn wasn't found)
+        document.addEventListener("DOMContentLoaded", function () {
+            const logoutBtn = document.getElementById("logoutBtn");
+            if (logoutBtn) {
+                logoutBtn.addEventListener("click", function () {
+                    localStorage.clear();
+                    alert("Logged out successfully.");
+                    window.location.href = "/raghav49/app/frontend/pages/home.html";
+                });
+            }
         });
     </script>
 

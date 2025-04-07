@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Fetch the post details for editing
-    fetch(`/personal-blogging-platform/app/api/posts/get_post.php?id=${postId}`, {
+    fetch(`/raghav49/app/api/posts/get_post.php?id=${postId}`, {
 
         method: "GET",
         headers: {
@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", function () {
         formData.append("category", category);
         formData.append("tags", tags);
 
-        fetch("/personal-blogging-platform/app/api/posts/update_post.php", {
+        fetch("/raghav49/app/api/posts/update_post.php", {
 
             method: "POST",
             headers: {

@@ -12,8 +12,8 @@ document.addEventListener("DOMContentLoaded", function () {
     function fetchUsers(query = "") {
         const url = query
 
-            ? `/personal-blogging-platform/app/api/user/searchUsers.php?query=${encodeURIComponent(query)}`
-            : "/personal-blogging-platform/app/api/user/listUsers.php";
+            ? `/raghav49/app/api/user/searchUsers.php?query=${encodeURIComponent(query)}`
+            : "/raghav49/app/api/user/listUsers.php";
 
 
 
@@ -104,7 +104,7 @@ document.addEventListener("DOMContentLoaded", function () {
         formData.append("password", password);
         formData.append("isAdmin", isAdmin);
 
-        fetch("/personal-blogging-platform/app/api/user/addUser.php", {
+        fetch("/raghav49/app/api/user/addUser.php", {
             method: "POST",
             headers: { 
                 "Content-Type": "application/x-www-form-urlencoded",
@@ -143,7 +143,7 @@ document.addEventListener("DOMContentLoaded", function () {
         formData.append("email", email);
         formData.append("isAdmin", isAdmin);
 
-        fetch("/personal-blogging-platform/app/api/user/editUser.php", {
+        fetch("/raghav49/app/api/user/editUser.php", {
             method: "POST",
             headers: { 
                 "Content-Type": "application/x-www-form-urlencoded",
@@ -199,7 +199,7 @@ function deleteUser(id) {
         const formData = new URLSearchParams();
         formData.append("id", id);
 
-        fetch("/personal-blogging-platform/app/api/user/deleteUser.php", {
+        fetch("/raghav49/app/api/user/deleteUser.php", {
             method: "POST",
             headers: { 
                 "Content-Type": "application/x-www-form-urlencoded",
@@ -234,7 +234,7 @@ function toggleUserStatus(userId, currentStatus) {
 
     const newStatus = currentStatus ? 0 : 1; // Toggle status
 
-    fetch("/personal-blogging-platform/app/api/user/toggleUserStatus.php", {
+    fetch("/raghav49/app/api/user/toggleUserStatus.php", {
 
         method: "POST",
         headers: {

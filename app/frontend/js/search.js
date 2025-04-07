@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Search and display results function
 function searchAndDisplayResults(query) {
-    fetch("/personal-blogging-platform/app/api/posts/get_posts.php")
+    fetch("/raghav49/app/api/posts/get_posts.php")
 
         .then(response => response.json())
         .then(data => {

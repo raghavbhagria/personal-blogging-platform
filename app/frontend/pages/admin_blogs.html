@@ -4,24 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Blogs - Admin</title>
-    <link rel="stylesheet" href="../assets/css/admin.css">
-    <link rel="stylesheet" href="../assets/css/navbar.css">
-    <script defer src="../js/admin_blogs.js"></script>
-    <script src="../js/breadcrumbs-admin.js" defer></script>
-    <link rel="stylesheet" href="../assets/css/breadcrumbs.css">
+    <link rel="stylesheet" href="/raghav49/app/frontend/assets/css/admin.css">
+    <link rel="stylesheet" href="/raghav49/app/frontend/assets/css/navbar.css">
+    <link rel="stylesheet" href="/raghav49/app/frontend/assets/css/breadcrumbs.css">
+    <script defer src="/raghav49/app/frontend/js/admin_blogs.js"></script>
+    <script defer src="/raghav49/app/frontend/js/breadcrumbs-admin.js"></script>
 </head>
 <body>
 
     <header>
         <div class="logo">MyBlog Admin</div>
         <nav>
-            <a href="admin.html">Users</a>
-            <a href="admin_blogs.html" class="active">Blogs</a>
-            <a href="admin_comments.html">Comments</a>
-            <a href="admin_settings.html">Settings</a>
+            <a href="/raghav49/app/frontend/pages/admin.html">Users</a>
+            <a href="/raghav49/app/frontend/pages/admin_blogs.html" class="active">Blogs</a>
+            <a href="/raghav49/app/frontend/pages/admin_comments.html">Comments</a>
+            <a href="/raghav49/app/frontend/pages/admin_settings.html">Settings</a>
             <button id="logoutButton">Logout</button>
         </nav>
     </header>
+
     <div id="breadcrumb-container"></div>
 
     <main>
@@ -46,7 +47,7 @@
         document.getElementById("logoutButton").addEventListener("click", function () {
             localStorage.clear();
             alert("Logged out successfully.");
-            window.location.href = "home.html";
+            window.location.href = "/raghav49/app/frontend/pages/home.html";
         });
     </script>
 

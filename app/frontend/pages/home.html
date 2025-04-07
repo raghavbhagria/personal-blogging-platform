@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home | Personal Blogging Platform</title>
-    <link rel="stylesheet" href="../assets/css/home.css">
-    <script defer src="../js/home.js"></script>
+    <link rel="stylesheet" href="/raghav49/app/frontend/assets/css/home.css">
+    <script defer src="/raghav49/app/frontend/js/home.js"></script>
 </head>
 <body>
 
@@ -14,21 +14,21 @@
         <div id="navbar-container"></div> <!-- Navbar will be loaded here -->
         <script>
             // Load the shared navbar dynamically
-            fetch("navbar.html")
+            fetch("/raghav49/app/frontend/pages/navbar.html")
                 .then(response => response.text())
                 .then(html => {
                     document.getElementById("navbar-container").innerHTML = html;
                     updateNavbar(); // Ensure navbar updates based on login state
                 });
         </script>
-        <script defer src="../js/auth.js"></script> <!-- Ensure auth.js is loaded -->
+        <script defer src="/raghav49/app/frontend/js/auth.js"></script>
     </header>
 
     <!-- Hero Section -->
     <section class="hero">
         <h1 id="hero-heading">Express Yourself Through Blogging</h1>
         <p id="hero-subheading">Share your thoughts, ideas, and stories with the world.</p>
-        <a id="hero-cta" href="register.html" class="cta-btn">Start Writing</a>
+        <a id="hero-cta" href="/raghav49/app/frontend/pages/register.html" class="cta-btn">Start Writing</a>
     </section>
 
    <!-- Latest Blog Posts Section -->
@@ -46,9 +46,9 @@
             <!-- Latest blog posts will be dynamically loaded here -->
         </div>
         <div class="explore-more-container">
-            <a href="posts.html" class="cta-btn explore-more-btn">Explore More Blogs</a>
+            <a href="/raghav49/app/frontend/pages/posts.html" class="cta-btn explore-more-btn">Explore More Blogs</a>
         </div>
-</section>
+    </section>
 
     <!-- User's Recent Posts Section -->
     <section id="user-posts-section" class="user-posts" style="display: none;">
@@ -57,7 +57,7 @@
             <!-- User's posts will be dynamically loaded here -->
         </div>
         <div class="explore-more-container">
-            <a href="userPosts.html" class="cta-btn">More Blogs</a>
+            <a href="/raghav49/app/frontend/pages/userPosts.html" class="cta-btn">More Blogs</a>
         </div>
     </section>
 

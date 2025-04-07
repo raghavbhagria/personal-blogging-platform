@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     
     // Load Navbar First
-fetch("/personal-blogging-platform/app/frontend/pages/navbar.html")
+fetch("/raghav49/app/frontend/pages/navbar.html")
 .then(response => response.text())
 .then(html => {
     const navbarContainer = document.getElementById("navbar-container");
@@ -107,7 +107,7 @@ function registerUser() {
         formData.append("profile_image", profileImage);
     }
 
-    fetch("/personal-blogging-platform/app/api/auth/register.php", {
+    fetch("/raghav49/app/api/auth/register.php", {
         method: "POST",
         body: formData
     })
@@ -123,7 +123,6 @@ function registerUser() {
     .catch(error => showError("❌ Error: " + error.message));
 }
 
-// ✅ Login User Function
 function loginUser() {
     console.log("🔹 Logging in...");
 
@@ -131,42 +130,33 @@ function loginUser() {
     const password = document.getElementById("password").value.trim();
 
     if (!email || !password) {
-        showError("Please enter email and password.");
+        showError("Please enter both email and password.");
         return;
     }
 
-    fetch("/personal-blogging-platform/app/api/auth/login.php", {
+    fetch("/raghav49/app/api/auth/login.php", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password })
     })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error("Network response was not ok");
-        }
-        return response.text(); // Get response as text
-    })
+    .then(response => response.text()) // raw text response
     .then(text => {
-        try {
-            const data = JSON.parse(text); // Try to parse JSON
-            if (data.status === "success") {
-                localStorage.setItem("token", data.token); 
-                localStorage.setItem("user", JSON.stringify(data.user)); // Store user data
-                alert("Login successful! Redirecting...");
-                if (data.user.isAdmin) {
-                    window.location.href = "admin.html"; // Redirect to admin dashboard
-                } else {
-                    window.location.href = "home.html"; // Redirect to user dashboard
-                }
-            } else {
-                showError("Login failed: " + data.message);
-            }
-        } catch (error) {
-            showError("❌ Error: Invalid JSON response");
-            console.error("Invalid JSON response:", text);
+        console.log("🔹 Raw login response:", text); // 👈 Check this in browser console
+        const data = JSON.parse(text);
+    
+        if (data.status === "success") {
+            localStorage.setItem("token", data.token); 
+            localStorage.setItem("user", JSON.stringify(data.user));
+            alert("Login successful!");
+            window.location.href = data.user.isAdmin ? "admin.html" : "home.html";
+        } else {
+            showError("Login failed: " + data.message);
         }
     })
-    .catch(error => showError("❌ Error: " + error.message));
+    .catch(error => {
+        console.error("❌ Login error:", error);
+        showError("❌ Error: " + error.message);
+    });
 }
 
 // ✅ Check if User is Authenticated (For Protected Pages)
@@ -204,9 +194,9 @@ function updateNavbar() {
 
         // Set the profile picture (check if the user has a profile image and set the correct path)
         if (user.profile_image) {
-            profilePicSmall.src = `/personal-blogging-platform/app/uploads/${user.profile_image}`;  // Corrected the path
+            profilePicSmall.src = `/raghav49/app/uploads/${user.profile_image}`;  // Corrected the path
         } else {
-            profilePicSmall.src = "/personal-blogging-platform/app/frontend/assets/default-profile.png"; // Default image if no profile picture
+            profilePicSmall.src = "/raghav49/app/frontend/assets/default-profile.png"; // Default image if no profile picture
         }
 
         loginLink.style.display = "none";
@@ -235,7 +225,7 @@ function logoutUser() {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     alert("Logged out successfully.");
-    window.location.href = "/personal-blogging-platform/index.php";
+    window.location.href = "/raghav49/index.php";
 }
 
 // ✅ Utility Functions

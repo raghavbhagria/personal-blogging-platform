@@ -1,8 +1,8 @@
 <?php
-$host = '127.0.0.1'; // ✅ or localhost
-$dbname = 'blogging_platform';
-$username = 'root';
-$password = ''; // ✅ XAMPP default
+$host = '127.0.0.1'; // or 'localhost'
+$dbname = 'raghav49'; // your actual database name
+$username = 'raghav49'; // your MySQL username (same as CWL)
+$password = 'raghav49'; // your MySQL password (same as CWL)
 
 try {
     $pdo = new PDO("mysql:host=$host;port=3306;dbname=$dbname;charset=utf8", $username, $password);
