@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const content = document.getElementById("postContent").value.trim();
         const category = document.getElementById("postCategory").value.trim();
         const tags = document.getElementById("postTags").value.trim();
-        const image = document.getElementById("postImage").files[0];
+       
 
         if (!title || !content || !category || !tags) {
             showToast("Title, content, category, and tags are required.", "error");
@@ -27,9 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
         formData.append("content", content);
         formData.append("category", category);
         formData.append("tags", tags);
-        if (image) {
-            formData.append("image", image);
-        }
+       
 
         fetch("/personal-blogging-platform/app/api/posts/create_post.php", {
             method: "POST",
