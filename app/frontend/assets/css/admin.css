@@ -372,3 +372,34 @@ button.delete-btn:hover {
         margin: 6px 0;
     }
 }
+.chart-section {
+    margin: 2rem auto;
+    max-width: 600px;
+    text-align: center;
+  }
+  
+  .chart-description {
+    font-size: 0.95rem;
+    color: #ff9800;
+    margin-top: 0.5rem;
+  }
+  .export-buttons {
+    text-align: center;
+    margin: 2rem 0;
+  }
+  
+  .export-buttons button {
+    padding: 10px 20px;
+    margin: 0 10px;
+    font-weight: bold;
+    border-radius: 6px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    border: none;
+  }
+  
+  .export-buttons button:hover {
+    background-color: #0056b3;
+  }
+  
