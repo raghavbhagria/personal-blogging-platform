@@ -44,13 +44,6 @@ $profile_image = $currentUser['profile_image']; // Default to current profile im
 
 // Check if a file has been uploaded
 if (isset($_FILES['profile_image']) && $_FILES['profile_image']['error'] === UPLOAD_ERR_OK) {
-    // Validate file size (max 2MB for example)
-    if ($_FILES['profile_image']['size'] > 2 * 1024 * 1024) {
-        echo json_encode(["status" => "error", "message" => "File size exceeds 2MB."]);
-        exit;
-    }
-
-    // Validate file type (only JPG, PNG, GIF)
     $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
     $fileType = mime_content_type($_FILES['profile_image']['tmp_name']);
     if (!in_array($fileType, $allowedTypes)) {
@@ -58,19 +51,23 @@ if (isset($_FILES['profile_image']) && $_FILES['profile_image']['error'] === UPL
         exit;
     }
 
-    // Set the upload directory
-    $uploadDir = '../../uploads/';
-    $uploadFile = $uploadDir . basename($_FILES['profile_image']['name']);
+    $uploadDir = '../../frontend/uploads/';
     
-    // Move the uploaded file
-    if (move_uploaded_file($_FILES['profile_image']['tmp_name'], $uploadFile)) {
-        $profile_image = basename($uploadFile);  // Store the filename (relative to the uploads directory)
-        error_log("Profile image uploaded to: " . realpath($uploadFile));
-    } else {
+    // 🔄 Sanitize and generate a unique file name
+    $ext = pathinfo($_FILES['profile_image']['name'], PATHINFO_EXTENSION);
+    $uniqueName = uniqid("profile_", true) . "." . $ext;
+    $uploadFile = $uploadDir . $uniqueName;
+
+    if (!move_uploaded_file($_FILES['profile_image']['tmp_name'], $uploadFile)) {
+        error_log("Move failed.");
         echo json_encode(["status" => "error", "message" => "Image upload failed."]);
         exit;
     }
+
+    // ✅ Set new profile image filename
+    $profile_image = $uniqueName;
 }
+
 
 // Ensure name and email are present
 if (!$name || !$email) {
@@ -90,5 +87,10 @@ if ($password) {
     $stmt->execute([$name, $email, $profile_image, $userData['id']]);
 }
 
-echo json_encode(["status" => "success", "message" => "Profile updated"]);
+echo json_encode([
+    "status" => "success",
+    "message" => "Profile updated",
+    "profile_image" => $profile_image
+]);
+
 ?>

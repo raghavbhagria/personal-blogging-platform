@@ -189,7 +189,8 @@ function updateNavbar() {
 
         // Set the profile picture (check if the user has a profile image and set the correct path)
         if (user.profile_image) {
-            profilePicSmall.src = `/personal-blogging-platform/app/uploads/${user.profile_image}`;  // Corrected the path
+            profilePicSmall.src = `/personal-blogging-platform/app/frontend/uploads/${user.profile_image}`;
+
         } else {
             profilePicSmall.src = "/personal-blogging-platform/app/frontend/assets/default-profile.png"; // Default image if no profile picture
         }

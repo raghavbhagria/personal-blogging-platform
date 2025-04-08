@@ -29,6 +29,8 @@ document.addEventListener("DOMContentLoaded", function () {
     .then(response => response.json())
     .then(data => {
         console.log("🔹 API Response:", data);
+        console.log("🖼️ Image filename from backend:", data.user.profile_image);
+
 
         if (data.status === "success") {
             // ✅ Populate the profile details
@@ -37,7 +39,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // Set the profile image
             if (data.user.profile_image) {
-                profileImage.src = `/personal-blogging-platform/app/uploads/${data.user.profile_image}`; // Correct path to the image
+                profileImage.src = `../uploads/${data.user.profile_image}`;
+
+
             } else {
                 profileImage.src = '../assets/default-profile.png'; // Set a default image
             }
