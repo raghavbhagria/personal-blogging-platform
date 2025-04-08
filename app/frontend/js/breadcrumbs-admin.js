@@ -5,7 +5,8 @@ document.addEventListener("DOMContentLoaded", () => {
         "admin_comments.html": { name: "Comments", parent: "admin.html" },
         "post_comments.html": { name: "Post Comments", parent: "admin_comments.html" },
         "admin_activity.html": { name: "Activity Reports", parent: "admin.html" },
-        "admin_settings.html": { name: "Settings", parent: "admin.html" }
+        "admin_settings.html": { name: "Settings", parent: "admin.html" },
+        "admin_reports.html": { name: "Reports", parent: "admin.html" } 
     };
 
     const currentPage = window.location.pathname.split("/").pop();

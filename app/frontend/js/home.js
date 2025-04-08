@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
         heroHeading.textContent = "What's on your mind today?";
         heroSubheading.textContent = "Start sharing your thoughts with the world.";
         heroCTA.textContent = "Create Post";
-        heroCTA.href = "createPost.html";
+        heroCTA.href = "/personal-blogging-platform/app/frontend/pages/createPost.html";
 
         // Show "Your Recent Posts" section
         userPostsSection.style.display = "block";
@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", function () {
         posts.slice(0, 3).forEach(post => {
             const postElement = document.createElement("a");
             postElement.classList.add("post");
-            postElement.href = `post.html?id=${post.id}`;
+            postElement.href = `/personal-blogging-platform/app/frontend/pages/post.html?id=${post.id}`;
 
             postElement.innerHTML = `
                 <h3>${post.title}</h3>
@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function () {
         posts.forEach(post => {
             const postElement = document.createElement("a");
             postElement.classList.add("post");
-            postElement.href = `post.html?id=${post.id}`;
+            postElement.href = `/personal-blogging-platform/app/frontend/pages/post.html?id=${post.id}`;
 
             postElement.innerHTML = `
                 <h3>${post.title}</h3>
