@@ -28,7 +28,7 @@
     <section class="hero">
         <h1 id="hero-heading">Express Yourself Through Blogging</h1>
         <p id="hero-subheading">Share your thoughts, ideas, and stories with the world.</p>
-        <a id="hero-cta" href="app/frontend/pages/register.html" class="cta-btn">Start Writing</a>
+        <a id="hero-cta" href="/app/frontend/pages/register.html" class="cta-btn">Start Writing</a>
     </section>
 
    <!-- Latest Blog Posts Section -->

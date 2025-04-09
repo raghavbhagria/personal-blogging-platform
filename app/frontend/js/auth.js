@@ -89,23 +89,8 @@ function clearHighlights() {
 function registerUser() {
     console.log("🔹 Registering User...");
 
-    const name = document.getElementById("name").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const password = document.getElementById("password").value.trim();
-    const profileImage = document.getElementById("profile_image").files[0];
-
-    if (!name || !email || !password) {
-        showError("All fields are required.");
-        return;
-    }
-
-    const formData = new FormData();
-    formData.append("name", name);
-    formData.append("email", email);
-    formData.append("password", password);
-    if (profileImage) {
-        formData.append("profile_image", profileImage);
-    }
+    const registerForm = document.getElementById("registerForm");
+    const formData = new FormData(registerForm); // Includes all fields & file automatically
 
     fetch("/personal-blogging-platform/app/api/auth/register.php", {
         method: "POST",
@@ -204,7 +189,8 @@ function updateNavbar() {
 
         // Set the profile picture (check if the user has a profile image and set the correct path)
         if (user.profile_image) {
-            profilePicSmall.src = `/personal-blogging-platform/app/uploads/${user.profile_image}`;  // Corrected the path
+            profilePicSmall.src = `/personal-blogging-platform/app/frontend/uploads/${user.profile_image}`;
+
         } else {
             profilePicSmall.src = "/personal-blogging-platform/app/frontend/assets/default-profile.png"; // Default image if no profile picture
         }

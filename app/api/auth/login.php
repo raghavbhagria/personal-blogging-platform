@@ -11,6 +11,7 @@ if (!$input || !isset($input['email']) || !isset($input['password'])) {
     exit;
 }
 
+
 $email = trim($input['email']);
 $password = trim($input['password']);
 

@@ -30,7 +30,8 @@ $password = $_POST['password'] ?? null;
 $profile_image = null; // Default value
 
 if (isset($_FILES['profile_image']) && $_FILES['profile_image']['error'] === UPLOAD_ERR_OK) {
-    $uploadDir = '../../uploads/'; // Create this directory
+    $uploadDir = '../../frontend/uploads/';
+
     $uploadFile = $uploadDir . basename($_FILES['profile_image']['name']);
 
     if (move_uploaded_file($_FILES['profile_image']['tmp_name'], $uploadFile)) {

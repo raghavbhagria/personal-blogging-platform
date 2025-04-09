@@ -1,5 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
+    const categoryTabs = document.querySelectorAll(".category-tab");
     const userPostsContainer = document.getElementById("userPostsContainer");
+    const paginationContainer = document.getElementById("pagination");
+    let currentPage = 1;
+    const postsPerPage = 12;
     const token = localStorage.getItem("token");
 
     if (!token) {
@@ -8,28 +12,29 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
-    // Fetch user's posts
-    fetch("/personal-blogging-platform/app/api/posts/get_user_posts.php", {
+    function fetchUserPostsByCategoryAndPage(category, page) {
+        userPostsContainer.innerHTML = "<p>Loading...</p>";
 
-        method: "GET",
-        headers: {
-            "Authorization": "Bearer " + token
-        }
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.status === "success") {
-            displayUserPosts(data.posts);
-        } else {
-            userPostsContainer.innerHTML = "<p>Failed to load posts.</p>";
-        }
-    })
-    .catch(error => {
-        console.error("Error fetching user posts:", error);
-        userPostsContainer.innerHTML = "<p>An error occurred while fetching posts.</p>";
-    });
+        fetch(`/personal-blogging-platform/app/api/posts/get_user_posts.php?category=${category}&page=${page}&limit=${postsPerPage}`, {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === "success") {
+                displayUserPosts(data.posts);
+                setupPagination(data.totalPages, category);
+            } else {
+                userPostsContainer.innerHTML = "<p>No posts found.</p>";
+            }
+        })
+        .catch(error => {
+            userPostsContainer.innerHTML = "<p>An error occurred while fetching posts.</p>";
+        });
+    }
 
-    // Display user's posts
     function displayUserPosts(posts) {
         userPostsContainer.innerHTML = "";
 
@@ -51,84 +56,85 @@ document.addEventListener("DOMContentLoaded", function () {
                     <button class="delete-btn" onclick="deletePost(${post.id})">Delete</button>
                 </div>
                 <div class="likes-section">
-                    <button class="like-btn" onclick="likePost(${post.id})">❤️ Like (<span id="likes-count-${post.id}">${post.likes || 0}</span>)</button>
+                    <button class="like-btn" data-post-id="${post.id}">❤️ Like (<span id="likes-count-${post.id}">${post.likes || 0}</span>)</button>
                 </div>
                 <div class="comments-section">
                     <h4>Comments</h4>
                     <div id="comments-${post.id}" class="comments-list">Loading comments...</div>
                     <textarea id="comment-input-${post.id}" placeholder="Write a comment..."></textarea>
-                    <button onclick="addComment(${post.id})">Post Comment</button>
+                    <button class="comment-btn" data-post-id="${post.id}">Post Comment</button>
                 </div>
             `;
 
             userPostsContainer.appendChild(postElement);
 
             fetchComments(post.id);
-            fetchLikes(post.id); // Fetch the initial likes count
+            fetchLikes(post.id);
+        });
+
+        attachEventListeners();
+    }
+
+    function setupPagination(totalPages, category) {
+        paginationContainer.innerHTML = "";
+
+        for (let i = 1; i <= totalPages; i++) {
+            const button = document.createElement("button");
+            button.textContent = i;
+            button.classList.add("pagination-btn");
+            if (i === currentPage) {
+                button.classList.add("active");
+            }
+            button.addEventListener("click", function () {
+                currentPage = i;
+                fetchUserPostsByCategoryAndPage(category, currentPage);
+            });
+            paginationContainer.appendChild(button);
+        }
+    }
+
+    function attachEventListeners() {
+        const likeButtons = document.querySelectorAll(".like-btn");
+        const commentButtons = document.querySelectorAll(".comment-btn");
+
+        likeButtons.forEach(button => {
+            button.addEventListener("click", function () {
+                const postId = this.getAttribute("data-post-id");
+                likePost(postId);
+            });
+        });
+
+        commentButtons.forEach(button => {
+            button.addEventListener("click", function () {
+                const postId = this.getAttribute("data-post-id");
+                addComment(postId);
+            });
         });
     }
 
-    // Edit post function
-    window.editPost = function (postId) {
-        window.location.href = `editPost.html?post_id=${postId}`;
-    };
-
-    // Delete post function
-    window.deletePost = function (postId) {
-        if (!confirm("Are you sure you want to delete this post?")) {
-            return;
-        }
-
-        fetch("/personal-blogging-platform/app/api/posts/delete_post.php", {
-
+    function likePost(postId) {
+        fetch("/personal-blogging-platform/app/api/posts/like_post.php", {
             method: "POST",
             headers: {
-                "Authorization": "Bearer " + token,
+                "Authorization": `Bearer ${token}`,
                 "Content-Type": "application/x-www-form-urlencoded"
             },
             body: new URLSearchParams({ post_id: postId })
         })
         .then(response => response.json())
         .then(data => {
-            if (data.status === "success") {
-                alert("Post deleted successfully!");
-                window.location.reload();
+            if (data.success) {
+                document.getElementById(`likes-count-${postId}`).textContent = data.likes;
             } else {
-                alert("Failed to delete post: " + data.message);
+                alert("Failed to like post: " + data.error);
             }
         })
         .catch(error => {
-            console.error("Error deleting post:", error);
-            alert("An error occurred while deleting the post.");
+            alert("An error occurred while liking the post.");
         });
-    };
-
-    // Fetch comments for a post
-    function fetchComments(postId) {
-        fetch(`/personal-blogging-platform/app/api/comments/get_comments.php?post_id=${postId}`)
-
-            .then(response => response.json())
-            .then(data => {
-                const commentsContainer = document.getElementById(`comments-${postId}`);
-                if (data.status === "success") {
-                    commentsContainer.innerHTML = data.comments.map(comment => `
-                        <div class="comment">
-                            <strong>${comment.name}</strong>: ${comment.comment} <br>
-                            <small>${new Date(comment.created_at).toLocaleString()}</small>
-                        </div>
-                    `).join("");
-                } else {
-                    commentsContainer.innerHTML = `<p>No comments yet.</p>`;
-                }
-            })
-            .catch(error => {
-                console.error("Error fetching comments:", error);
-                document.getElementById(`comments-${postId}`).innerHTML = "<p>Failed to load comments.</p>";
-            });
     }
 
-    // Add a comment to a post
-    window.addComment = function (postId) {
+    function addComment(postId) {
         const commentInput = document.getElementById(`comment-input-${postId}`);
         const commentText = commentInput.value.trim();
 
@@ -138,10 +144,9 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         fetch("/personal-blogging-platform/app/api/comments/add_comment.php", {
-
             method: "POST",
             headers: {
-                "Authorization": "Bearer " + token,
+                "Authorization": `Bearer ${token}`,
                 "Content-Type": "application/x-www-form-urlencoded"
             },
             body: new URLSearchParams({
@@ -151,7 +156,7 @@ document.addEventListener("DOMContentLoaded", function () {
         })
         .then(response => response.json())
         .then(data => {
-            if (data.status === "success") {
+            if (data.success) {
                 commentInput.value = "";
                 const commentsContainer = document.getElementById(`comments-${postId}`);
                 const newComment = `
@@ -162,37 +167,59 @@ document.addEventListener("DOMContentLoaded", function () {
                 `;
                 commentsContainer.innerHTML = newComment + commentsContainer.innerHTML;
             } else {
-                alert("Failed to add comment: " + data.message);
+                alert("Failed to add comment: " + data.error);
             }
         })
         .catch(error => {
-            console.error("Error adding comment:", error);
             alert("An error occurred while adding the comment.");
         });
-    };
-
-    // Fetch likes for a post
-    function fetchLikes(postId) {
-        fetch(`/personal-blogging-platform/app/api/posts/get_likes.php?post_id=${postId}`)
-
-            .then(response => response.json())
-            .then(data => {
-                if (data.status === "success") {
-                    document.getElementById(`likes-count-${postId}`).textContent = data.likes;
-                } else {
-                    console.error("Failed to fetch likes:", data.message);
-                }
-            })
-            .catch(error => console.error("Error fetching likes:", error));
     }
 
-    // Like a post
-    window.likePost = function (postId) {
-        fetch("/personal-blogging-platform/app/api/posts/like_post.php", {
+    function fetchComments(postId) {
+        fetch(`/personal-blogging-platform/app/api/comments/get_comments.php?post_id=${postId}`)
+        .then(response => response.json())
+        .then(data => {
+            const commentsContainer = document.getElementById(`comments-${postId}`);
+            if (data.status === "success") {
+                commentsContainer.innerHTML = data.comments.map(comment => `
+                    <div class="comment">
+                        <strong>${comment.name}</strong>: ${comment.comment} <br>
+                        <small>${new Date(comment.created_at).toLocaleString()}</small>
+                    </div>
+                `).join("");
+            } else {
+                commentsContainer.innerHTML = `<p>No comments yet.</p>`;
+            }
+        })
+        .catch(error => {
+            document.getElementById(`comments-${postId}`).innerHTML = "<p>Failed to load comments.</p>";
+        });
+    }
 
+    function fetchLikes(postId) {
+        fetch(`/personal-blogging-platform/app/api/posts/get_likes.php?post_id=${postId}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === "success") {
+                document.getElementById(`likes-count-${postId}`).textContent = data.likes;
+            }
+        })
+        .catch(error => {});
+    }
+
+    window.editPost = function (postId) {
+        window.location.href = `editPost.html?post_id=${postId}`;
+    };
+
+    window.deletePost = function (postId) {
+        if (!confirm("Are you sure you want to delete this post?")) {
+            return;
+        }
+
+        fetch("/personal-blogging-platform/app/api/posts/delete_post.php", {
             method: "POST",
             headers: {
-                "Authorization": "Bearer " + token,
+                "Authorization": `Bearer ${token}`,
                 "Content-Type": "application/x-www-form-urlencoded"
             },
             body: new URLSearchParams({ post_id: postId })
@@ -200,14 +227,26 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(response => response.json())
         .then(data => {
             if (data.status === "success") {
-                document.getElementById(`likes-count-${postId}`).textContent = data.likes;
+                alert("Post deleted successfully!");
+                fetchUserPostsByCategoryAndPage("all", 1);
             } else {
-                alert("Failed to like post: " + data.message);
+                alert("Failed to delete post: " + data.message);
             }
         })
         .catch(error => {
-            console.error("Error liking post:", error);
-            alert("An error occurred while liking the post.");
+            alert("An error occurred while deleting the post.");
         });
     };
+
+    categoryTabs.forEach(tab => {
+        tab.addEventListener("click", function () {
+            categoryTabs.forEach(t => t.classList.remove("active"));
+            this.classList.add("active");
+            const selectedCategory = this.getAttribute("data-category");
+            currentPage = 1;
+            fetchUserPostsByCategoryAndPage(selectedCategory, currentPage);
+        });
+    });
+
+    fetchUserPostsByCategoryAndPage("all", 1);
 });

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Reports | MyBlog</title>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="../assets/css/admin.css">
+  <link rel="stylesheet" href="../assets/css/navbar.css">
+  <link rel="stylesheet" href="../assets/css/breadcrumbs.css">
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="../js/breadcrumbs-admin.js" defer></script>
+  <script src="../js/admin_reports.js" defer></script>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="logo">MyBlog Admin</div>
+    <nav>
+      <a href="admin.html">Users</a>
+      <a href="admin_blogs.html">Blogs</a>
+      <a href="admin_comments.html">Comments</a>
+      <a href="admin_reports.html" class="active">Reports</a>
+      <a href="admin_settings.html">Settings</a>
+      <button id="logoutButton">Logout</button>
+    </nav>
+  </header>
+
+  <!-- Breadcrumbs -->
+  <div id="breadcrumb-container"></div>
+
+  <!-- Main Content -->
+  <main>
+    <h2> Site Analytics</h2>
+
+    <div class="dashboard-charts">
+
+      <!-- Posts Over Time -->
+      <div class="chart-section">
+        <p class="chart-description">
+          This line chart shows the number of blog posts published over time. Use it to monitor content trends and team activity.
+        </p>
+        <canvas id="postsChart" width="400" height="200"></canvas>
+      </div>
+
+      <!-- Posts By Category -->
+      <div class="chart-section">
+        <p class="chart-description">
+          This pie chart breaks down all blog posts by category, helping you visualize what types of content are being focused on.
+        </p>
+        <canvas id="categoryChart" width="400" height="200"></canvas>
+      </div>
+
+      <!-- User Signups Over Time -->
+      <div class="chart-section">
+        <p class="chart-description">
+          Tracks how many users signed up each month. Useful for growth insights.
+        </p>
+        <canvas id="signupsChart" width="400" height="200"></canvas>
+      </div>
+
+      <!-- Most Active Users -->
+      <div class="chart-section">
+        <p class="chart-description">
+          Highlights the most active users based on posts and comments.
+        </p>
+        <canvas id="activeUsersChart" width="400" height="200"></canvas>
+      </div>
+
+      <!-- Top Posts by Comments -->
+      <div class="chart-section">
+        <p class="chart-description">
+          Shows which blog posts received the most community engagement (via comments).
+        </p>
+        <canvas id="topPostsChart" width="400" height="200"></canvas>
+      </div>
+
+      <!-- Export Buttons -->
+      <div class="export-buttons">
+        <button onclick="downloadAllCharts()"> Export Charts (PNG)</button>
+        <button onclick="downloadCSV()">Export Activity Data (CSV)</button>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Logout -->
+  <script>
+    document.getElementById("logoutButton").addEventListener("click", function () {
+      localStorage.clear();
+      alert("Logged out successfully.");
+      window.location.href = "home.html";
+    });
+  </script>
+</body>
+</html>
