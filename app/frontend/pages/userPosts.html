@@ -4,32 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Posts | MyBlog</title>
-    <link rel="stylesheet" href="../assets/css/userPosts.css">
+    <link rel="stylesheet" href="../assets/css/posts.css">
     <link rel="stylesheet" href="../assets/css/breadcrumbs.css">
     <script defer src="../js/userPosts.js"></script>
-    <script src="../js/breadcrumbs.js"></script>
+    <script defer src="../js/auth.js"></script>
+    <script defer src="../js/breadcrumbs.js"></script>
 </head>
 <body>
     <header>
-        <div id="navbar-container"></div> <!-- Navbar will be dynamically loaded here -->
+        <div id="navbar-container"></div>
         <script>
-            // Load the shared navbar dynamically
             fetch("navbar.html")
                 .then(response => response.text())
                 .then(html => {
                     document.getElementById("navbar-container").innerHTML = html;
-                    updateNavbar(); // Ensure navbar updates based on login state
+                    updateNavbar();
                 })
                 .catch(error => console.error("Error loading navbar:", error));
         </script>
     </header>
 
     <div id="breadcrumb-container"></div>
+
     <main>
         <h2>Your Blog Posts</h2>
+        <div class="category-tabs">
+            <button class="category-tab active" data-category="all">All</button>
+            <button class="category-tab" data-category="technology">Technology</button>
+            <button class="category-tab" data-category="lifestyle">Lifestyle</button>
+            <button class="category-tab" data-category="travel">Travel</button>
+            <button class="category-tab" data-category="health">Health</button>
+            <button class="category-tab" data-category="business">Business</button>
+        </div>
         <div id="userPostsContainer" class="posts-container">
             <!-- User's posts will be dynamically loaded here -->
         </div>
+        <div id="pagination" class="pagination">
+            <!-- Pagination buttons will be dynamically loaded here -->
+        </div>
     </main>
+
+    <footer>
+        <p>© 2025 MyBlog. All rights reserved.</p>
+    </footer>
 </body>
 </html>
